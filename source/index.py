@@ -6,13 +6,9 @@
 
 #Versions are all 'Plain Text UTF-8'
 
+
 import glob, os, string, io, sys
 from types import *
-
-#thisdir =os.getcwd()
-#os.chdir("..")
-#print os.getcwd()
-#os.chdir(thisdir)
 
 
 #local version of Maxwell Forbes' Gutenberg utility
@@ -20,6 +16,7 @@ from types import *
 
 #go up a directory and load their version of stripheaders,
 #so we don't need to keep two copies of it...
+
 thisdir = os.getcwd()
 os.chdir("..")
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -32,27 +29,96 @@ VERBOSE = 1
 VERBOSE = 0
 
 
+#having these characters in a list we can check agains allows us to
+#create a suitably diminutive replacement
+
+little_people = [["Little Em'ly", "Emily"],
+				 "Tiny Tim"
+				 ]
+
+
+#Dickens has *so* *many* uncommon names not contained in my standard names library!
+#improve this later...
+
+DICKENS_FEMALE_NAMES = [
+	"Betsey", "Biddy", "Lucie", "Sissy"
+	]
+
+DICKENS_MALE_NAMES = [
+	"Abel", "Augustus", "Ebenezer", "Job Trotter", "Josiah",
+	"Charley"
+	]
+
+
+
+def check_gender(name):
+	"""checks name to see if its recognised as male or female.
+
+	returns either "male", "female" or "????".
+
+	(Doesn't allow for ambiguous names like "Chris" which could be
+	either male or femals - it just assumes they are male.
+	"""
+
+	gender = "????"
+	firstname = None
+
+	allnames = names.male_firstnames+names.female_firstnames
+	allnames = list(allnames) + DICKENS_FEMALE_NAMES + DICKENS_MALE_NAMES
+
+	#figure out what's actually the name in a multi-word string..
+	name = string.capwords(name)
+	if len(string.split(name, " ")) == 1:
+		firstname = name
+	elif len(string.split(name, " ")) == 2:
+		pt1, pt2 = string.split(name, " ")
+		if string.capwords(pt1) in allnames:
+			firstname = pt1
+		elif string.capwords(pt2) in allnames:
+			firstname = pt2
+	else:
+		pt1, pt2, pt3 = string.split(name, " ", maxsplit=2)
+		if pt1 in allnames:
+			firstname = pt1
+		elif pt2 in allnames:
+			firstname = pt2
+		elif pt3 in allnames:
+			firstname = pt3
+
+	#check for the gender...
+	if firstname in names.male_firstnames:
+		gender = "male"
+	elif firstname in names.female_firstnames:
+		gender = "female"
+	elif firstname in DICKENS_MALE_NAMES:
+		gender = "male"
+	elif firstname in DICKENS_FEMALE_NAMES:
+		gender = "female"
+
+	return gender
+
+
 index = [
-	["98-0.txt", 	"A Tale of Two Cities by Charles Dickens"],
-	["46-0.txt", 	"A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens"],
-	["1400-0.txt", 	"Great Expectations by Charles Dickens"],
-	["pg730.txt", 	"Oliver Twist by Charles Dickens"],
-	["786-0.txt", 	"Hard Times by Charles Dickens"],
-	["766-0.txt", 	"David Copperfield by Charles Dickens"],
-	["pg1023.txt", 	"Bleak House by Charles Dickens"],
+	["98-0.txt",    "A Tale of Two Cities by Charles Dickens"],
+	["46-0.txt",    "A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens"],
+	["1400-0.txt",  "Great Expectations by Charles Dickens"],
+	["pg730.txt",   "Oliver Twist by Charles Dickens"],
+	["786-0.txt",   "Hard Times by Charles Dickens"],
+	["766-0.txt",   "David Copperfield by Charles Dickens"],
+	["pg1023.txt",  "Bleak House by Charles Dickens"],
 	["pg19337.txt", "A Christmas Carol by Charles Dickens"],
 
-	["1289-0.txt", 	"Three Ghost Stories by Charles Dickens"],
+	["1289-0.txt",  "Three Ghost Stories by Charles Dickens"],
 
-	["580-0.txt", 	"The Pickwick Papers by Charles Dickens"],
-	["700-0.txt", 	"The Old Curiosity Shop by Charles Dickens"],
-	["883-0.txt", 	"Our Mutual Friend by Charles Dickens"],
-	["963-0.txt", 	"Little Dorrit by Charles Dickens"],
-	["967-0.txt", 	"Nicholas Nickleby by Charles Dickens"],
-	["821-0.txt", 	"Dombey and Son by Charles Dickens"],
+	["580-0.txt",   "The Pickwick Papers by Charles Dickens"],
+	["700-0.txt",   "The Old Curiosity Shop by Charles Dickens"],
+	["883-0.txt",   "Our Mutual Friend by Charles Dickens"],
+	["963-0.txt",   "Little Dorrit by Charles Dickens"],
+	["967-0.txt",   "Nicholas Nickleby by Charles Dickens"],
+	["821-0.txt",   "Dombey and Son by Charles Dickens"],
 	#["46675-0.txt", "Oliver Twist; or, The Parish Boy's Progress. Illustrated by Charles Dickens"],
-	["46675-0.txt",	"Oliver Twist; or, The Parish Boy's Progress by Charles Dickens"],
-	["675-0.txt", 	"American Notes by Charles Dickens"],
+	["46675-0.txt", "Oliver Twist; or, The Parish Boy's Progress by Charles Dickens"],
+	["675-0.txt",   "American Notes by Charles Dickens"],
 	["564-0.txt",   "The Mystery of Edwin Drood by Charles Dickens"],
 	#["882-0.txt",  "Sketches by Boz, Illustrative of Every-Day Life and Every-Day People by Dickens"],
 	["882-0.txt",   "Sketches by Boz, Illustrative of Every-Day Life and Every-Day People by Charles Dickens"],
@@ -96,200 +162,197 @@ index = [
 	["42232-0.txt", "A Child's Dream of a Star by Charles Dickens"],
 	["pg23452.txt", "The Trial of William Tinkling by Charles Dickens"],
 	["pg1413.txt",  "Tom Tiddler's Ground by Charles Dickens"],
-#	["", ""],
-#	["", ""],
+#   ["", ""],
+#   ["", ""],
 	["pg30127.txt", "Tales from Dickens by Charles Dickens"]
 	]
 
-DICKENS_FEMALE_NAMES = []
-DICKENS_MALE_NAMES = []
-
 
 def stupify(text):
-    """Converts UTF-8 characters to ascii characters.
-    Converts 'smart quotes' to 'dum quotes' etc."""
-    try:
-        text = text.decode('utf-8', 'ignore')
-    except:
-        text = text.encode('utf-8', 'ignore')
+	"""Converts UTF-8 characters to ascii characters.
+	Converts 'smart quotes' to 'dumb quotes' etc."""
+	try:
+		text = text.decode('utf-8', 'ignore')
+	except:
+		text = text.encode('utf-8', 'ignore')
 
 ##    text = string.replace(text, "--".encode("utf-8", "ignore"), " - ".encode("utf-8", "ignore"))
 ##    text = string.replace(text, u" \u2013 ".encode("utf-8", "ignore"), u" - ".encode("utf-8", "ignore")) #'EN DASH' (U+2013)
 ##    text = string.replace(text, u"\u2026 ".encode("utf-8", "ignore"), u"... ".encode("utf-8", "ignore")) #(U+2026) Horizontal Ellipsis  “…”
 ##    text = string.replace(text, u"\u2019".encode("utf-8", "ignore"), u"'".encode("utf-8", "ignore")) #'RIGHT SINGLE QUOTATION MARK' (U+2019)
 ##    text = string.replace(text, u"\u2018".encode("utf-8", "ignore"), u"'".encode("utf-8", "ignore")) #'LEFT SINGLE QUOTATION MARK' (U+2018)
-##    text = string.replace(text, u"\u201c".encode("utf-8", "ignore"), u'"'.encode("utf-8", "ignore")) #U+201C	“	Left double quotation mark
-##    text = string.replace(text, u"\u201d".encode("utf-8", "ignore"), u'"'.encode("utf-8", "ignore")) #U+201D	”	Right double quotation mark
+##    text = string.replace(text, u"\u201c".encode("utf-8", "ignore"), u'"'.encode("utf-8", "ignore")) #U+201C  “   Left double quotation mark
+##    text = string.replace(text, u"\u201d".encode("utf-8", "ignore"), u'"'.encode("utf-8", "ignore")) #U+201D  ”   Right double quotation mark
 
 
-    text = string.replace(text, "--".encode("utf-8", "ignore"), " - ".encode("ascii", "ignore"))
-    try:
-        text = string.replace(text, u" \u2013 ".encode("utf-8", "ignore"), u" - ".encode("ascii", "ignore")) #'EN DASH' (U+2013)
-    except:
-        foundline = " \\u2013 "
-        print "FAILED ON '%s'" % foundline
+	text = string.replace(text, "--".encode("utf-8", "ignore"), " - ".encode("ascii", "ignore"))
+	try:
+		text = string.replace(text, u" \u2013 ".encode("utf-8", "ignore"), u" - ".encode("ascii", "ignore")) #'EN DASH' (U+2013)
+	except:
+		foundline = " \\u2013 "
+		print "FAILED ON '%s'" % foundline
 
-    try:
-        text = string.replace(text, u"\u2026 ".encode("utf-8", "ignore"), u"... ".encode("ascii", "ignore")) #(U+2026) Horizontal Ellipsis  “…”
-    except:
-        foundline = " \\u2026 "
-        print "FAILED ON '%s'" % foundline
+	try:
+		text = string.replace(text, u"\u2026 ".encode("utf-8", "ignore"), u"... ".encode("ascii", "ignore")) #(U+2026) Horizontal Ellipsis  “…”
+	except:
+		foundline = " \\u2026 "
+		print "FAILED ON '%s'" % foundline
 
-    try:
-        text = string.replace(text, u"\u2019".encode("utf-8", "ignore"), u"'".encode("ascii", "ignore")) #'RIGHT SINGLE QUOTATION MARK' (U+2019)
-    except:
-        foundline = " \\u2019 "
-        print "FAILED ON '%s'" % foundline
+	try:
+		text = string.replace(text, u"\u2019".encode("utf-8", "ignore"), u"'".encode("ascii", "ignore")) #'RIGHT SINGLE QUOTATION MARK' (U+2019)
+	except:
+		foundline = " \\u2019 "
+		print "FAILED ON '%s'" % foundline
 
-    try:
-        text = string.replace(text, u"\u2018".encode("utf-8", "ignore"), u"'".encode("ascii", "ignore")) #'LEFT SINGLE QUOTATION MARK' (U+2018)
-    except:
-        foundline = " \\u2018 "
-        print "FAILED ON '%s'" % foundline
+	try:
+		text = string.replace(text, u"\u2018".encode("utf-8", "ignore"), u"'".encode("ascii", "ignore")) #'LEFT SINGLE QUOTATION MARK' (U+2018)
+	except:
+		foundline = " \\u2018 "
+		print "FAILED ON '%s'" % foundline
 
-    try:
-        text = string.replace(text, u"\u201c".encode("utf-8", "ignore"), u'"'.encode("ascii", "ignore")) #U+201C	“	Left double quotation mark
-    except:
-        foundline = " \\u201c "
-        print "FAILED ON '%s'" % foundline
+	try:
+		text = string.replace(text, u"\u201c".encode("utf-8", "ignore"), u'"'.encode("ascii", "ignore")) #U+201C    “   Left double quotation mark
+	except:
+		foundline = " \\u201c "
+		print "FAILED ON '%s'" % foundline
 
-    try:
-        text = string.replace(text, u"\u201d".encode("utf-8", "ignore"), u'"'.encode("ascii", "ignore")) #U+201D	”	Right double quotation mark
-    except:
-        foundline = " \\u201d "
-        print "FAILED ON '%s'" % foundline
+	try:
+		text = string.replace(text, u"\u201d".encode("utf-8", "ignore"), u'"'.encode("ascii", "ignore")) #U+201D    ”   Right double quotation mark
+	except:
+		foundline = " \\u201d "
+		print "FAILED ON '%s'" % foundline
 
-    return text
+	return text
 
 
 def prettify(text):
-    """Converts ascii characters to UTF-8 characters to make typographically 'prettier'"""
+	"""Converts ascii characters to UTF-8 characters to make typographically 'prettier'"""
 
-    newtext = ""
+	newtext = ""
 
-    try:
-        text = string.replace(text, " - ", u" \u2013 ") #'EN DASH' (U+2013)
-        text = string.replace(text, "... ", u"\u2026 ") #(U+2026) Horizontal Ellipsis  “…”
-        #assume they're all right single quotes...
-        text = string.replace(text, "'", u"\u2019") #'RIGHT SINGLE QUOTATION MARK' (U+2019)
-        newtext = ""
-        inquotes = 0
-        for chr in text:
-            if chr == '"':
-                if inquotes == 0:
-                    chr = u"\u201c" #U+201C	“	Left double quotation mark
-                    inquotes = 1
-                elif inquotes == 1:
-                    chr = u"\u201d" #U+201D	”	Right double quotation mark
-                    inquotes = 0
-            newtext = "%s%s" % (newtext,chr)
-    except:
-        print "*** ERROR WITH text '%s' ***" % text
-    if newtext == "":
-        return text
-    else:
-        return newtext
+	try:
+		text = string.replace(text, " - ", u" \u2013 ") #'EN DASH' (U+2013)
+		text = string.replace(text, "... ", u"\u2026 ") #(U+2026) Horizontal Ellipsis  “…”
+		#assume they're all right single quotes...
+		text = string.replace(text, "'", u"\u2019") #'RIGHT SINGLE QUOTATION MARK' (U+2019)
+		newtext = ""
+		inquotes = 0
+		for chr in text:
+			if chr == '"':
+				if inquotes == 0:
+					chr = u"\u201c" #U+201C “   Left double quotation mark
+					inquotes = 1
+				elif inquotes == 1:
+					chr = u"\u201d" #U+201D ”   Right double quotation mark
+					inquotes = 0
+			newtext = "%s%s" % (newtext,chr)
+	except:
+		print "*** ERROR WITH text '%s' ***" % text
+	if newtext == "":
+		return text
+	else:
+		return newtext
 
 
 characters_dict = {
 	"98-0.txt":         {"filename":    "98-0.txt",
-                         "title":       "A Tale of Two Cities by Charles Dickens",
-                         "characters":
-                                        #from Sparknotes - Literature - A Tale of Two Cities - CHARACTER LIST
-                                        #https://www.sparknotes.com/lit/twocities/characters/
-                                        ["Charles Darnay",
-                                        "Sydney Carton",
-                                        "Doctor Manette",
-                                        "Lucie Manette",
-                                        "Monsieur Defarge",
-                                        "Madame Defarge",
-                                        "Jarvis Lorry",
-                                        "Jerry Cruncher",
-                                        "Miss Pross",
-                                        "Marquis Evrémonde",
-                                        "Mr. Stryver",
-                                        "John Barsad",
-                                        "Roger Cly",
-                                        "Gabelle"],
-                         "chapter dividers":    None,
-                         "chapter names":   ["I. The Period",
-                                             "II. The Mail",
-                                             "III. The Night Shadows",
-                                             "IV. The Preparation",
-                                             "V. The Wine-shop",
-                                             "VI. The Shoemaker",
-                                             "I. Five Years Later",
-                                             "II. A Sight",
-                                             "III. A Disappointment",
-                                             "IV. Congratulatory",
-                                             "V. The Jackal",
-                                             "VI. Hundreds of People",
-                                             "VII. Monseigneur in Town",
-                                             "VIII. Monseigneur in the Country",
-                                             "IX. The Gorgon's Head",
-                                             "X. Two Promises",
-                                             "XI. A Companion Picture",
-                                             "XII. The Fellow of Delicacy",
-                                             "XIII. The Fellow of no Delicacy",
-                                             "XIV. The Honest Tradesman",
-                                             "XV. Knitting",
-                                             "XVI. Still Knitting",
-                                             "XVII. One Night",
-                                             "XVIII. Nine Days",
-                                             "XIX. An Opinion",
-                                             "XX. A Plea",
-                                             "XXI. Echoing Footsteps",
-                                             "XXII. The Sea Still Rises",
-                                             "XXIII. Fire Rises",
-                                             "XXIV. Drawn to the Loadstone Rock",
-                                             "I. In Secret",
-                                             "II. The Grindstone",
-                                             "III. The Shadow",
-                                             "IV. Calm in Storm",
-                                             "V. The Wood-sawyer",
-                                             "VI. Triumph",
-                                             "VII. A Knock at the Door",
-                                             "VIII. A Hand at Cards",
-                                             "IX. The Game Made",
-                                             "X. The Substance of the Shadow",
-                                             "XI. Dusk",
-                                             "XII. Darkness",
-                                             "XIII. Fifty-two",
-                                             "XIV. The Knitting Done",
-                                             "XV. The Footsteps Die Out For Ever",
-                                             ],
-                         "garbage to delete":   [],
-                         },
+						 "title":       "A Tale of Two Cities by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - A Tale of Two Cities - CHARACTER LIST
+										#https://www.sparknotes.com/lit/twocities/characters/
+										["Charles Darnay",
+										"Sydney Carton",
+										"Doctor Manette",
+										"Lucie Manette",
+										"Monsieur Defarge",
+										"Madame Defarge",
+										"Jarvis Lorry",
+										"Jerry Cruncher",
+										"Miss Pross",
+										"Marquis Evrémonde",
+										"Mr. Stryver",
+										"John Barsad",
+										"Roger Cly",
+										"Gabelle"],
+						 "chapter dividers":    None,
+						 "chapter names":   ["I. The Period",
+											 "II. The Mail",
+											 "III. The Night Shadows",
+											 "IV. The Preparation",
+											 "V. The Wine-shop",
+											 "VI. The Shoemaker",
+											 "I. Five Years Later",
+											 "II. A Sight",
+											 "III. A Disappointment",
+											 "IV. Congratulatory",
+											 "V. The Jackal",
+											 "VI. Hundreds of People",
+											 "VII. Monseigneur in Town",
+											 "VIII. Monseigneur in the Country",
+											 "IX. The Gorgon's Head",
+											 "X. Two Promises",
+											 "XI. A Companion Picture",
+											 "XII. The Fellow of Delicacy",
+											 "XIII. The Fellow of no Delicacy",
+											 "XIV. The Honest Tradesman",
+											 "XV. Knitting",
+											 "XVI. Still Knitting",
+											 "XVII. One Night",
+											 "XVIII. Nine Days",
+											 "XIX. An Opinion",
+											 "XX. A Plea",
+											 "XXI. Echoing Footsteps",
+											 "XXII. The Sea Still Rises",
+											 "XXIII. Fire Rises",
+											 "XXIV. Drawn to the Loadstone Rock",
+											 "I. In Secret",
+											 "II. The Grindstone",
+											 "III. The Shadow",
+											 "IV. Calm in Storm",
+											 "V. The Wood-sawyer",
+											 "VI. Triumph",
+											 "VII. A Knock at the Door",
+											 "VIII. A Hand at Cards",
+											 "IX. The Game Made",
+											 "X. The Substance of the Shadow",
+											 "XI. Dusk",
+											 "XII. Darkness",
+											 "XIII. Fifty-two",
+											 "XIV. The Knitting Done",
+											 "XV. The Footsteps Die Out For Ever",
+											 ],
+						 "garbage to delete":   [],
+						 },
 
 	"46-0.txt":         {"filename":    "46-0.txt",
-                         #"title":       "A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens",
-                         "title":       "A Christmas Carol by Charles Dickens",
-                         "characters":
-                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-                                        ["Ebenezer Scrooge",
-                                        "Bob Cratchit",
-                                        "Tiny Tim",
-                                        "Jacob Marley",
-                                        "The Ghost Of Christmas Past",
-                                        "The Ghost Of Christmas Present",
-                                        "The Ghost Of Christmas Yet To Come",
-                                        "Fred",
-                                        "Fezziwig",
-                                        "Belle",
-                                        "Peter Cratchit",
-                                        "Martha Cratchit",
-                                        "Fan",
-                                        "The Portly Gentlemen",
-                                        "Mrs. Cratchit"],
-                         "chapter dividers":    "Stave ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["""IN PROSE
+						 #"title":       "A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens",
+						 "title":       "A Christmas Carol by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - A Christmas Carol - CHARACTERS
+										#https://www.sparknotes.com/lit/christmascarol/characters/
+										["Ebenezer Scrooge",
+										"Bob Cratchit",
+										"Tiny Tim",
+										"Jacob Marley",
+										"The Ghost Of Christmas Past",
+										"The Ghost Of Christmas Present",
+										"The Ghost Of Christmas Yet To Come",
+										"Fred",
+										"Fezziwig",
+										"Belle",
+										"Peter Cratchit",
+										"Martha Cratchit",
+										"Fan",
+										"The Portly Gentlemen",
+										"Mrs. Cratchit"],
+						 "chapter dividers":    "Stave ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["""IN PROSE
 BEING
 A Ghost Story of Christmas
 
 """,
-                                                 """PREFACE
+												 """PREFACE
 
 I HAVE endeavoured in this Ghostly little book,
 to raise the Ghost of an Idea, which shall not put my
@@ -298,160 +361,162 @@ with the season, or with me.  May it haunt their houses
 pleasantly, and no one wish to lay it.
 
 Their faithful Friend and Servant,
-                                   C. D.
+								   C. D.
 December, 1843.
 """]
-                         },
+						 },
 
 	"1400-0.txt":       {"filename":    "1400-0.txt",
-                         "title":       "Great Expectations by Charles Dickens",
-                         "characters":
-                                        #from Sparknotes - Literature - Great Expectations - CHARACTER LIST
-                                        #https://www.sparknotes.com/lit/greatex/characters/
-                                        [["Pip", "Philip Pirrip"],
-                                        "Estella",
-                                        "Miss Havisham",
+						 "title":       "Great Expectations by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - Great Expectations - CHARACTER LIST
+										#https://www.sparknotes.com/lit/greatex/characters/
+										[["Pip", "Philip Pirrip"],
+										"Estella",
+										"Miss Havisham",
 #                                        "Abel Magwitch (“The Convict”)",
-                                        ["Abel Magwitch","The Convict"],
-                                        "Joe Gargery",
-                                        "Jaggers",
-                                        "Herbert Pocket",
-                                        "Wemmick",
-                                        "Biddy",
-                                        "Dolge Orlick",
-                                        "Mrs. Joe",
-                                        "Uncle Pumblechook",
-                                        "Compeyson",
-                                        "Bentley Drummle",
-                                        "Molly",
-                                        "Mr. Wopsle",
-                                        "Startop",
-                                        "Miss Skiffins"],
-                         "chapter dividers":    None,
-                         "chapter names":       None,
-                         "garbage to delete":   ["[1867 Edition]\n",
-                                                 "[Project Gutenberg Editor's Note: There is also another version of",
-"this work etext98/grexp10.txt scanned from a different edition]"
-                                                 ]
-                         },
+										["Abel Magwitch","The Convict"],
+										"Joe Gargery",
+										"Jaggers",
+										"Herbert Pocket",
+										"Wemmick",
+										"Biddy",
+										"Dolge Orlick",
+										"Mrs. Joe",
+										"Uncle Pumblechook",
+										"Compeyson",
+										"Bentley Drummle",
+										"Molly",
+										"Mr. Wopsle",
+										"Startop",
+										"Miss Skiffins"],
+						 "chapter dividers":    None,
+						 "chapter names":       None,
+						 "garbage to delete":   ["[1867 Edition]\n",
+												 "[Project Gutenberg Editor's Note: There is also another version of",
+												 "this work etext98/grexp10.txt scanned from a different edition]",
+												 "[Project Gutenberg Editor's Note: [CHARACTER_004_FIRSTNAME]re is also another version of",
+												 "this work etext98/grexp10.txt scanned from a different edition]",
+												 ]
+						 },
 
 
 	"pg730.txt":        {"filename":    "pg730.txt",
-                         "title":       "Oliver Twist by Charles Dickens",
-                         "characters":
-                                        #Charles Dickens Info - Characters In Oliver Twist
-                                        #https://www.charlesdickensinfo.com/novels/oliver-twist/whos-who/
-                                        [["Artful Dodger", "Jack Dawkins"],
-                                        #2Bull's-Eye", Bill Sikes’s dog,
-                                        "Charley Bates",
-                                        "Mr. Brownlow",
-                                        "Mr. Bumble",
-                                        "Oliver Twist",
-                                        "Noah Claypole",
-                                        "Toby Crackit",
-                                        "Edward Leeford",
-                                        "Monks",
-                                        "Fagin",
-                                        "Agnes Fleming",
-                                        "Mr. Gamfield",
-                                        "Mr. Giles",
-                                        "Mr. Grimwig",
-                                        "Mr. Losberne",
-                                        "Mrs. Mann",
-                                        "Mrs. Maylie",
-                                        "Harry Maylie",
-                                        "Miss Rose Maylie",
-                                        "Rose Maylie",
-                                        "Edward Leeford",
-                                        "Nancy",
-                                        "Bill Sikes",
-                                        "Mr. Sowerberry",
-                                         #minor characters
-                                         "Mr. Limbkins"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["""OR
+						 "title":       "Oliver Twist by Charles Dickens",
+						 "characters":
+										#Charles Dickens Info - Characters In Oliver Twist
+										#https://www.charlesdickensinfo.com/novels/oliver-twist/whos-who/
+										[["Artful Dodger", "Jack Dawkins"],
+										#2Bull's-Eye", Bill Sikes’s dog,
+										"Charley Bates",
+										"Mr. Brownlow",
+										"Mr. Bumble",
+										"Oliver Twist",
+										"Noah Claypole",
+										"Toby Crackit",
+										"Edward Leeford",
+										"Monks",
+										"Fagin",
+										"Agnes Fleming",
+										"Mr. Gamfield",
+										"Mr. Giles",
+										"Mr. Grimwig",
+										"Mr. Losberne",
+										"Mrs. Mann",
+										"Mrs. Maylie",
+										"Harry Maylie",
+										"Miss Rose Maylie",
+										"Rose Maylie",
+										"Edward Leeford",
+										"Nancy",
+										"Bill Sikes",
+										"Mr. Sowerberry",
+										 #minor characters
+										 "Mr. Limbkins"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["""OR
 
 THE PARISH BOY'S PROGRESS
 
 """]
-                         },
+						 },
 
 	"786-0.txt":        {"filename":    "786-0.txt",
-                         "title":       "Hard Times by Charles Dickens",
-                         "characters":
-                                        #Sparknotes - Literature  Hard Times  CHARACTER LIST
-                                        #https://www.sparknotes.com/lit/hardtimes/characters/
-                                        ["Thomas Gradgrind",
-                                        "Louisa Gradgrind",
-                                        "Thomas Gradgrind, Jr",
-                                        ["Josiah Bounderby", "Mr. Bounderby"],
-                                        ["Cecelia Jupe", "Sissy Jupe"],
-                                        "Mrs. Sparsit",
-                                        "Stephen Blackpool",
-                                        "Rachael",
-                                        "James Harthouse",
-                                        "Mr. Sleary",
-                                        "Bitzer",
-                                        ["Mr. McChoakumchild", "Mr. M'Choakumchild"],
-                                        "Mrs. Pegler",
-                                        "Mrs. Gradgrind",
-                                        "Slackbridge",
-                                        "Jane Gradgrind"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["Transcribed from the 1905 Chapman and Hall edition by David Price, email",
-                                                 "ccx074@pglaf.org",
-                                                 "_With illustrations by Marcus Stone_, _Maurice_",
-                                                 "_Greiffenhagen_, _and F. Walker_",
-                                                 "FOOTNOTES",
-                                                 "{0}  _Reprinted Pieces_ was released as a separate eText by Project",
-                                                 "Gutenberg, and is not included in this eText.",
+						 "title":       "Hard Times by Charles Dickens",
+						 "characters":
+										#Sparknotes - Literature  Hard Times  CHARACTER LIST
+										#https://www.sparknotes.com/lit/hardtimes/characters/
+										["Thomas Gradgrind",
+										"Louisa Gradgrind",
+										"Thomas Gradgrind, Jr",
+										["Josiah Bounderby", "Mr. Bounderby"],
+										["Cecelia Jupe", "Sissy Jupe"],
+										"Mrs. Sparsit",
+										"Stephen Blackpool",
+										"Rachael",
+										"James Harthouse",
+										"Mr. Sleary",
+										"Bitzer",
+										["Mr. McChoakumchild", "Mr. M'Choakumchild"],
+										"Mrs. Pegler",
+										"Mrs. Gradgrind",
+										"Slackbridge",
+										"Jane Gradgrind"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["Transcribed from the 1905 Chapman and Hall edition by David Price, email",
+												 "ccx074@pglaf.org",
+												 "_With illustrations by Marcus Stone_, _Maurice_",
+												 "_Greiffenhagen_, _and F. Walker_",
+												 "FOOTNOTES",
+												 "{0}  _Reprinted Pieces_ was released as a separate eText by Project",
+												 "Gutenberg, and is not included in this eText.",
 
-                                                 "LONDON: CHAPMAN & HALL, LD.",
-                                                 "NEW YORK: CHARLES SCRIBNER'S SONS",
-                                                 "1905",
-                                                 "AND\n                           REPRINTED PIECES {0}"
-                                                 ]
-                         },
+												 "LONDON: CHAPMAN & HALL, LD.",
+												 "NEW YORK: CHARLES SCRIBNER'S SONS",
+												 "1905",
+												 "AND\n                           REPRINTED PIECES {0}"
+												 ]
+						 },
 
 
 	"766-0.txt":        {"filename":    "766-0.txt",
-                         "title":       "David Copperfield by Charles Dickens",
-                         "characters":
-                                        #Charles Dickens Info - Characters in David Copperfield
-                                        #https://www.charlesdickensinfo.com/novels/david-copperfield/whos-who/
-                                       [
-                                       ["Richard Babley", "Mr. Dick"],
-                                       "Barkis",
-                                       "Clara Copperfield",
-                                       "David Copperfield",
-                                       "Mr. Creakle",
-                                       #["Little Em’ly", "Emily"],
-                                       ["Little Em'ly", "Emily"],
-                                       "Mrs. Grummidge",
-                                       "Uriah Heep",
-                                       "Littimer",
-                                       "Wilkins Micawber",
-                                       "Edward Murdstone",
-                                       "Jane Murdstone",
-                                       "Clara Peggotty",
-                                       "Daniel Peggotty",
-                                       "Ham Peggotty",
-                                       "Dora Spenlow",
-                                       "James Steerforth",
-                                       "Dr. Strong",
-                                       "Tommy Traddles",
-                                       "Betsey Trotwood",
-                                       "Agnes Wickfield",
-                                       "Mr. Wickfield"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["""               AFFECTIONATELY INSCRIBED TO
-               THE HON.  Mr. AND Mrs. RICHARD WATSON,
-               OF ROCKINGHAM, NORTHAMPTONSHIRE.
+						 "title":       "David Copperfield by Charles Dickens",
+						 "characters":
+										#Charles Dickens Info - Characters in David Copperfield
+										#https://www.charlesdickensinfo.com/novels/david-copperfield/whos-who/
+									   [
+									   ["Richard Babley", "Mr. Dick"],
+									   "Barkis",
+									   "Clara Copperfield",
+									   "David Copperfield",
+									   "Mr. Creakle",
+									   #["Little Em’ly", "Emily"],
+									   ["Little Em'ly", "Emily"],
+									   "Mrs. Grummidge",
+									   "Uriah Heep",
+									   "Littimer",
+									   "Wilkins Micawber",
+									   "Edward Murdstone",
+									   "Jane Murdstone",
+									   "Clara Peggotty",
+									   "Daniel Peggotty",
+									   "Ham Peggotty",
+									   "Dora Spenlow",
+									   "James Steerforth",
+									   "Dr. Strong",
+									   "Tommy Traddles",
+									   "Betsey Trotwood",
+									   "Agnes Wickfield",
+									   "Mr. Wickfield"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["""               AFFECTIONATELY INSCRIBED TO
+			   THE HON.  Mr. AND Mrs. RICHARD WATSON,
+			   OF ROCKINGHAM, NORTHAMPTONSHIRE.
 """,
-                                                 """PREFACE TO 1850 EDITION
+												 """PREFACE TO 1850 EDITION
 
 
 I do not find it easy to get sufficiently far away from this Book, in
@@ -481,9 +546,9 @@ the time when I shall again put forth my two green leaves once a month,
 and with a faithful remembrance of the genial sun and showers that have
 fallen on these leaves of [BOOK_SHORT_TITLE], and made me happy.
 
-     London, October, 1850.
+	 London, October, 1850.
 """,
-                                                 """PREFACE TO THE CHARLES DICKENS EDITION
+												 """PREFACE TO THE CHARLES DICKENS EDITION
 
 
 I REMARKED in the original Preface to this Book, that I did not find it
@@ -516,118 +581,118 @@ favourite child. And his name is
 
 [BOOK_SHORT_TITLE_CAPS].
 
-     1869
+	 1869
 """]
-                         },
+						 },
 
 	"pg1023.txt":       {"filename":    "pg1023.txt",
-                         "title":       "Bleak House by Charles Dickens",
-                         "characters":
-                                        #from Sparknotes - Literature - Bleak House - CHARACTER LIST
-                                        #https://www.sparknotes.com/lit/bleakhouse/characters/
-                                        ["Esther Summerson",
-                                        ["Mr. John Jarndyce", "John Jarndyce", "Mr. Jarndyce"],
-                                        "Ada Clare",
-                                        "Richard Carstone",
-                                        "Lady Dedlock",
-                                        ["Sir Leicester Dedlock", "Leicester Dedlock"],
-                                        "Mr. Tulkinghorn",
-                                        ["Mrs. Baytham Badger", "Mrs. Badger", "Baytham Badger"],
-                                        "Mr. Badger",
-                                        ["Mr. Matthew Bagnet", "Mr. Bagnet", "Matthew Bagnet"],
-                                        "Mrs. Bagnet",
-                                        "Malta Bagnet",
-                                        "Quebec Bagnet",
-                                        "Woolwich Bagnet",
-                                        "Miss Barbary",
-                                        "Inspector Bucket",
-                                        ["Mr. Lawrence Boythorn", "Mr. Boythorn", "Lawrence Boythorn"],
-                                        "Mr. Chadband",
-                                        ["Mrs. Rachael Chadband", "Mrs. Chadband", "Rachael Chadband"],
-                                        "Volumnia Dedlock",
-                                        "Miss Flite",
-                                        "Mr. Gridley",
-                                        ["Mr. William Guppy", "Mr. Guppy", "William Guppy"],
-                                        "Guster",
-                                        #"Captain Hawdon (Nemo)",
-                                        ["Captain Hawdon", "Captain Nemo Hawdon", "Nemo Hawdon"],
-                                        "Mademoiselle Hortense",
-                                        "Mrs. Jellyby",
-                                        "Mr. Jellyby",
-                                        #"Caroline (Caddy) Jellyby",
-                                        ["Caroline Jellyby", "Caddy Jellyby"],
-                                        "Peepy Jellyby",
-                                        "Jenny",
-                                        ["Jo", "Toughey"],
-                                        #"Mr. Tony Jobling (Mr. Weevle)",
-                                        "Mr. Tony Jobling",
-                                        "Mr. Weevle",
-                                        "Mr. Krook",
-                                        "Liz",
-                                        #"Charlotte (Charley) Neckett",
-                                        ["Charlotte Neckett", "Charley Neckett"],
-                                        "Mrs. Pardiggle",
-                                        "Rosa",
-                                        ["Mr. George Rouncewell", "Mr. Rouncewell", "George Rouncewell"],
-                                        "Mrs. Rouncewell",
-                                        ["Mr. Watt Rouncewell","Mr. Rouncewell", "Watt Rouncewell"],
-                                        "Harold Skimpole",
-                                        #"Bartholomew (Chick) Smallweed",
-                                        ["Bartholomew Smallweed", "Chick Smallweed"],
-                                        "Judy Smallweed",
-                                        "Grandfather Smallweed",
-                                        "Grandmother Smallweed",
-                                        "Mr. Snagsby",
-                                        "Mrs. Snagsby",
-                                        "Phil Squod",
-                                        "Mr. Turveydrop",
-                                        "Prince Turveydrop",
-                                        "Mr. Vholes",
-                                        "Allan Woodcourt",
-                                        "Mrs. Woodcourt"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["Transcriber's note. This referred to a specific page in",
-                                                 "the printed book. In this Project Gutenberg edition the",
-                                                 "pertinent information is in Chapter XXX, paragraph 90.",
-                                                 "** Another case, very clearly described by a dentist,",
-                                                 "occurred at the town of Columbus, in the United States",
-                                                 "of America, quite recently. The subject was a German who",
-                                                 "kept a liquor-shop and was an inveterate drunkard."],
-                         },
+						 "title":       "Bleak House by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - Bleak House - CHARACTER LIST
+										#https://www.sparknotes.com/lit/bleakhouse/characters/
+										["Esther Summerson",
+										["Mr. John Jarndyce", "John Jarndyce", "Mr. Jarndyce"],
+										"Ada Clare",
+										"Richard Carstone",
+										"Lady Dedlock",
+										["Sir Leicester Dedlock", "Leicester Dedlock"],
+										"Mr. Tulkinghorn",
+										["Mrs. Baytham Badger", "Mrs. Badger", "Baytham Badger"],
+										"Mr. Badger",
+										["Mr. Matthew Bagnet", "Mr. Bagnet", "Matthew Bagnet"],
+										"Mrs. Bagnet",
+										"Malta Bagnet",
+										"Quebec Bagnet",
+										"Woolwich Bagnet",
+										"Miss Barbary",
+										"Inspector Bucket",
+										["Mr. Lawrence Boythorn", "Mr. Boythorn", "Lawrence Boythorn"],
+										"Mr. Chadband",
+										["Mrs. Rachael Chadband", "Mrs. Chadband", "Rachael Chadband"],
+										"Volumnia Dedlock",
+										"Miss Flite",
+										"Mr. Gridley",
+										["Mr. William Guppy", "Mr. Guppy", "William Guppy"],
+										"Guster",
+										#"Captain Hawdon (Nemo)",
+										["Captain Hawdon", "Captain Nemo Hawdon", "Nemo Hawdon"],
+										"Mademoiselle Hortense",
+										"Mrs. Jellyby",
+										"Mr. Jellyby",
+										#"Caroline (Caddy) Jellyby",
+										["Caroline Jellyby", "Caddy Jellyby"],
+										"Peepy Jellyby",
+										"Jenny",
+										["Jo", "Toughey"],
+										#"Mr. Tony Jobling (Mr. Weevle)",
+										"Mr. Tony Jobling",
+										"Mr. Weevle",
+										"Mr. Krook",
+										"Liz",
+										#"Charlotte (Charley) Neckett",
+										["Charlotte Neckett", "Charley Neckett"],
+										"Mrs. Pardiggle",
+										"Rosa",
+										["Mr. George Rouncewell", "Mr. Rouncewell", "George Rouncewell"],
+										"Mrs. Rouncewell",
+										["Mr. Watt Rouncewell","Mr. Rouncewell", "Watt Rouncewell"],
+										"Harold Skimpole",
+										#"Bartholomew (Chick) Smallweed",
+										["Bartholomew Smallweed", "Chick Smallweed"],
+										"Judy Smallweed",
+										"Grandfather Smallweed",
+										"Grandmother Smallweed",
+										"Mr. Snagsby",
+										"Mrs. Snagsby",
+										"Phil Squod",
+										"Mr. Turveydrop",
+										"Prince Turveydrop",
+										"Mr. Vholes",
+										"Allan Woodcourt",
+										"Mrs. Woodcourt"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["Transcriber's note. This referred to a specific page in",
+												 "the printed book. In this Project Gutenberg edition the",
+												 "pertinent information is in Chapter XXX, paragraph 90.",
+												 "** Another case, very clearly described by a dentist,",
+												 "occurred at the town of Columbus, in the United States",
+												 "of America, quite recently. The subject was a German who",
+												 "kept a liquor-shop and was an inveterate drunkard."],
+						 },
 
 
 
 	"pg19337.txt":      {"filename":    "pg19337.txt",
-                         "title":       "A Christmas Carol by Charles Dickens",
-                         "characters":
-                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-                                        ["Ebenezer Scrooge",
-                                        "Bob Cratchit",
-                                        "Tiny Tim",
-                                        "Jacob Marley",
-                                        "The Ghost Of Christmas Past",
-                                        "The Ghost Of Christmas Present",
-                                        "The Ghost Of Christmas Yet To Come",
-                                        "Fred",
-                                        "Fezziwig",
-                                        "Belle",
-                                        "Peter Cratchit",
-                                        "Martha Cratchit",
-                                        "Fan",
-                                        "The Portly Gentlemen",
-                                        "Mrs. Cratchit"],
-                         "chapter dividers":    "STAVE ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["""ILLUSTRATED BY
+						 "title":       "A Christmas Carol by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - A Christmas Carol - CHARACTERS
+										#https://www.sparknotes.com/lit/christmascarol/characters/
+										["Ebenezer Scrooge",
+										"Bob Cratchit",
+										"Tiny Tim",
+										"Jacob Marley",
+										"The Ghost Of Christmas Past",
+										"The Ghost Of Christmas Present",
+										"The Ghost Of Christmas Yet To Come",
+										"Fred",
+										"Fezziwig",
+										"Belle",
+										"Peter Cratchit",
+										"Martha Cratchit",
+										"Fan",
+										"The Portly Gentlemen",
+										"Mrs. Cratchit"],
+						 "chapter dividers":    "STAVE ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["""ILLUSTRATED BY
 GEORGE AL[CHARACTER_NAME_CAPS_008] WILLIAMS""",
-                                                 """ILLUSTRATED BY
+												 """ILLUSTRATED BY
 GEORGE ALTREY WILLIAMS""",
-                                                 """New York\nTHE PLATT & PECK CO.""",
-                                                 """_Copyright, 1905, by_ THE BAKER & TAYLOR COMPANY""",
-                                                 """[Illustration: "He had been [CHARACTER_003_SURNAME]'s blood horse all the way from church."]""",
-                                                 """INTRODUCTION
+												 """New York\nTHE PLATT & PECK CO.""",
+												 """_Copyright, 1905, by_ THE BAKER & TAYLOR COMPANY""",
+												 """[Illustration: "He had been [CHARACTER_003_SURNAME]'s blood horse all the way from church."]""",
+												 """INTRODUCTION
 
 
 The combined qualities of the realist and the idealist which Dickens
@@ -689,229 +754,229 @@ resurrection described in this story was possible. It has been the
 illustrator's whole aim to make these people live in some form more
 fully consistent with their types.
 
-                                   GEORGE AL[CHARACTER_NAME_CAPS_008] WILLIAMS.
+								   GEORGE AL[CHARACTER_NAME_CAPS_008] WILLIAMS.
 _Chatham, N.J._
 """]
-                         },
+						 },
 
 	"580-0.txt":      {"filename":    "580-0.txt",
-                         "title":       "The Pickwick Papers by Charles Dickens",
-                         "characters":
-                                        #CliffsNotes - Literature  - Notes - The Pickwick Papers - Character List
-                                        #https://www.cliffsnotes.com/literature/p/the-pickwick-papers/character-list
-                                        [
-                                        ["Samuel Pickwick", "Mr. Pickwick"],
-                                        "Tracy Tupman",
-                                        "Augustus Snodgrass",
-                                        "Nathaniel Winkle",
-                                        "Mr. Blotton",
-                                        "Alfred Jingle",
-                                        "Dr. Slammer",
-                                        "Lieutenant Tappleton",
-                                        "Dr. Payne",
-                                        ["Jem Hutley", "Dismal Jemmy"],
-                                        "Colonel Bulder",
-                                        "Mrs. Bulder",
-                                        ["Sir Thomas Clubber", "Thomas Clubber"],
-                                        "Mr. Wardle",
-                                        "Emily Wardle",
-                                        "Isabella Wardle",
-                                        "Rachael Wardle",
-                                        "Mrs. Wardle",
-                                        "Joe the Fat Boy",
-                                        "Mr. Trundle",
-                                        "An old clergyman",
-                                        "Mr. Miller",
-                                        "Sam Weller",
-                                        "Mr. Perker",
-                                        ["Mrs. Martha Bardell", "Martha Bardell", "Mrs. Bardell"],
-                                        ["Master Tommy Bardell", "Tommy Bardell", "Master Bardell"],
-                                        "Mr. Pott",
-                                        "Mrs. Pott",
-                                        "Mr. Slurk",
-                                        ["The Hon. Samuel Slumkey", "Samuel Slumkey"],
-                                        ["The Hon. Horatio Fizkin", "Horatio Fizkin"],
-                                        "The one-eyed bagman",
-                                        ["Mrs. Leo Hunter", "Mrs. Hunter"],
-                                        ["Mr. Leo Hunter", "Leo Hunter", "Mr. Hunter"],
-                                        "Count Smorltork",
-                                        "Job Trotter",
-                                        "Miss Tomkins",
-                                        "Captain Boldwig",
-                                        "Peter Lowten",
-                                        #"Dodson and Fogg",
-                                        "Dodson",
-                                        "Fogg",
-                                        "Mr. Jackson",
-                                        "Jack Bamber",
-                                        "Peter Magnus",
-                                        "Miss Witherfield",
-                                        "George Nupkins",
-                                        "Mrs. Nupkins",
-                                        ["Miss Henrietta Nupkins", "Henrietta Nupkins","Miss Nupkins"],
-                                        "Daniel Grummer",
-                                        "Mr. Dubbley",
-                                        "Mr. Jinks",
-                                        "Mr. Muzzle",
-                                        "Tony Weller",
-                                        "Susan Weller",
-                                        "The Reverend Stiggins",
-                                        "Anthony Humm",
-                                        ["Mrs. Betsy Cluppins", "Betsy Cluppins", "Mrs. Cluppins"],
-                                        ["Mrs. Susannab Sanders", "Susannab Sanders", "Mrs. Sanders"],
-                                        "Arabella Allen",
-                                        "Ben Allen",
-                                        "Bob Sawyer",
-                                        "Jack Hopkins",
-                                        ["Mrs. Mary Ann Raddle", "Mary Ann Raddle", "Mrs. Raddle"],
-                                        "Mr. Raddle",
-                                        "Serjeant Snubbin",
-                                        "Mr. Mallard",
-                                        "Mr. Phunky",
-                                        "Serjeant Buzfuz",
-                                        "Mr. Justice Stareleigh",
-                                        "Colonel Dowler",
-                                        "Mrs. Dowler",
-                                        "Mrs. Craddock",
-                                        "Angelo Cyrus Bantam",
-                                        "John Smauker",
-                                        "Mrs. Wugsby",
-                                        "Lady Snuphanuph",
-                                        "Mary",
-                                        "A scientific gentleman",
-                                        ["Mr. Tom Roker", "Tom Roker", "Mr. Roker"],
-                                        "Neddy",
-                                        "The Chancery prisoner",
-                                        "Mr. Smangle",
-                                        #"Mr. Mivins (The Zephyr",
-                                        "Mr. Mivins",
-                                        "The Zephyr",
-                                        ["Mr. Solomon Pell", "Solomon Pell", "Mr. Pell"],
-                                        #"Arabella Allen's aunt",
-                                        "Mr. Martin",
-                                        "Mr. Winkle, Sr.",
-                                        "Wilkins Flasher"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["Produced by Jo Churcher, and David Widger"]
-                         },
+						 "title":       "The Pickwick Papers by Charles Dickens",
+						 "characters":
+										#CliffsNotes - Literature  - Notes - The Pickwick Papers - Character List
+										#https://www.cliffsnotes.com/literature/p/the-pickwick-papers/character-list
+										[
+										["Samuel Pickwick", "Mr. Pickwick"],
+										"Tracy Tupman",
+										"Augustus Snodgrass",
+										"Nathaniel Winkle",
+										"Mr. Blotton",
+										"Alfred Jingle",
+										"Dr. Slammer",
+										"Lieutenant Tappleton",
+										"Dr. Payne",
+										["Jem Hutley", "Dismal Jemmy"],
+										"Colonel Bulder",
+										"Mrs. Bulder",
+										["Sir Thomas Clubber", "Thomas Clubber"],
+										"Mr. Wardle",
+										"Emily Wardle",
+										"Isabella Wardle",
+										"Rachael Wardle",
+										"Mrs. Wardle",
+										"Joe the Fat Boy",
+										"Mr. Trundle",
+										"An old clergyman",
+										"Mr. Miller",
+										"Sam Weller",
+										"Mr. Perker",
+										["Mrs. Martha Bardell", "Martha Bardell", "Mrs. Bardell"],
+										["Master Tommy Bardell", "Tommy Bardell", "Master Bardell"],
+										"Mr. Pott",
+										"Mrs. Pott",
+										"Mr. Slurk",
+										["The Hon. Samuel Slumkey", "Samuel Slumkey"],
+										["The Hon. Horatio Fizkin", "Horatio Fizkin"],
+										"The one-eyed bagman",
+										["Mrs. Leo Hunter", "Mrs. Hunter"],
+										["Mr. Leo Hunter", "Leo Hunter", "Mr. Hunter"],
+										"Count Smorltork",
+										"Job Trotter",
+										"Miss Tomkins",
+										"Captain Boldwig",
+										"Peter Lowten",
+										#"Dodson and Fogg",
+										"Dodson",
+										"Fogg",
+										"Mr. Jackson",
+										"Jack Bamber",
+										"Peter Magnus",
+										"Miss Witherfield",
+										"George Nupkins",
+										"Mrs. Nupkins",
+										["Miss Henrietta Nupkins", "Henrietta Nupkins","Miss Nupkins"],
+										"Daniel Grummer",
+										"Mr. Dubbley",
+										"Mr. Jinks",
+										"Mr. Muzzle",
+										"Tony Weller",
+										"Susan Weller",
+										"The Reverend Stiggins",
+										"Anthony Humm",
+										["Mrs. Betsy Cluppins", "Betsy Cluppins", "Mrs. Cluppins"],
+										["Mrs. Susannab Sanders", "Susannab Sanders", "Mrs. Sanders"],
+										"Arabella Allen",
+										"Ben Allen",
+										"Bob Sawyer",
+										"Jack Hopkins",
+										["Mrs. Mary Ann Raddle", "Mary Ann Raddle", "Mrs. Raddle"],
+										"Mr. Raddle",
+										"Serjeant Snubbin",
+										"Mr. Mallard",
+										"Mr. Phunky",
+										"Serjeant Buzfuz",
+										"Mr. Justice Stareleigh",
+										"Colonel Dowler",
+										"Mrs. Dowler",
+										"Mrs. Craddock",
+										"Angelo Cyrus Bantam",
+										"John Smauker",
+										"Mrs. Wugsby",
+										"Lady Snuphanuph",
+										"Mary",
+										"A scientific gentleman",
+										["Mr. Tom Roker", "Tom Roker", "Mr. Roker"],
+										"Neddy",
+										"The Chancery prisoner",
+										"Mr. Smangle",
+										#"Mr. Mivins (The Zephyr",
+										"Mr. Mivins",
+										"The Zephyr",
+										["Mr. Solomon Pell", "Solomon Pell", "Mr. Pell"],
+										#"Arabella Allen's aunt",
+										"Mr. Martin",
+										"Mr. Winkle, Sr.",
+										"Wilkins Flasher"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["Produced by Jo Churcher, and David Widger"]
+						 },
 
 	"700-0.txt":        {"filename":    "700-0.txt",
-                         "title":       "The Old Curiosity Shop by Charles Dickens",
-                         "characters":
-                                        #from Charles Dickens Info - Characters in The Old Curiosity Shop
-                                        #https://www.charlesdickensinfo.com/novels/old-curiosity-shop/whos-who/
-                                        ["Sally Brass",
-                                         "Sampson Brass",
-                                         "Grandfather",
-                                         "Mrs. Jarley",
-                                         "The Marchioness",
-                                         "Kit Nubbles",
-                                         ["Daniel Quilp", "Quilp"],
-                                         "The Single Gentleman",
-                                        "Dick Swiveller",
-                                        "Fred Trent",
-                                        "Nelly Trent",
-                                        "Little Nell"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   [],
-                         },
+						 "title":       "The Old Curiosity Shop by Charles Dickens",
+						 "characters":
+										#from Charles Dickens Info - Characters in The Old Curiosity Shop
+										#https://www.charlesdickensinfo.com/novels/old-curiosity-shop/whos-who/
+										["Sally Brass",
+										 "Sampson Brass",
+										 "Grandfather",
+										 "Mrs. Jarley",
+										 "The Marchioness",
+										 "Kit Nubbles",
+										 ["Daniel Quilp", "Quilp"],
+										 "The Single Gentleman",
+										"Dick Swiveller",
+										"Fred Trent",
+										"Nelly Trent",
+										"Little Nell"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   [],
+						 },
 
 	"883-0.txt":        {"filename":    "883-0.txt",
-                         "title":       "Our Mutual Friend by Charles Dickens",
-                         "characters":
-                                        #from GradeSaver - Study Guides - Our Mutual Friend - Character List
-                                        #https://www.gradesaver.com/our-mutual-friend/study-guide/character-list
-                                        ["Lizzie Hexam",
-                                        "Eugene Wrayburn",
-                                        "John Harmon", "John Rokesmith", "Julius Handford",
-                                        "Silas Wegg",
-                                        "Noddy Boffin",
-                                        "Mrs. Boffin",
-                                        "Bella Wilfer",
-                                        "Charley Hexam",
-                                        "Mortimer Lightwood",
-                                        "Jenny Wren",
-                                        "Mr. Riah",
-                                        "Bradley Headstone",
-                                        "Mr. Venus",
-                                        ["Mr. Alfred Lammle", "Alfred Lammle", "Mr. Lammle"],
-                                        ["Mrs. Sophronia Lammle", "Sophronia Lammle", "Mrs. Lammle"],
-                                        "Georgiana Podsnap",
-                                        "Fledgeby",
-                                        "Rogue Riderhood",
-                                        "Mr. Wilfer",
-                                        "Mr. Inspector",
-                                        #"Mr. and Mrs. Podsnap",
-                                        "Mr. Podsnap",
-                                        "Mrs. Podsnap",
-                                        "Mrs. Wilfer",
-                                        "Lavinia Wilfer",
-                                        "George Sampson",
-                                        "Twemlow",
-                                        "Betty Higden",
-                                        "Johnny",
-                                        "Sloppy",
-                                        "Gaffer Hexam",
-                                        "Pleasant Riderhood",
-                                        #"Mr. and Mrs. Veneering",
-                                        "Mr. Veneering",
-                                        "Mrs. Veneering",
-                                        "Miss Peecher",
-                                        "George Radfoot"],
-                         "chapter dividers":    "Chapter ",
-                         "chapter names":       None,
-                         "garbage to delete":   [],
-                         },
+						 "title":       "Our Mutual Friend by Charles Dickens",
+						 "characters":
+										#from GradeSaver - Study Guides - Our Mutual Friend - Character List
+										#https://www.gradesaver.com/our-mutual-friend/study-guide/character-list
+										["Lizzie Hexam",
+										"Eugene Wrayburn",
+										"John Harmon", "John Rokesmith", "Julius Handford",
+										"Silas Wegg",
+										"Noddy Boffin",
+										"Mrs. Boffin",
+										"Bella Wilfer",
+										"Charley Hexam",
+										"Mortimer Lightwood",
+										"Jenny Wren",
+										"Mr. Riah",
+										"Bradley Headstone",
+										"Mr. Venus",
+										["Mr. Alfred Lammle", "Alfred Lammle", "Mr. Lammle"],
+										["Mrs. Sophronia Lammle", "Sophronia Lammle", "Mrs. Lammle"],
+										"Georgiana Podsnap",
+										"Fledgeby",
+										"Rogue Riderhood",
+										"Mr. Wilfer",
+										"Mr. Inspector",
+										#"Mr. and Mrs. Podsnap",
+										"Mr. Podsnap",
+										"Mrs. Podsnap",
+										"Mrs. Wilfer",
+										"Lavinia Wilfer",
+										"George Sampson",
+										"Twemlow",
+										"Betty Higden",
+										"Johnny",
+										"Sloppy",
+										"Gaffer Hexam",
+										"Pleasant Riderhood",
+										#"Mr. and Mrs. Veneering",
+										"Mr. Veneering",
+										"Mrs. Veneering",
+										"Miss Peecher",
+										"George Radfoot"],
+						 "chapter dividers":    "Chapter ",
+						 "chapter names":       None,
+						 "garbage to delete":   [],
+						 },
 
 
-#	["963-0.txt", 	"Little Dorrit by Charles Dickens"],
+#   ["963-0.txt",   "Little Dorrit by Charles Dickens"],
 	"963-0.txt":        {"filename":    "963-0.txt",
-                         "title":       "Little Dorrit by Charles Dickens",
-                         "characters":
-                                        #from GradeSaver - Study Guides - Little Dorrit - Character List
-                                        #https://www.gradesaver.com/little-dorrit/study-guide/character-list
-                                        [
-                                        ['Amy "Little" Dorrit', "Little Dorrit", "Amy Dorrit"],
-                                        ["Mr. William Dorrit", "William Dorrit", "Mr. Dorrit"], 
-                                        "Arthur Clennam",
-                                        "Fanny Dorrit",
-                                        "Daniel Doyce",
-                                        "Mr. Merdle",
-                                        "Mrs. Merdle",
-                                        ["Mr. Nandy", "Old Nandy"],
-                                        "Edmund Sparkler",
-                                        "Mr. Chivery",
-                                        "Mrs. Chivery",
-                                        "Flora Casby Finching",
-                                        "Flintwinch",
-                                        #"Monsieur Rigaud/Blandois/Lagnier",
-                                        ["Monsieur Rigaud", "Blandois", "Lagnier"],
-                                        "Mrs. Clennam",
-                                        "Affery",
-                                        "Pet Meagles",
-                                        ["Jean-Baptiste Cavalletto", "Mr. Baptist"],
-                                        "Tattycoram",
-                                        "Mrs. General",
-                                        "Mrs. Gowan",
-                                        "Henry Gowan",
-                                        "Miss Wade",
-                                        "Mr. Casby",
-                                        "Pancks",
-                                        #"Mr. and Mrs. Plornish",
-                                        "Mr. Plornish",
-                                        "Mrs. Plornish",
-                                        "John Chivery",
-                                        "Tite Barnacle",
-                                        "Maggy",
-                                        "Mr. Rugg",
-                                        "Miss Rugg",
-                                        "Clarence Barnacle"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["Preface to the 1857 Edition",
-                                                 """
+						 "title":       "Little Dorrit by Charles Dickens",
+						 "characters":
+										#from GradeSaver - Study Guides - Little Dorrit - Character List
+										#https://www.gradesaver.com/little-dorrit/study-guide/character-list
+										[
+										['Amy "Little" Dorrit', "Little Dorrit", "Amy Dorrit"],
+										["Mr. William Dorrit", "William Dorrit", "Mr. Dorrit"], 
+										"Arthur Clennam",
+										"Fanny Dorrit",
+										"Daniel Doyce",
+										"Mr. Merdle",
+										"Mrs. Merdle",
+										["Mr. Nandy", "Old Nandy"],
+										"Edmund Sparkler",
+										"Mr. Chivery",
+										"Mrs. Chivery",
+										"Flora Casby Finching",
+										"Flintwinch",
+										#"Monsieur Rigaud/Blandois/Lagnier",
+										["Monsieur Rigaud", "Blandois", "Lagnier"],
+										"Mrs. Clennam",
+										"Affery",
+										"Pet Meagles",
+										["Jean-Baptiste Cavalletto", "Mr. Baptist"],
+										"Tattycoram",
+										"Mrs. General",
+										"Mrs. Gowan",
+										"Henry Gowan",
+										"Miss Wade",
+										"Mr. Casby",
+										"Pancks",
+										#"Mr. and Mrs. Plornish",
+										"Mr. Plornish",
+										"Mrs. Plornish",
+										"John Chivery",
+										"Tite Barnacle",
+										"Maggy",
+										"Mr. Rugg",
+										"Miss Rugg",
+										"Clarence Barnacle"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["Preface to the 1857 Edition",
+												 """
 PREFACE TO THE 1857 EDITION
 
 
@@ -979,23 +1044,23 @@ added to that, May we meet again!
 
 London May 1857
 """],
-                         },
+						 },
 
 
-#	["967-0.txt", 	"Nicholas Nickleby by Charles Dickens"],
+#   ["967-0.txt",   "Nicholas Nickleby by Charles Dickens"],
 	"967-0.txt":        {"filename":    "967-0.txt",
-                         "title":       "Nicholas Nickleby by Charles Dickens",
-                         "characters":
-                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-                                        ["",
-                                        "",
-                                        ""],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["containing a Faithful Account of the Fortunes, Misfortunes,",
-                                                 "Uprisings, Downfallings and Complete Career of the Nickelby Family",
-                                                 """AUTHOR’S PREFACE
+						 "title":       "Nicholas Nickleby by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - A Christmas Carol - CHARACTERS
+										#https://www.sparknotes.com/lit/christmascarol/characters/
+										["",
+										"",
+										""],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["containing a Faithful Account of the Fortunes, Misfortunes,",
+												 "Uprisings, Downfallings and Complete Career of the Nickelby Family",
+												 """AUTHOR’S PREFACE
 
 
 This story was begun, within a few months after the publication of
@@ -1181,13 +1246,13 @@ remark. If Nicholas be not always found to be blameless or agreeable, he
 is not always intended to appear so. He is a young man of an impetuous
 temper and of little or no experience; and I saw no reason why such a
 hero should be lifted out of nature."""],
-                         },
+						 },
 
 
 
 
-#	["821-0.txt", 	"Dombey and Son by Charles Dickens"],
-##	"821-0.txt":      {"filename":    "821-0.txt",
+#   ["821-0.txt",   "Dombey and Son by Charles Dickens"],
+##  "821-0.txt":      {"filename":    "821-0.txt",
 ##                         "title":       "Dombey and Son by Charles Dickens",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1200,9 +1265,9 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 
-#	["676-0.txt",   "The Battle of Life by Charles Dickens"],
+#   ["676-0.txt",   "The Battle of Life by Charles Dickens"],
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1215,8 +1280,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["653-0.txt",   "The Chimes by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["653-0.txt",   "The Chimes by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1229,8 +1294,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["pg43111.txt", "The Personal History of David Copperfield by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["pg43111.txt", "The Personal History of David Copperfield by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1243,8 +1308,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["676-0.txt",   "The Battle of Life by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["676-0.txt",   "The Battle of Life by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1257,8 +1322,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["pg1415.txt",  "Doctor Marigold by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["pg1415.txt",  "Doctor Marigold by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1271,8 +1336,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["810-0.txt",   "George Silverman's Explanation by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["810-0.txt",   "George Silverman's Explanation by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1285,8 +1350,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["809-0.txt",   "Holiday Romance by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["809-0.txt",   "Holiday Romance by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1299,8 +1364,8 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-#	["pg1465.txt",  "The Wreck of the Golden Mary by Charles Dickens"],
-##	"":      {"filename":    "",
+#   ["pg1465.txt",  "The Wreck of the Golden Mary by Charles Dickens"],
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1313,7 +1378,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1326,7 +1391,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1339,7 +1404,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1352,7 +1417,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1365,7 +1430,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1378,7 +1443,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1391,7 +1456,7 @@ hero should be lifted out of nature."""],
 ##                         "garbage to delete":   [],
 ##
 ##
-##	"":      {"filename":    "",
+##  "":      {"filename":    "",
 ##                         "title":       "",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
@@ -1408,270 +1473,271 @@ hero should be lifted out of nature."""],
 
 
 titles = ["Lady", "Grandmother", "Mrs.", "Miss", "Mr.", "Doctor", "Dr.", "Uncle",
-          "Inspector", "Captain", "Prince", "Grandfather",
-          "Monsieur", "Madame", "Mademoiselle", "Marquis"]
+		  "Inspector", "Captain", "Prince", "Grandfather",
+		  "Monsieur", "Madame", "Mademoiselle", "Marquis"]
 
 
 
 def modify_files(VERBOSE=1):
-    converted_count = 0
-    thisdir = os.getcwd()
-    keys = characters_dict.keys()
-    keys.sort()
-    for f in keys:
-        if VERBOSE == 1:
-            print "working on file '%s'..." % f
-        else:
-            print ".",
-        if os.path.isfile(os.path.join(thisdir, "raw", f)):
-            if VERBOSE == 1:
-                print "\t('%s')" % string.split(characters_dict[f]["title"], " by ")[0] 
-            else:
-                print ".",
-            converted_count = converted_count + 1
-            prefix, suffix = string.split(f, ".")
-            newfn = "%s_NEW.%s" % (prefix, suffix)
-            outfile = io.open(os.path.join(thisdir, "modified", newfn), encoding="UTF-8", mode="w")
-            infile = io.open(os.path.join(thisdir, "raw", f), encoding="UTF-8", mode="r").read()
-            infile = stripheaders.strip_headers(infile)
-            infile = stupify(infile)
+	converted_count = 0
+	thisdir = os.getcwd()
+	keys = characters_dict.keys()
+	keys.sort()
+	for f in keys:
+		if VERBOSE == 1:
+			print "working on file '%s'..." % f
+		else:
+			print ".",
+		if os.path.isfile(os.path.join(thisdir, "raw", f)):
+			if VERBOSE == 1:
+				print "\t('%s')" % string.split(characters_dict[f]["title"], " by ")[0] 
+			else:
+				print ".",
+			converted_count = converted_count + 1
+			prefix, suffix = string.split(f, ".")
+			newfn = "%s_NEW.%s" % (prefix, suffix)
+			outfile = io.open(os.path.join(thisdir, "modified", newfn), encoding="UTF-8", mode="w")
+			infile = io.open(os.path.join(thisdir, "raw", f), encoding="UTF-8", mode="r").read()
+			infile = stripheaders.strip_headers(infile)
+			infile = stupify(infile)
 
-            full_title = characters_dict[f]["title"]
-            full_title_placeholder = "[BOOK_FULL_TITLE]"
-            try:
-                infile = infile.replace(full_title.decode("UTF-8", "ignore"), full_title_placeholder.decode("UTF-8", "ignore"))
-            except:
-                infile = infile.replace(full_title.encode("UTF-8", "ignore"), full_title_placeholder.encode("UTF-8", "ignore"))
+			full_title = characters_dict[f]["title"]
+			full_title_placeholder = "[BOOK_FULL_TITLE]"
+			try:
+				infile = infile.replace(full_title.decode("UTF-8", "ignore"), full_title_placeholder.decode("UTF-8", "ignore"))
+			except:
+				infile = infile.replace(full_title.encode("UTF-8", "ignore"), full_title_placeholder.encode("UTF-8", "ignore"))
 
-            short_title = string.split(characters_dict[f]["title"], " by ")[0] 
-            short_title_placeholder = "[BOOK_SHORT_TITLE]"
-            try:
-                infile = infile.replace(short_title.decode("UTF-8", "ignore"), short_title_placeholder.decode("UTF-8", "ignore"))
-            except:
-                infile = infile.replace(short_title.encode("UTF-8", "ignore"), short_title_placeholder.encode("UTF-8", "ignore"))
+			short_title = string.split(characters_dict[f]["title"], " by ")[0] 
+			short_title_placeholder = "[BOOK_SHORT_TITLE]"
+			try:
+				infile = infile.replace(short_title.decode("UTF-8", "ignore"), short_title_placeholder.decode("UTF-8", "ignore"))
+			except:
+				infile = infile.replace(short_title.encode("UTF-8", "ignore"), short_title_placeholder.encode("UTF-8", "ignore"))
 
-            short_title_caps = string.upper(short_title) 
-            short_title_caps_placeholder = "[BOOK_SHORT_TITLE_CAPS]"
-            try:
-                infile = infile.replace(short_title_caps.decode("UTF-8", "ignore"), short_title_caps_placeholder.decode("UTF-8", "ignore"))
-            except:
-                infile = infile.replace(short_title_caps.encode("UTF-8", "ignore"), short_title_caps_placeholder.encode("UTF-8", "ignore"))
+			short_title_caps = string.upper(short_title) 
+			short_title_caps_placeholder = "[BOOK_SHORT_TITLE_CAPS]"
+			try:
+				infile = infile.replace(short_title_caps.decode("UTF-8", "ignore"), short_title_caps_placeholder.decode("UTF-8", "ignore"))
+			except:
+				infile = infile.replace(short_title_caps.encode("UTF-8", "ignore"), short_title_caps_placeholder.encode("UTF-8", "ignore"))
 
-            author1 = "Charles Dickens"
-            author2 = string.upper(author1)
+			author1 = "Charles Dickens"
+			author2 = string.upper(author1)
 
-            author_placeholder = "[AUTHOR]"
-            author_placeholder_caps = "[AUTHOR_CAPS]"
-            try:
-                infile = infile.replace(author1.decode("UTF-8", "ignore"), author_placeholder.decode("UTF-8", "ignore"))
-            except:
-                infile = infile.replace(author1.encode("UTF-8", "ignore"), author_placeholder.encode("UTF-8", "ignore"))
-            try:
-                infile = infile.replace(author1.decode("UTF-8", "ignore"), author_placeholder.decode("UTF-8", "ignore"))
-            except:
-                infile = infile.replace(author2.encode("UTF-8", "ignore"), author_placeholder_caps.encode("UTF-8", "ignore"))
+			author_placeholder = "[AUTHOR]"
+			author_placeholder_caps = "[AUTHOR_CAPS]"
+			try:
+				infile = infile.replace(author1.decode("UTF-8", "ignore"), author_placeholder.decode("UTF-8", "ignore"))
+			except:
+				infile = infile.replace(author1.encode("UTF-8", "ignore"), author_placeholder.encode("UTF-8", "ignore"))
+			try:
+				infile = infile.replace(author1.decode("UTF-8", "ignore"), author_placeholder.decode("UTF-8", "ignore"))
+			except:
+				infile = infile.replace(author2.encode("UTF-8", "ignore"), author_placeholder_caps.encode("UTF-8", "ignore"))
 
 
-            #make use of this later...
-            exceptions = ["Artful Dodger", "The Convict"]
+			#make use of this later...
+			exceptions = ["Artful Dodger", "The Convict"]
 
-            CHARACTER_NUMBER = 0
-            for character_name in characters_dict[f]["characters"]:
-                #do all the characters first, in case they share surnames...
-                CHARACTER_NUMBER = CHARACTER_NUMBER + 1
-                placeholder = "[CHARACTER_NAME_%03d]" % CHARACTER_NUMBER
-                #infile = infile.replace(character_name.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
-                if type(character_name) in (StringType, UnicodeType):
-                    character_name_caps = string.upper(character_name)
-                    placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
-                    try:
-                        infile = infile.replace(character_name.decode("UTF-8", "ignore"), placeholder.decode("UTF-8", "ignore"))
-                    except:
-                        try:
-                            infile = infile.replace(character_name.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
-                        except:
-                            print """FAILED ON '%s'!""" % character_name
-                    try:
-                        infile = infile.replace(character_name_caps.decode("UTF-8", "ignore"), placeholder_caps.decode("UTF-8", "ignore"))
-                    except:
-                        try:
-                            infile = infile.replace(character_name_caps.encode("UTF-8", "ignore"), placeholder_caps.encode("UTF-8", "ignore"))
-                        except:
-                            print """FAILED ON '%s'!""" % character_name_caps
-                elif type(character_name) in (TupleType, ListType):
-                    for cn in character_name:
-                        character_name_caps = string.upper(cn)
-                        placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
-                        try:
-                            infile = infile.replace(cn.decode("UTF-8", "ignore"), placeholder.decode("UTF-8", "ignore"))
-                            infile = infile.replace(character_name_caps.decode("UTF-8", "ignore"), placeholder_caps.decode("UTF-8", "ignore"))
-                        except:
-                            infile = infile.replace(cn.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
-                            infile = infile.replace(character_name_caps.encode("UTF-8", "ignore"), placeholder_caps.encode("UTF-8", "ignore"))
+			CHARACTER_NUMBER = 0
+			for character_name in characters_dict[f]["characters"]:
+				#do all the characters first, in case they share surnames...
+				CHARACTER_NUMBER = CHARACTER_NUMBER + 1
+				placeholder = "[CHARACTER_NAME_%03d]" % CHARACTER_NUMBER
+				#infile = infile.replace(character_name.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
+				if type(character_name) in (StringType, UnicodeType):
+					character_name_caps = string.upper(character_name)
+					placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
+					try:
+						infile = infile.replace(character_name.decode("UTF-8", "ignore"), placeholder.decode("UTF-8", "ignore"))
+					except:
+						try:
+							infile = infile.replace(character_name.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
+						except:
+							print """FAILED ON '%s'!""" % character_name
+					try:
+						infile = infile.replace(character_name_caps.decode("UTF-8", "ignore"), placeholder_caps.decode("UTF-8", "ignore"))
+					except:
+						try:
+							infile = infile.replace(character_name_caps.encode("UTF-8", "ignore"), placeholder_caps.encode("UTF-8", "ignore"))
+						except:
+							print """FAILED ON '%s'!""" % character_name_caps
+				elif type(character_name) in (TupleType, ListType):
+					for cn in character_name:
+						character_name_caps = string.upper(cn)
+						placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
+						try:
+							infile = infile.replace(cn.decode("UTF-8", "ignore"), placeholder.decode("UTF-8", "ignore"))
+							infile = infile.replace(character_name_caps.decode("UTF-8", "ignore"), placeholder_caps.decode("UTF-8", "ignore"))
+						except:
+							infile = infile.replace(cn.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
+							infile = infile.replace(character_name_caps.encode("UTF-8", "ignore"), placeholder_caps.encode("UTF-8", "ignore"))
 
-            CHARACTER_NUMBER = 0
-            for character_name in characters_dict[f]["characters"]:
-                CHARACTER_NUMBER = CHARACTER_NUMBER + 1
-                if type(character_name) in (StringType, UnicodeType):
-                    if len(string.split(character_name, " ")) == 2:
-                        firstname, surname = string.split(character_name, " ")
-                        surname_placeholder = "[CHARACTER_%03d_SURNAME]" % CHARACTER_NUMBER
-                        firstname_placeholder = "[CHARACTER_%03d_FIRSTNAME]" % CHARACTER_NUMBER
-                        firstname_caps = string.upper(firstname)
-                        firstname_placeholder_caps = "[CHARACTER_%03d_FIRSTNAME_CAPS]" % CHARACTER_NUMBER
-                        surname_caps = string.upper(surname)
-                        surname_placeholder_caps = "[CHARACTER_%03d_SURNAME_CAPS]" % CHARACTER_NUMBER
-                        if firstname not in titles:
-                            try:
-                                infile = infile.replace(firstname.decode("UTF-8", "ignore"), firstname_placeholder.decode("UTF-8", "ignore"))
-                            except:
-                                infile = infile.replace(firstname.encode("UTF-8", "ignore"), firstname_placeholder.encode("UTF-8", "ignore"))
-                            try:
-                                infile = infile.replace(firstname_caps.decode("UTF-8", "ignore"), firstname_placeholder_caps.decode("UTF-8", "ignore"))
-                            except:
-                                infile = infile.replace(firstname_caps.encode("UTF-8", "ignore"), firstname_placeholder_caps.encode("UTF-8", "ignore"))
-                        try:
-                            infile = infile.replace(surname.decode("UTF-8", "ignore"), surname_placeholder.decode("UTF-8", "ignore"))
-                        except:
-                            try:
-                                infile = infile.replace(surname.encode("UTF-8", "ignore"), surname_placeholder.encode("UTF-8", "ignore"))
-                            except:
-                                print "FAILED ON '%s'!" % surname
+			CHARACTER_NUMBER = 0
+			for character_name in characters_dict[f]["characters"]:
+				CHARACTER_NUMBER = CHARACTER_NUMBER + 1
+				if type(character_name) in (StringType, UnicodeType):
+					if len(string.split(character_name, " ")) == 2:
+						firstname, surname = string.split(character_name, " ")
+						surname_placeholder = "[CHARACTER_%03d_SURNAME]" % CHARACTER_NUMBER
+						firstname_placeholder = "[CHARACTER_%03d_FIRSTNAME]" % CHARACTER_NUMBER
+						firstname_caps = string.upper(firstname)
+						firstname_placeholder_caps = "[CHARACTER_%03d_FIRSTNAME_CAPS]" % CHARACTER_NUMBER
+						surname_caps = string.upper(surname)
+						surname_placeholder_caps = "[CHARACTER_%03d_SURNAME_CAPS]" % CHARACTER_NUMBER
+						if firstname not in titles:
+							try:
+								infile = infile.replace(firstname.decode("UTF-8", "ignore"), firstname_placeholder.decode("UTF-8", "ignore"))
+							except:
+								infile = infile.replace(firstname.encode("UTF-8", "ignore"), firstname_placeholder.encode("UTF-8", "ignore"))
+							try:
+								infile = infile.replace(firstname_caps.decode("UTF-8", "ignore"), firstname_placeholder_caps.decode("UTF-8", "ignore"))
+							except:
+								infile = infile.replace(firstname_caps.encode("UTF-8", "ignore"), firstname_placeholder_caps.encode("UTF-8", "ignore"))
+						try:
+							infile = infile.replace(surname.decode("UTF-8", "ignore"), surname_placeholder.decode("UTF-8", "ignore"))
+						except:
+							try:
+								infile = infile.replace(surname.encode("UTF-8", "ignore"), surname_placeholder.encode("UTF-8", "ignore"))
+							except:
+								print "FAILED ON '%s'!" % surname
 
-                        try:
-                            infile = infile.replace(surname_caps.decode("UTF-8", "ignore"), surname_placeholder_caps.decode("UTF-8", "ignore"))
-                        except:
-                            try:
-                                infile = infile.replace(surname_caps.encode("UTF-8", "ignore"), surname_placeholder_caps.encode("UTF-8", "ignore"))
-                            except:
-                                print "FAILED ON '%s'!" % surname
+						try:
+							infile = infile.replace(surname_caps.decode("UTF-8", "ignore"), surname_placeholder_caps.decode("UTF-8", "ignore"))
+						except:
+							try:
+								infile = infile.replace(surname_caps.encode("UTF-8", "ignore"), surname_placeholder_caps.encode("UTF-8", "ignore"))
+							except:
+								print "FAILED ON '%s'!" % surname
 
-                elif type(character_name) in (TupleType, ListType):
-                    for cn in character_name:
-                        if len(string.split(cn, " ")) == 2:
-                            firstname, surname = string.split(cn, " ")
-                            surname_placeholder = "[CHARACTER_%03d_SURNAME]" % CHARACTER_NUMBER
-                            firstname_placeholder = "[CHARACTER_%03d_FIRSTNAME]" % CHARACTER_NUMBER
-                            firstname_caps = string.upper(firstname)
-                            firstname_placeholder_caps = "[CHARACTER_%03d_FIRSTNAME_CAPS]" % CHARACTER_NUMBER
-                            surname_caps = string.upper(surname)
-                            surname_placeholder_caps = "[CHARACTER_%03d_SURNAME_CAPS]" % CHARACTER_NUMBER
-                            if firstname not in titles:
-                                try:
-                                    infile = infile.replace(firstname.decode("UTF-8", "ignore"), firstname_placeholder.decode("UTF-8", "ignore"))
-                                except:
-                                    infile = infile.replace(firstname.encode("UTF-8", "ignore"), firstname_placeholder.encode("UTF-8", "ignore"))
+				elif type(character_name) in (TupleType, ListType):
+					for cn in character_name:
+						if len(string.split(cn, " ")) == 2:
+							firstname, surname = string.split(cn, " ")
+							surname_placeholder = "[CHARACTER_%03d_SURNAME]" % CHARACTER_NUMBER
+							firstname_placeholder = "[CHARACTER_%03d_FIRSTNAME]" % CHARACTER_NUMBER
+							firstname_caps = string.upper(firstname)
+							firstname_placeholder_caps = "[CHARACTER_%03d_FIRSTNAME_CAPS]" % CHARACTER_NUMBER
+							surname_caps = string.upper(surname)
+							surname_placeholder_caps = "[CHARACTER_%03d_SURNAME_CAPS]" % CHARACTER_NUMBER
+							if firstname not in titles:
+								try:
+									infile = infile.replace(firstname.decode("UTF-8", "ignore"), firstname_placeholder.decode("UTF-8", "ignore"))
+								except:
+									infile = infile.replace(firstname.encode("UTF-8", "ignore"), firstname_placeholder.encode("UTF-8", "ignore"))
 
-                                try:
-                                    infile = infile.replace(firstname_caps.decode("UTF-8", "ignore"), firstname_placeholder_caps.decode("UTF-8", "ignore"))
-                                except:
-                                    infile = infile.replace(firstname_caps.encode("UTF-8", "ignore"), firstname_placeholder_caps.encode("UTF-8", "ignore"))
+								try:
+									infile = infile.replace(firstname_caps.decode("UTF-8", "ignore"), firstname_placeholder_caps.decode("UTF-8", "ignore"))
+								except:
+									infile = infile.replace(firstname_caps.encode("UTF-8", "ignore"), firstname_placeholder_caps.encode("UTF-8", "ignore"))
 
-                            try:
-                                infile = infile.replace(surname.decode("UTF-8", "ignore"), surname_placeholder.decode("UTF-8", "ignore"))
-                            except:
-                                infile = infile.replace(surname.encode("UTF-8", "ignore"), surname_placeholder.encode("UTF-8", "ignore"))
+							try:
+								infile = infile.replace(surname.decode("UTF-8", "ignore"), surname_placeholder.decode("UTF-8", "ignore"))
+							except:
+								infile = infile.replace(surname.encode("UTF-8", "ignore"), surname_placeholder.encode("UTF-8", "ignore"))
 
-                            try:
-                                infile = infile.replace(surname_caps.decode("UTF-8", "ignore"), surname_placeholder_caps.decode("UTF-8", "ignore"))
-                            except:
-                                try:
-                                    infile = infile.replace(surname_caps.encode("UTF-8", "ignore"), surname_placeholder_caps.encode("UTF-8", "ignore"))
-                                except:
-                                    print "FAILED ON '%s'!" % surname
-            outfile.write(infile.decode("UTF-8", "ignore"))
-            outfile.close()
-            if VERBOSE == 1:
-                print "\twrote output file '%s'\n" % os.path.join(thisdir, "modified", newfn)
-            else:
-                print ".",
-        else:
-            print "\tNO DATA FILE FOUND FOR '%s'!\n" % f
-                       
-    os.chdir(thisdir)
-    if VERBOSE == 1:
-        print "DONE."
-        print "nConverted %s files.\n" % converted_count
-    else:
-        print "DONE."
+							try:
+								infile = infile.replace(surname_caps.decode("UTF-8", "ignore"), surname_placeholder_caps.decode("UTF-8", "ignore"))
+							except:
+								try:
+									infile = infile.replace(surname_caps.encode("UTF-8", "ignore"), surname_placeholder_caps.encode("UTF-8", "ignore"))
+								except:
+									print "FAILED ON '%s'!" % surname
+			outfile.write(infile.decode("UTF-8", "ignore"))
+			outfile.close()
+			if VERBOSE == 1:
+				print "\twrote output file '%s'\n" % os.path.join(thisdir, "modified", newfn)
+			else:
+				print ".",
+		else:
+			print "\tNO DATA FILE FOUND FOR '%s'!\n" % f
+					   
+	os.chdir(thisdir)
+	if VERBOSE == 1:
+		print "DONE."
+		print "nConverted %s files.\n" % converted_count
+	else:
+		print "DONE."
 
 def test_names():
-    "test to see if names are recognised as male or female..."
+	"test to see if names are recognised as male or female..."
 
-    all_names = []
-    unrecognised_names = []
+	all_names = []
+	unrecognised_names = []
 
-    for key in characters_dict.keys():
-        characters = characters_dict[key]["characters"]
-        for c in characters:
-            if type(c) in (StringType, UnicodeType):
-                all_names.append(c)
-            elif type(c) in (ListType, TupleType):
-                for d in c:
-                    all_names.append(d)
-    all_name = all_names.sort()
-    names_tested = 0
-    recognised_names = 0
-    unrecognised_names_count = 0
+	for key in characters_dict.keys():
+		characters = characters_dict[key]["characters"]
+		for c in characters:
+			if type(c) in (StringType, UnicodeType):
+				all_names.append(c)
+			elif type(c) in (ListType, TupleType):
+				for d in c:
+					all_names.append(d)
+	all_name = all_names.sort()
+	names_tested = 0
+	recognised_names = 0
+	unrecognised_names_count = 0
 
-    for n in all_names:
-        names_tested = names_tested + 1
-        if string.find(n, " ") > -1:
-            firstname, surname = string.split(n, " ", maxsplit=1)
-        else:
-            firstname = n
-            
-        if firstname in names.female_firstnames:
-            print "name:\t'%s'\tFEMALE" % firstname
-            recognised_names = recognised_names + 1
-        elif firstname in names.male_firstnames:
-            print "name:\t'%s'\tMALE" % firstname
-            recognised_names = recognised_names + 1
-        elif firstname == "Mr.":
-            print "name:\t'%s'\tMALE" % n
-            recognised_names = recognised_names + 1
-        elif firstname in ("Mrs.", "Miss", "Madame"):
-            print "name:\t'%s'\tFEMALE" % n
-            recognised_names = recognised_names + 1
-        elif firstname in titles:
-            recognised_names = recognised_names + 1
-        else:
-            unrecognised_names.append(n)
-            unrecognised_names_count = recognised_names + 1
+	for n in all_names:
+		names_tested = names_tested + 1
+		if string.find(n, " ") > -1:
+			firstname, surname = string.split(n, " ", maxsplit=1)
+		else:
+			firstname = n
+			
 
-    unrecognised_names.sort()            
+		if check_gender(firstname) == "female":
+			print "name:\t'%s'\tFEMALE" % firstname
+			recognised_names = recognised_names + 1
+		elif check_gender(firstname) == "male":
+			print "name:\t'%s'\tMALE" % firstname
+			recognised_names = recognised_names + 1
+		elif firstname == "Mr.":
+			print "name:\t'%s'\tMALE" % n
+			recognised_names = recognised_names + 1
+		elif firstname in ("Mrs.", "Miss", "Madame"):
+			print "name:\t'%s'\tFEMALE" % n
+			recognised_names = recognised_names + 1
+		elif firstname in titles:
+			recognised_names = recognised_names + 1
+		else:
+			unrecognised_names.append(n)
+			unrecognised_names_count = recognised_names + 1
 
-    print "\n\n%s names tested.\n%s names reconised\n%s names UNRECOGNISED" % (names_tested,
-                                                                               recognised_names,
-                                                                               unrecognised_names_count)
+	unrecognised_names.sort()            
+
+	print "\n\n%s names tested.\n%s names reconised\n%s names UNRECOGNISED" % (names_tested,
+																			   recognised_names,
+																			   unrecognised_names_count)
 
 
-    print "\n\nUNRECONISED NAMES:"
+	print "\n\nUNRECONISED NAMES:"
 
-    outfile = open("UNREGONISED_NAMES_LOG.txt", "w")
-    for n in unrecognised_names:
-        print "\t%s" % n
-        outfile.write("\t%s\n" % n)
-    outfile.close()
+	outfile = open("UNREGONISED_NAMES_LOG.txt", "w")
+	for n in unrecognised_names:
+		print "\t%s" % n
+		outfile.write("\t%s\n" % n)
+	outfile.close()
 
 
 def count_files():
-    if os.path.isdir("raw"):
-        thisdir = os.getcwd()
-        os.chdir(os.path.join(thisdir, "raw"))
-        allfiles = glob.glob("*.txt")
-        os.chdir(thisdir)
-        return len(allfiles)
-    else:
-        return 0
+	if os.path.isdir("raw"):
+		thisdir = os.getcwd()
+		os.chdir(os.path.join(thisdir, "raw"))
+		allfiles = glob.glob("*.txt")
+		os.chdir(thisdir)
+		return len(allfiles)
+	else:
+		return 0
 
 if __name__ == "__main__":
-    if VERBOSE == 1:
-        print "\n'What The Dickens'\n"
-        print "%s Dickens books known about" % (len(index))
-        print "%s data files found\n\n" % count_files()
-        print
-    modify_files(VERBOSE=VERBOSE)
-    #modify_files(0)
-    test_names()
-    
+	if VERBOSE == 1:
+		print "\n'What The Dickens'\n"
+		print "%s Dickens books known about" % (len(index))
+		print "%s data files found\n\n" % count_files()
+		print
+	modify_files(VERBOSE=VERBOSE)
+	#modify_files(0)
+	test_names()
+	
