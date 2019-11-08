@@ -33,8 +33,10 @@ VERBOSE = 0
 #create a suitably diminutive replacement
 
 little_people = [["Little Em'ly", "Emily"],
+				 "Little Em'ly",
 				 "Tiny Tim",
 				 ["Little Nell", "Nell", "Nell Trent", "Nelly Trent"],
+				 "Little Nell"
 				 ]
 
 
@@ -43,15 +45,17 @@ little_people = [["Little Em'ly", "Emily"],
 DICKENS_FEMALE_NAMES = [
 	"Betsey", "Biddy", "Clemency", "Clementina", 
 	"Lucie", "Maggy", "Sissy", "Sophy", "Sophronia", "Susannab", #!!! Susannab? Looks like a typo,but isn't.
-	"Pleasant", "Volumnia", "Nell", "Nelly", "Em'ly", "Caddy"
+	"Pleasant", "Volumnia", "Nell", "Nelly", "Nettie", "Em'ly",
+	"Caddy"
 	]
 
 DICKENS_MALE_NAMES = [
 	"Abel", "Augustus", "Baytham", "Bentley", "Charley", "Ebenezer",
 	"Ham", "Jem", "Job", "Josiah", "Kit", "Sampson", "Nemo",
 	"Nicodemus", "Noddy", "Neddy", "Watt", "Wilkins", "Uriah",
-	"Leicester", "Serjeant", "Rogue", "Jean-Baptiste", "Dolge",
-	"Chick", "Tite"
+	"Leicester", "Serjeant", "Rogue", "Jean-Baptiste", "Dolge", #!!! "Serjeant" is a name, not a rank in this context.
+	"Chick", "Tite", "Reuben",
+	"Jean-baptiste" # allows for error by using 'string.capwords'
 	]
 
 
@@ -80,6 +84,16 @@ def check_gender(name):
 			firstname = pt1
 		elif string.capwords(pt2) in allnames:
 			firstname = pt2
+	elif name in little_people:
+		if type(name) in (StringType, UnicodeType):
+			firstname = string.split(name, " ")[1]
+		elif type(name) in (ListType, TupleType):
+			for nn in name:
+				if len(string.split(nn, " ")) > 1:
+					firstname = string.split(nn, " ")[1]
+				elif len(string.split(nn, " ")) == 1:
+					firstname = string.split(nn, " ")[0]
+		
 	else:
 		pt1, pt2, pt3 = string.split(name, " ", maxsplit=2)
 		if pt1 in allnames:
@@ -88,6 +102,7 @@ def check_gender(name):
 			firstname = pt2
 		elif pt3 in allnames:
 			firstname = pt3
+	
 
 	#check for the gender...
 	if firstname in names.male_firstnames:
@@ -396,10 +411,10 @@ December, 1843.
 										"Miss Skiffins",
 										#additional
 										["Georgiana",   "Georgiana Pirrip"],
-                                        ["Alexander",   "Alexander Pirrip"],
+										["Alexander",   "Alexander Pirrip"],
 										["Bartholomew", "Bartholomew Pirrip"],
 										["Abraham",     "Abraham Pirrip"]
-                                         ],
+										 ],
 						 "chapter dividers":    None,
 						 "chapter names":       None,
 						 "garbage to delete":   ["[1867 Edition]\n",
@@ -896,7 +911,7 @@ _Chatham, N.J._
 										"Dick Swiveller",
 										"Fred Trent",
 										["Little Nell", "Nell", "Nell Trent", "Nelly Trent"],
-                                         ],
+										 ],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   [],
@@ -1408,7 +1423,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 						 "characters":
 										["Doctor Marigold",
 										 "Sophy Marigold",
-                                         "Willum Redgrave"],
+										 "Willum Redgrave"],
 						 "chapter dividers":    None,
 						 "chapter names":       None,
 						 "garbage to delete":   ["""Transcribed from the 1894 Chapman and Hall "Christmas Stories" edition by""",
@@ -1444,21 +1459,32 @@ Bradbury and Evans, Printers, Whitefriars.""",
 						 },
 
 
-#   ["809-0.txt",   "Holiday Romance by Charles Dickens"],
-##  "809-0.txt":      {"filename":    "809-0.txt",
-##                         "title":       "Holiday Romance by Charles Dickens",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##						 "main character":    None,
-##
-##
+  "809-0.txt":          {"filename":    "809-0.txt",
+                         "title":       "Holiday Romance by Charles Dickens",
+                         "characters":
+                                        ["William Tinkling",
+                                        ["Nettie Ashford", "Miss Nettie Ashford"],
+                                        ["Lieut.-Col. Robin Redforth", "Robin Redforth"],
+                                        "Alice Rainbird",
+                                        "Miss Grimmer"],
+                         "chapter dividers":    "PART ",
+                         "chapter names":       None,
+                         "garbage to delete":   ["Transcribed from the 1905 Chapman and Hall “Hard Times and Reprinted",
+"Pieces” edition by David Price, email ccx074@pglaf.org",
+                                                 """FOOTNOTES
+
+
+{251}  Aged eight.
+
+{258}  Aged seven.
+
+{266}  Aged nine.
+
+{274}  Aged half-past six."""],
+                         "main character":    "William Tinkling",
+						 },
+
+
 #   ["pg1465.txt",  "The Wreck of the Golden Mary by Charles Dickens"],
 ##  "pg1465.txt":      {"filename":    "pg1465.txt",
 ##                         "title":       "The Wreck of the Golden Mary by Charles Dickens",
@@ -1471,77 +1497,162 @@ Bradbury and Evans, Printers, Whitefriars.""",
 ##                         "chapter dividers":    None,
 ##                         "chapter names":       None,
 ##                         "garbage to delete":   [],
-##						 "main character":    None,
+##                       "main character":    None,
 ##
 
 #["917-0.txt",   "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens"],
 #Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens
-##
-##  "917-0.txt":      {"filename":    "917-0.txt",
-###                         "title":       "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens",
-##                         "title":       "Barnaby Rudge by Charles Dickens",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##						 "main character":    None,
-##
-#	["pg23765.txt", "Captain Boldheart & the Latin-Grammar Master by Charles Dickens"],
-#Captain Boldheart & the Latin-Grammar Master by Charles Dickens
-##
-##  "pg23765.txt":      {"filename":    "pg23765.txt",
-##                         "title":       "Captain Boldheart & the Latin-Grammar Master by Charles Dickens",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##						 "main character":    None,
-##
-##
+
+  "917-0.txt":           {"filename":    "917-0.txt",
+#                         "title":       "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens",
+                         "title":       "Barnaby Rudge by Charles Dickens",
+                         "characters":
+                                        #from GradeSaver - Study Guides - Barnaby Rudge - Character List
+                                        #https://www.gradesaver.com/barnaby-rudge/study-guide/character-list
+                                        ["Barnaby Rudge",
+										 "Mary Rudge",
+										 ["Old John Willet", "John Willet"],
+										 "Joe Willets",
+										 "Gabriel Varden",
+										 "Geoffrey Haredale",
+										 "Reuben Haredale",
+										 "Emma Haredale",
+										 "John Chester",
+										 "Edward Chester",
+										 ["Barnaby Rudge Senior", "Barnaby Rudge, Sr"],
+                                         "Mr. Waterton"],
+                         "chapter dividers":    None,
+                         "chapter names":       None,
+                         "garbage to delete":   ["Produced by Donald Lainson",
+                                                 """Contibutor’s Note:
+
+I’ve left in archaic forms such as ‘to-morrow’ or ‘to-day’ as they
+occured in my copy. Also please be aware if spell-checking, that within
+dialog many ‘mispelled’ words exist, i.e. ‘wery’ for ‘very’, as intended
+by the author.
+
+D.L."""],
+                       "main character":    "Barnaby Rudge",
+						 },
+
+
+
+
+  "pg23765.txt":      {"filename":    "pg23765.txt",
+                         "title":       "Captain Boldheart & the Latin-Grammar Master by Charles Dickens",
+                         "characters":
+                                        ["Captain Boldheart"],
+                         "chapter dividers":    None,
+                         "chapter names":       None,
+                         "garbage to delete":   ["Produced by Geetu Melwani and the Online Distributed",
+                                                 "Proofreading Team at http://www.pgdp.net (This file was",
+                                                 "produced from images generously made available by The",
+                                                 "Internet Archive/American Libraries.)",
+                                                 "ILLUSTRATED BY",
+                                                 "BEATRICE PEARSE",
+                                                 '[Illustration: "Invited them to Breakfast"]',
+                                                 '[Illustration: "Invited them to Breakfast"]',
+                                                 '[Illustration: "His crew lay grouped around him"]',
+                                                 '[Illustration: THE RESCUE OF WILLIAM BOOZEY.]',
+                                                 '[Illustration: "Arm-in-arm with the Chief"]',
+                                                 '[Illustration: "TWO SAVAGES FLOURED HIM BEFORE PUTTING HIM TO THE',
+                                                 '[Illustration: "THE LATIN-GRAMMAR-MASTER HAD A SPARE NIGHTCAP LENT HIM',
+                                                 '[Illustration: "ERE THE SUN WENT DOWN FULL MANY A HORNPIPE HAD BEEN',
+                                                 '''[Illustration: "Married the Chief's daughter"]''',
+                                                 '[Illustration: "DOST KNOW THE NAME OF YON SHIP, MAYOR?"]',
+                                                 '[Illustration: STANDING SENTRY OVER HIM]',
+                                                 '[Illustration: "His lovely Bride came forth"]',
+                                                 '''[Illustration: "CAPTAIN BOLDHEART'S LADY BEGGED FOR HIM AND HE WAS
+SPARED."]''',
+                                                 """       *       *       *       *       *
+
+
+           THE ORANGE TREE SERIES
+            OF CHILDREN'S BOOKS
+
+FULLY ILLUSTRATED IN COLOUR, 1s. net. Foolscap 4to, boards
+
+       *       *       *       *       *
+
+1. THE STORY OF RICHARD DOUBLEDICK. By Charles Dickens. With
+illustrations by W. B. Wollen, R.I., R.O.I.
+
+2. THE MAGIC FISHBONE. By Charles Dickens. With illustrations by S.
+Beatrice Pearse.
+
+3. THE TRIAL OF WILLIAM TINKLING. By Charles Dickens. With illustrations
+by S. Beatrice Pearse.
+
+4. CAPTAIN BOLDHEART AND THE LATIN-GRAMMAR MASTER. By Charles Dickens.
+With illustrations by S. Beatrice Pearse.
+
+
+           THE WONDER BOOK
+
+By Nathaniel Hawthorne. With Coloured Illustrations by Patten Wilson.
+
+5. THE GORGON'S HEAD
+6. THE GOLDEN TOUCH
+
+_The above are ready. The following are in active preparation._
+
+ 7. THE PARADISE OF CHILDREN
+ 8. THE THREE GOLDEN APPLES
+ 9. THE MIRACULOUS PITCHER
+10. THE CHIMAERA
+
+
+           TANGLEWOOD TALES
+
+By Nathaniel Hawthorne. With Coloured Illustrations by Patten Wilson.
+
+11. THE MINOTAUR
+12. THE PYGMIES
+13. THE DRAGON'S TEETH
+14. CIRCE'S PALACE
+15. THE POMEGRANATE SEEDS
+16. THE GOLDEN FLEECE
+
+LONDON: CONSTABLE & COMPANY, LIMITED
+
+       *       *       *       *       *"""],
+                       "main character":    None,
+						 },
+
 
   "564-0.txt":          {"filename":    "564-0.txt",
-                         "title":       "The Mystery of Edwin Drood by Charles Dickens",
-                         "characters":
-                                        #from eNotes.com - Homework Help - Study Guides - The Mystery of Edwin Drood by Charles Dickens
-                                        #https://www.enotes.com/topics/mystery-edwin-drood/characters
-                                        ["Edwin Drood",
-                                        "Jack Jasper",
-                                        "Rosa Bud",
-                                        "Neville Landless",
-                                        "Helena Landless",
-                                        "Mr. Crisparkle",
-                                        "Mr. Grewgious",
-                                        "Datchery",
-                                        "Durdles"],
-                         "chapter dividers":    "CHAPTER ",
-                         "chapter names":       None,
-                         "garbage to delete":   ["[Picture: Rochester castle]",
-                                                 "[Picture: In the Court]",
-                                                 "[Picture: Under the trees]",
-                                                 "[Picture: At the piano]",
-                                                 "[Picture: On dangerous ground]",
-                                                 "[Picture: Mr. Crisparkle is overpaid]",
-                                                 "[Picture: Durdles cautions Mr. Sapsea against boasting]",
-                                                 '[Picture: "Good-bye, Rosebud darling"]',
-                                                 "[Picture: Mr. Grewgious has his suspicions]",
-                                                 "[Picture: Jasper's sacrifices]",
-                                                 "[Picture: Mr. Grewgious experiences a new sensation]",
-                                                 "[Picture: Up the river]",
-                                                 "[Picture: Sleeping it off]",
-                                                 """ [Picture: Facsimile of a page of the manuscript of “The Mystery of Edwin
-                                 Drood"]"""],
+						 "title":       "The Mystery of Edwin Drood by Charles Dickens",
+						 "characters":
+										#from eNotes.com - Homework Help - Study Guides - The Mystery of Edwin Drood by Charles Dickens
+										#https://www.enotes.com/topics/mystery-edwin-drood/characters
+										["Edwin Drood",
+										"Jack Jasper",
+										"Rosa Bud",
+										"Neville Landless",
+										"Helena Landless",
+										"Mr. Crisparkle",
+										"Mr. Grewgious",
+										"Datchery",
+										"Durdles"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["[Picture: Rochester castle]",
+												 "[Picture: In the Court]",
+												 "[Picture: Under the trees]",
+												 "[Picture: At the piano]",
+												 "[Picture: On dangerous ground]",
+												 "[Picture: Mr. Crisparkle is overpaid]",
+												 "[Picture: Durdles cautions Mr. Sapsea against boasting]",
+												 '[Picture: "Good-bye, Rosebud darling"]',
+												 "[Picture: Mr. Grewgious has his suspicions]",
+												 "[Picture: Jasper's sacrifices]",
+												 "[Picture: Mr. Grewgious experiences a new sensation]",
+												 "[Picture: Up the river]",
+												 "[Picture: Sleeping it off]",
+												 """ [Picture: Facsimile of a page of the manuscript of “The Mystery of Edwin
+								 Drood"]"""],
 						 "main character":       "Edwin Drood",
-                         },
+						 },
 
 }
 
@@ -1549,8 +1660,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 titles = ["Lady", "Grandmother", "Aunt", "Mrs.", "Miss", "Mr.", "Doctor", "Dr.", "Uncle",
 		  "Inspector", "Captain", "Prince", "Grandfather", "Alderman", "Brother",
 		  "Count", "Colonel", "The Hon.", "The Reverend", "Lieutenant", "Sir", "Master",
-		  "Monsieur", "Madame", "Mademoiselle", "Marquis"]
-
+		  "Monsieur", "Madame", "Mademoiselle", "Marquis", "Lieut.-Col."]
 
 
 def modify_files(VERBOSE=1):
