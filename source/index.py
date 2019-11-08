@@ -33,7 +33,8 @@ VERBOSE = 0
 #create a suitably diminutive replacement
 
 little_people = [["Little Em'ly", "Emily"],
-				 "Tiny Tim"
+				 "Tiny Tim",
+				 ["Little Nell", "Nell", "Nell Trent", "Nelly Trent"],
 				 ]
 
 
@@ -41,12 +42,17 @@ little_people = [["Little Em'ly", "Emily"],
 #improve this later...
 
 DICKENS_FEMALE_NAMES = [
-	"Betsey", "Biddy", "Lucie", "Sissy"
+	"Betsey", "Biddy", "Clemency", "Clementina", 
+	"Lucie", "Maggy"< "Sissy", "Sophy", "Sophronia", "Susannab", #!!! Susannab? Looks like a typo,but isn't.
+	"Pleasant", "Volumnia", "Nell", "Nelly", "Em'ly", "Caddy"
 	]
 
 DICKENS_MALE_NAMES = [
-	"Abel", "Augustus", "Ebenezer", "Job Trotter", "Josiah",
-	"Charley"
+	"Abel", "Augustus", "Baytham", "Charley", "Ebenezer",
+	"Ham", "Jem", "Job", "Josiah", "Kit", "Sampson", "Nemo",
+	"Nicodemus", "Noddy", "Neddy", "Watt", "Wilkins", "Uriah",
+	"Leicester", "Serjeant", "Rogue", "Jean-Baptiste", "Dolge",
+	"Chick", "Tite"
 	]
 
 
@@ -107,9 +113,7 @@ index = [
 	["766-0.txt",   "David Copperfield by Charles Dickens"],
 	["pg1023.txt",  "Bleak House by Charles Dickens"],
 	["pg19337.txt", "A Christmas Carol by Charles Dickens"],
-
 	["1289-0.txt",  "Three Ghost Stories by Charles Dickens"],
-
 	["580-0.txt",   "The Pickwick Papers by Charles Dickens"],
 	["700-0.txt",   "The Old Curiosity Shop by Charles Dickens"],
 	["883-0.txt",   "Our Mutual Friend by Charles Dickens"],
@@ -855,7 +859,9 @@ _Chatham, N.J._
 										#"Arabella Allen's aunt",
 										"Mr. Martin",
 										"Mr. Winkle, Sr.",
-										"Wilkins Flasher"],
+										"Wilkins Flasher",
+										"Philip Strother",
+										"Wade Grove"],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   ["Produced by Jo Churcher, and David Widger"]
@@ -876,8 +882,8 @@ _Chatham, N.J._
 										 "The Single Gentleman",
 										"Dick Swiveller",
 										"Fred Trent",
-										"Nelly Trent",
-										"Little Nell"],
+										["Little Nell", "Nell", "Nell Trent", "Nelly Trent"],
+                                         ],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   [],
@@ -892,7 +898,7 @@ _Chatham, N.J._
 										"Eugene Wrayburn",
 										"John Harmon", "John Rokesmith", "Julius Handford",
 										"Silas Wegg",
-										"Noddy Boffin",
+										["Noddy Boffin", "Nicodemus Boffin"],
 										"Mrs. Boffin",
 										"Bella Wilfer",
 										"Charley Hexam",
@@ -1249,110 +1255,174 @@ hero should be lifted out of nature."""],
 						 },
 
 
+  "821-0.txt":          {"filename":    "821-0.txt",
+						 "title":       "Dombey and Son by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Charles Dickens Info - Characters in Dombey and Son
+										#https://www.charlesdickensinfo.com/novels/dombey-and-son/whos-who/
+										["Louisa Chick",
+										 ["Captain Edward (Ned) Cuttle", "Captain Edward Cuttle", "Captain Ned Cuttle",
+										  "Edward Cuttle", "Ned Cuttle", "Captain Cuttle"],
+										 "Florence Dombey",
+										 ["Paul Dombey", "Mr. Dombey"],
+										 ["Paul Jr. Dombey", "Paul Dombey, Jr."],
+										 "Walter Gay",
+										 ["Solomon Gills", "Uncle Sol"],
+										 "Edith Granger",
+										 ["Miss Susan Nipper", "Susan Nipper", "Miss Nipper"]
+										 ],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["Transcribed from the 1867/68 Chapman and Hall_ Works of Charles Dickens_,",
+												 "_Volume_ 4, _Christmas Books_ by David Price, email ccx074@pglaf.org",
+												 "[Picture: Public domain book cover]"],
+						 },
 
 
-#   ["821-0.txt",   "Dombey and Son by Charles Dickens"],
-##  "821-0.txt":      {"filename":    "821-0.txt",
-##                         "title":       "Dombey and Son by Charles Dickens",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
+  "676-0.txt":          {"filename":    "676-0.txt",
+						 "title":       "The Battle of Life by Charles Dickens",
+						 "characters":
+										#from Wikipedia, the free encyclopedia
+										#https://en.wikipedia.org/wiki/The_Battle_of_Life
+										["Grace Jeddler",
+										 "Marion Jeddler",
+										 "Clemency Newcome",
+										 "Ben Britain",
+										 "Dr. Jeddler",
+										 "Alfred Heathfield",
+										 "Michael Warden",
+										 "Snitchey",
+										 "Craggs",
+										 ["aunt Martha", "Martha"]
+										 ],
+						 "chapter dividers":    "Part the ",
+						 "chapter names":       None,
+						 "garbage to delete":   []
+						 },
 
-#   ["676-0.txt",   "The Battle of Life by Charles Dickens"],
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
+
 #   ["653-0.txt",   "The Chimes by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-#   ["pg43111.txt", "The Personal History of David Copperfield by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-#   ["676-0.txt",   "The Battle of Life by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-#   ["pg1415.txt",  "Doctor Marigold by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
+  "653-0.txt":          {"filename":    "653-0.txt",
+						 "title":       "The Chimes by Charles Dickens",
+						 "characters":
+										#from Wikipedia, the free encyclopedia
+										#https://en.wikipedia.org/wiki/The_Chimes
+										[
+											["Toby 'Trotty' Veck", "Toby Veck", "Trotty Veck"],
+											["Margaret 'Meg' Veck", "Margaret Veck", "Meg Veck"],
+											["Mrs. Anne Chickenstalker", "Anne Chickenstalker", "Mrs. Chickenstalker"],
+											"Alderman Cute",
+											"Mr. Filer",
+											["Sir Joseph Bowley", "Sir Joseph", "Joseph Bowley"],
+											"Will Fern",
+											"Lilian Fern"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   [],
+						 },
+
+
+  "pg43111.txt":      {"filename":    "pg43111.txt",
+						 "title":       "The Personal History of David Copperfield by Charles Dickens",
+						 "characters":
+										#Charles Dickens Info - Characters in David Copperfield
+										#https://www.charlesdickensinfo.com/novels/david-copperfield/whos-who/
+										[
+											["Richard Babley", "Mr. Dick"],
+											"Barkis",
+											"Clara Copperfield",
+											"David Copperfield",
+											"Mr. Creakle",
+											#["Little Em’ly", "Emily"],
+											["Little Em'ly", "Emily"],
+											"Mrs. Grummidge",
+											"Uriah Heep",
+											"Littimer",
+											"Wilkins Micawber",
+											"Edward Murdstone",
+											"Jane Murdstone",
+											"Clara Peggotty",
+											"Daniel Peggotty",
+											"Ham Peggotty",
+											"Dora Spenlow",
+											"James Steerforth",
+											"Dr. Strong",
+											"Tommy Traddles",
+											"Betsey Trotwood",
+											"Agnes Wickfield",
+											"Mr. Wickfield"],
+						 "chapter dividers":    "CHAPTER ",
+						 "chapter names":       None,
+						 "garbage to delete":   ["""Transcriber's note:""",
+												 "The errors detailed in the errata at the start of the print"
+												 "edition have been corrected.",
+												 "Text enclosed by underscores is in italics (_italics_).",
+												 "oe-ligatures have been expanded.",
+												 "--> represents a hand pointing right.",
+												 "[Illustration: Frontispiece]",
+												 "[Illustration: David Copperfield. By Charles Dickens.]",
+												 "With Illustrations by H. K. Browne.",
+												 """London:
+Bradbury & Evans, 11, Bouverie Street.
+1850.""",
+												 """London
+Bradbury and Evans, Printers, Whitefriars.""",
+												 """AFFECTIONATELY INSCRIBED
+
+								   TO
+
+				 THE HON. MR. AND MRS. RICHARD WATSON,
+
+								   OF
+
+					 ROCKINGHAM, NORTHAMPTONSHIRE.""",
+												 "AFFECTIONATELY INSCRIBED",
+												 "THE HON. MR. AND MRS. RICHARD WATSON",
+												 "ROCKINGHAM, NORTHAMPTONSHIRE."],
+						 },
+
+
+  "pg1415.txt":         {"filename":    "pg1415.txt",
+						 "title":       "Doctor Marigold by Charles Dickens",
+						 "characters":
+										["Doctor Marigold",
+										 "Sophy Marigold"],
+						 "chapter dividers":    None,
+						 "chapter names":       None,
+						 "garbage to delete":   ["""Transcribed from the 1894 Chapman and Hall "Christmas Stories" edition by""",
+												 "David Price, email ccx074@coventry.ac.uk"],
+						 },
+
+
+
 #   ["810-0.txt",   "George Silverman's Explanation by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
+  "810-0.txt":          {"filename":    "810-0.txt",
+						 "title":       "George Silverman's Explanation by Charles Dickens",
+						 "characters":
+										#from Sparknotes - Literature - A Christmas Carol - CHARACTERS
+										#https://www.sparknotes.com/lit/christmascarol/characters/
+										["George Silverman",
+										 "Brother Hawkyard",
+										 "Brother Gimblet",
+										 "Brother Parksop"],
+						 "chapter dividers":    None,
+						 "chapter names":       ["FIRST CHAPTER",
+												 "SECOND CHAPTER",
+												 "THIRD CHAPTER",
+												 "FOURTH CHAPTER",
+												 "FIFTH CHAPTER",
+												 "SIXTH CHAPTER",
+												 "SEVENTH CHAPTER",
+												 "EIGHTH CHAPTER",
+												 "NINTH CHAPTER"],
+						 "garbage to delete":   ["Transcribed from the 1905 Chapman and Hall “Hard Times and Reprinted",
+"Pieces” edition by David Price, email ccx074@pglaf.org"],
+						 },
+
+
 #   ["809-0.txt",   "Holiday Romance by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
+##  "809-0.txt":      {"filename":    "809-0.txt",
+##                         "title":       "Holiday Romance by Charles Dickens",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
 ##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
@@ -1365,8 +1435,8 @@ hero should be lifted out of nature."""],
 ##
 ##
 #   ["pg1465.txt",  "The Wreck of the Golden Mary by Charles Dickens"],
-##  "":      {"filename":    "",
-##                         "title":       "",
+##  "pg1465.txt":      {"filename":    "pg1465.txt",
+##                         "title":       "The Wreck of the Golden Mary by Charles Dickens",
 ##                         "characters":
 ##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
 ##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
@@ -1377,103 +1447,79 @@ hero should be lifted out of nature."""],
 ##                         "chapter names":       None,
 ##                         "garbage to delete":   [],
 ##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##
-##
-##  "":      {"filename":    "",
-##                         "title":       "",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
 
+#["917-0.txt",   "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens"],
+#Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens
+##
+##  "917-0.txt":      {"filename":    "917-0.txt",
+###                         "title":       "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens",
+##                         "title":       "Barnaby Rudge by Charles Dickens",
+##                         "characters":
+##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
+##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
+##                                        ["",
+##                                        "",
+##                                        ""],
+##                         "chapter dividers":    None,
+##                         "chapter names":       None,
+##                         "garbage to delete":   [],
+##
+#	["pg23765.txt", "Captain Boldheart & the Latin-Grammar Master by Charles Dickens"],
+#Captain Boldheart & the Latin-Grammar Master by Charles Dickens
+##
+##  "pg23765.txt":      {"filename":    "pg23765.txt",
+##                         "title":       "Captain Boldheart & the Latin-Grammar Master by Charles Dickens",
+##                         "characters":
+##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
+##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
+##                                        ["",
+##                                        "",
+##                                        ""],
+##                         "chapter dividers":    None,
+##                         "chapter names":       None,
+##                         "garbage to delete":   [],
+##
+##
+
+  "564-0.txt":          {"filename":    "564-0.txt",
+                         "title":       "The Mystery of Edwin Drood by Charles Dickens",
+                         "characters":
+                                        #from eNotes.com - Homework Help - Study Guides - The Mystery of Edwin Drood by Charles Dickens
+                                        #https://www.enotes.com/topics/mystery-edwin-drood/characters
+                                        ["Edwin Drood",
+                                        "Jack Jasper",
+                                        "Rosa Bud",
+                                        "Neville Landless",
+                                        "Helena Landless",
+                                        "Mr. Crisparkle",
+                                        "Mr. Grewgious",
+                                        "Datchery",
+                                        "Durdles"],
+                         "chapter dividers":    "CHAPTER ",
+                         "chapter names":       None,
+                         "garbage to delete":   ["[Picture: Rochester castle]",
+                                                 "[Picture: In the Court]",
+                                                 "[Picture: Under the trees]",
+                                                 "[Picture: At the piano]",
+                                                 "[Picture: On dangerous ground]",
+                                                 "[Picture: Mr. Crisparkle is overpaid]",
+                                                 "[Picture: Durdles cautions Mr. Sapsea against boasting]",
+                                                 '[Picture: "Good-bye, Rosebud darling"]',
+                                                 "[Picture: Mr. Grewgious has his suspicions]",
+                                                 "[Picture: Jasper's sacrifices]",
+                                                 "[Picture: Mr. Grewgious experiences a new sensation]",
+                                                 "[Picture: Up the river]",
+                                                 "[Picture: Sleeping it off]",
+                                                 """ [Picture: Facsimile of a page of the manuscript of “The Mystery of Edwin
+                                 Drood"]"""]
+                         },
 
 }
 
 
-titles = ["Lady", "Grandmother", "Mrs.", "Miss", "Mr.", "Doctor", "Dr.", "Uncle",
-		  "Inspector", "Captain", "Prince", "Grandfather",
+titles = ["Lady", "Grandmother", "Aunt", "Mrs.", "Miss", "Mr.", "Doctor", "Dr.", "Uncle",
+		  "Inspector", "Captain", "Prince", "Grandfather", "Alderman", "Brother",
+		  "Count", "Colonel", "The Hon.", "The Reverend", "Lieutenant", "Sir", 
 		  "Monsieur", "Madame", "Mademoiselle", "Marquis"]
 
 
@@ -1737,7 +1783,7 @@ if __name__ == "__main__":
 		print "%s Dickens books known about" % (len(index))
 		print "%s data files found\n\n" % count_files()
 		print
-	modify_files(VERBOSE=VERBOSE)
+	#modify_files(VERBOSE=VERBOSE)
 	#modify_files(0)
 	test_names()
 	
