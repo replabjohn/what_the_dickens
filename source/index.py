@@ -42,18 +42,17 @@ little_people = [["Little Em'ly", "Emily"],
 
 DICKENS_FEMALE_NAMES = [
 	"Betsey", "Biddy", "Clemency", "Clementina", 
-	"Lucie", "Maggy"< "Sissy", "Sophy", "Sophronia", "Susannab", #!!! Susannab? Looks like a typo,but isn't.
+	"Lucie", "Maggy", "Sissy", "Sophy", "Sophronia", "Susannab", #!!! Susannab? Looks like a typo,but isn't.
 	"Pleasant", "Volumnia", "Nell", "Nelly", "Em'ly", "Caddy"
 	]
 
 DICKENS_MALE_NAMES = [
-	"Abel", "Augustus", "Baytham", "Charley", "Ebenezer",
+	"Abel", "Augustus", "Baytham", "Bentley", "Charley", "Ebenezer",
 	"Ham", "Jem", "Job", "Josiah", "Kit", "Sampson", "Nemo",
 	"Nicodemus", "Noddy", "Neddy", "Watt", "Wilkins", "Uriah",
 	"Leicester", "Serjeant", "Rogue", "Jean-Baptiste", "Dolge",
 	"Chick", "Tite"
 	]
-
 
 
 def check_gender(name):
