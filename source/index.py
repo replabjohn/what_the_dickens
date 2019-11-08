@@ -1548,7 +1548,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 
 titles = ["Lady", "Grandmother", "Aunt", "Mrs.", "Miss", "Mr.", "Doctor", "Dr.", "Uncle",
 		  "Inspector", "Captain", "Prince", "Grandfather", "Alderman", "Brother",
-		  "Count", "Colonel", "The Hon.", "The Reverend", "Lieutenant", "Sir", 
+		  "Count", "Colonel", "The Hon.", "The Reverend", "Lieutenant", "Sir", "Master",
 		  "Monsieur", "Madame", "Mademoiselle", "Marquis"]
 
 
@@ -1778,11 +1778,11 @@ def test_names():
 			recognised_names = recognised_names + 1
 		else:
 			unrecognised_names.append(n)
-			unrecognised_names_count = recognised_names + 1
+			unrecognised_names_count = unrecognised_names_count + 1
 
 	unrecognised_names.sort()            
 
-	print "\n\n%s names tested.\n%s names reconised\n%s names UNRECOGNISED" % (names_tested,
+	print "\n\n%s names tested.\n%s names recognised\n%s names UNRECOGNISED" % (names_tested,
 																			   recognised_names,
 																			   unrecognised_names_count)
 
@@ -1813,6 +1813,5 @@ if __name__ == "__main__":
 		print "%s data files found\n\n" % count_files()
 		print
 	modify_files(VERBOSE=VERBOSE)
-	#modify_files(0)
 	#test_names()
 	
