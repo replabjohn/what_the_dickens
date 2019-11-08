@@ -39,7 +39,6 @@ little_people = [["Little Em'ly", "Emily"],
 
 
 #Dickens has *so* *many* uncommon names not contained in my standard names library!
-#improve this later...
 
 DICKENS_FEMALE_NAMES = [
 	"Betsey", "Biddy", "Clemency", "Clementina", 
@@ -326,6 +325,7 @@ characters_dict = {
 											 "XV. The Footsteps Die Out For Ever",
 											 ],
 						 "garbage to delete":   [],
+						 "main character":    None,
 						 },
 
 	"46-0.txt":         {"filename":    "46-0.txt",
@@ -367,7 +367,8 @@ pleasantly, and no one wish to lay it.
 Their faithful Friend and Servant,
 								   C. D.
 December, 1843.
-"""]
+"""],
+						 "main character":    "Ebenezer Scrooge",
 						 },
 
 	"1400-0.txt":       {"filename":    "1400-0.txt",
@@ -393,7 +394,13 @@ December, 1843.
 										"Molly",
 										"Mr. Wopsle",
 										"Startop",
-										"Miss Skiffins"],
+										"Miss Skiffins",
+										#additional
+										["Georgiana",   "Georgiana Pirrip"],
+                                        ["Alexander",   "Alexander Pirrip"],
+										["Bartholomew", "Bartholomew Pirrip"],
+										["Abraham",     "Abraham Pirrip"]
+                                         ],
 						 "chapter dividers":    None,
 						 "chapter names":       None,
 						 "garbage to delete":   ["[1867 Edition]\n",
@@ -401,7 +408,8 @@ December, 1843.
 												 "this work etext98/grexp10.txt scanned from a different edition]",
 												 "[Project Gutenberg Editor's Note: [CHARACTER_004_FIRSTNAME]re is also another version of",
 												 "this work etext98/grexp10.txt scanned from a different edition]",
-												 ]
+												 ],
+						 "main character":    "Philip Pirrip",
 						 },
 
 
@@ -443,7 +451,8 @@ December, 1843.
 
 THE PARISH BOY'S PROGRESS
 
-"""]
+"""],
+						 "main character":    "Oliver Twist",
 						 },
 
 	"786-0.txt":        {"filename":    "786-0.txt",
@@ -481,7 +490,8 @@ THE PARISH BOY'S PROGRESS
 												 "NEW YORK: CHARLES SCRIBNER'S SONS",
 												 "1905",
 												 "AND\n                           REPRINTED PIECES {0}"
-												 ]
+												 ],
+						 "main character":    None,
 						 },
 
 
@@ -586,7 +596,8 @@ favourite child. And his name is
 [BOOK_SHORT_TITLE_CAPS].
 
 	 1869
-"""]
+"""],
+						 "main character":    "David Copperfield",
 						 },
 
 	"pg1023.txt":       {"filename":    "pg1023.txt",
@@ -663,6 +674,7 @@ favourite child. And his name is
 												 "occurred at the town of Columbus, in the United States",
 												 "of America, quite recently. The subject was a German who",
 												 "kept a liquor-shop and was an inveterate drunkard."],
+						 "main character":    None,
 						 },
 
 
@@ -760,7 +772,8 @@ fully consistent with their types.
 
 								   GEORGE AL[CHARACTER_NAME_CAPS_008] WILLIAMS.
 _Chatham, N.J._
-"""]
+"""],
+						 "main character":    "Ebenezer Scrooge",
 						 },
 
 	"580-0.txt":      {"filename":    "580-0.txt",
@@ -864,7 +877,8 @@ _Chatham, N.J._
 										"Wade Grove"],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
-						 "garbage to delete":   ["Produced by Jo Churcher, and David Widger"]
+						 "garbage to delete":   ["Produced by Jo Churcher, and David Widger"],
+						 "main character":    "Samuel Pickwick",
 						 },
 
 	"700-0.txt":        {"filename":    "700-0.txt",
@@ -887,6 +901,7 @@ _Chatham, N.J._
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   [],
+						 "main character":    None,
 						 },
 
 	"883-0.txt":        {"filename":    "883-0.txt",
@@ -934,6 +949,7 @@ _Chatham, N.J._
 						 "chapter dividers":    "Chapter ",
 						 "chapter names":       None,
 						 "garbage to delete":   [],
+						 "main character":    None,
 						 },
 
 
@@ -1050,6 +1066,7 @@ added to that, May we meet again!
 
 London May 1857
 """],
+						 "main character":    "Amy Dorrit",
 						 },
 
 
@@ -1252,6 +1269,7 @@ remark. If Nicholas be not always found to be blameless or agreeable, he
 is not always intended to appear so. He is a young man of an impetuous
 temper and of little or no experience; and I saw no reason why such a
 hero should be lifted out of nature."""],
+						 "main character":    "Nicholas Nickleby",
 						 },
 
 
@@ -1276,6 +1294,7 @@ hero should be lifted out of nature."""],
 						 "garbage to delete":   ["Transcribed from the 1867/68 Chapman and Hall_ Works of Charles Dickens_,",
 												 "_Volume_ 4, _Christmas Books_ by David Price, email ccx074@pglaf.org",
 												 "[Picture: Public domain book cover]"],
+						 "main character":    None,
 						 },
 
 
@@ -1297,7 +1316,8 @@ hero should be lifted out of nature."""],
 										 ],
 						 "chapter dividers":    "Part the ",
 						 "chapter names":       None,
-						 "garbage to delete":   []
+						 "garbage to delete":   [],
+						 "main character":    None,
 						 },
 
 
@@ -1319,6 +1339,7 @@ hero should be lifted out of nature."""],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   [],
+						 "main character":    None,
 						 },
 
 
@@ -1379,6 +1400,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 												 "AFFECTIONATELY INSCRIBED",
 												 "THE HON. MR. AND MRS. RICHARD WATSON",
 												 "ROCKINGHAM, NORTHAMPTONSHIRE."],
+						 "main character":    "David Copperfield",
 						 },
 
 
@@ -1386,11 +1408,13 @@ Bradbury and Evans, Printers, Whitefriars.""",
 						 "title":       "Doctor Marigold by Charles Dickens",
 						 "characters":
 										["Doctor Marigold",
-										 "Sophy Marigold"],
+										 "Sophy Marigold",
+                                         "Willum Redgrave"],
 						 "chapter dividers":    None,
 						 "chapter names":       None,
 						 "garbage to delete":   ["""Transcribed from the 1894 Chapman and Hall "Christmas Stories" edition by""",
 												 "David Price, email ccx074@coventry.ac.uk"],
+						 "main character":    "Doctor Marigold",
 						 },
 
 
@@ -1417,6 +1441,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 												 "NINTH CHAPTER"],
 						 "garbage to delete":   ["Transcribed from the 1905 Chapman and Hall “Hard Times and Reprinted",
 "Pieces” edition by David Price, email ccx074@pglaf.org"],
+						 "main character":    "George Silverman",
 						 },
 
 
@@ -1432,6 +1457,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 ##                         "chapter dividers":    None,
 ##                         "chapter names":       None,
 ##                         "garbage to delete":   [],
+##						 "main character":    None,
 ##
 ##
 #   ["pg1465.txt",  "The Wreck of the Golden Mary by Charles Dickens"],
@@ -1446,6 +1472,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 ##                         "chapter dividers":    None,
 ##                         "chapter names":       None,
 ##                         "garbage to delete":   [],
+##						 "main character":    None,
 ##
 
 #["917-0.txt",   "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens"],
@@ -1463,6 +1490,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 ##                         "chapter dividers":    None,
 ##                         "chapter names":       None,
 ##                         "garbage to delete":   [],
+##						 "main character":    None,
 ##
 #	["pg23765.txt", "Captain Boldheart & the Latin-Grammar Master by Charles Dickens"],
 #Captain Boldheart & the Latin-Grammar Master by Charles Dickens
@@ -1478,6 +1506,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
 ##                         "chapter dividers":    None,
 ##                         "chapter names":       None,
 ##                         "garbage to delete":   [],
+##						 "main character":    None,
 ##
 ##
 
@@ -1511,7 +1540,8 @@ Bradbury and Evans, Printers, Whitefriars.""",
                                                  "[Picture: Up the river]",
                                                  "[Picture: Sleeping it off]",
                                                  """ [Picture: Facsimile of a page of the manuscript of “The Mystery of Edwin
-                                 Drood"]"""]
+                                 Drood"]"""],
+						 "main character":       "Edwin Drood",
                          },
 
 }
@@ -1783,7 +1813,7 @@ if __name__ == "__main__":
 		print "%s Dickens books known about" % (len(index))
 		print "%s data files found\n\n" % count_files()
 		print
-	#modify_files(VERBOSE=VERBOSE)
+	modify_files(VERBOSE=VERBOSE)
 	#modify_files(0)
-	test_names()
+	#test_names()
 	
