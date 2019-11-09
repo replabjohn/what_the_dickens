@@ -53,9 +53,12 @@ def make_stupid_award(county=None, towns=None):
     return(award)
 
 #def make_content_summary(author=None, county=None, towns=None):
-def make_content_summary(author=None, characters=None, main_character=None, title=None):
+def make_content_summary(author=None, characters=None, main_character=None, title=None, dickens_title=None):
     """Make up a paragraph or two of blurb (or possibly "flap copy" if you want to be technical),
     to go on the back cover. Basically a (randomly generated) brief description of the book."""
+
+    #'title' is the name of THIS book.
+    #'dickens_title' is the name of the Dickens story it is retelling
 
     DEBUG = 1
     #DEBUG = 0
@@ -78,10 +81,33 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
 
     if title == None:
         title = random.choice(source.index.index)
-        while title[0] not in source.index.characters_dict.keys():
-            title = random.choice(source.index.index)
+        #while title[0] not in source.index.characters_dict.keys():
+        #    title = random.choice(source.index.index)
         title = title[1]
         thistitle, thisauthor = string.split(title, " by ")
+        title = thistitle
+        if DEBUG == 1:
+            print "\t\t(added fake title'%s')" % title
+    #else:
+        #if string.find(title, " by ") > -1:
+        #    thistitle, thisauthor = string.split(title, " by ")
+        #else:
+        #    thistitle, thisauthor = title, None
+
+    if dickens_title == None:
+        dickens_title = random.choice(source.index.index)
+        while dickens_title[0] not in source.index.characters_dict.keys():
+            dickens_title = random.choice(source.index.index)
+        dickens_title = dickens_title[1]
+        thistitle, thisauthor = string.split(dickens_title, " by ")
+        if DEBUG == 1:
+            print "\t\t(added fake dickens_title'%s')" % dickens_title
+    else:
+        if string.find(title, " by ") > -1:
+            thistitle, thisauthor = string.split(title, " by ")
+        else:
+            thistitle, thisauthor = title, None
+    
 
     author_firstname = string.split(author)[0]
     if author_firstname in names.male_firstnames:
@@ -245,9 +271,10 @@ def blurb_type_2(blurb, quotechar='"', author=None, bookname=None):
 
     newblurb = "The %s %s since %s%s" % (random.choice(("best", "most outstanding", "finest",
                                                         "greatest", "most impressive", "most magnificent")),
-                                         random.choice(("piece of writing",
-                                                        "example of writing",
-                                                        "book",
+                                         random.choice((#"piece of writing",
+                                                        #"example of writing",
+                                                        #"book",
+                                                        "author",
                                                         "writer",
                                                         "writing")),
                                          random.choice(writers),
@@ -1401,7 +1428,7 @@ def blurb_type_99(blurb, quotechar='"', author=None, bookname=None):
 
 
 
-def do_blurb(quotechar='"', author=None, characters=None, main_character=None, bookname=None, num_blurbs=10):
+def do_blurb(quotechar='"', author=None, characters=None, main_character=None, bookname=None, num_blurbs=10, thisblurb=0):
 
     DEBUG = 1
     #DEBUG = 0
@@ -1430,9 +1457,13 @@ def do_blurb(quotechar='"', author=None, characters=None, main_character=None, b
     b=""
 
     inner_poss_types = list(poss_types)
+
     for i in range(0, num_blurbs):
-        if i == 0:
+        thisblurb = thisblurb + 1
+        if thisblurb == 1:
             b = blurb_type_00(b, quotechar=quotechar, author=author, bookname=bookname)
+        #if i == 0:
+            #b = blurb_type_00(b, quotechar=quotechar, author=author, bookname=bookname)
         else:
             blurbtype = random.choice(inner_poss_types)
             inner_poss_types.remove(blurbtype)
