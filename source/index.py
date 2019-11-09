@@ -888,7 +888,9 @@ _Chatham, N.J._
 										"Mr. Winkle, Sr.",
 										"Wilkins Flasher",
 										"Philip Strother",
-										"Wade Grove"],
+										"Wade Grove",
+                                        #additional minor characters
+                                        "Joseph Smiggers"],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   ["Produced by Jo Churcher, and David Widger"],

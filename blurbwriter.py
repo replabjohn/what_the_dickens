@@ -145,7 +145,7 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                 c2 = characters
             pt2 = random.choice((c1, "%s and %s" % (c1, c2)))
     else:
-        randnum = random.choice(0,1,1)
+        randnum = random.choice((0,1,1))
         if randnum == 0:
             pt2 = main_character
         else:
@@ -158,12 +158,11 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                     c2 = random.choice(characters)
                 else:
                     c2 = characters
-                randnum2 = random.choice(0,1)
+                randnum2 = random.choice((0,1))
                 if randnum2 == 0:
-                    pt2 = random.choice(c1, "%s and %s" % (main_character, c1))
+                    pt2 = random.choice((c1, "%s and %s" % (main_character, c1)))
                 else:
-                    pt2 = random.choice(c1, "%s,%s and %s" % (main_character, c1, c2))
-
+                    pt2 = random.choice((c1, "%s,%s and %s" % (main_character, c1, c2)))
 
     pt3 = random.choice(("classic",
                          "inventive",

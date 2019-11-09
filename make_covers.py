@@ -282,20 +282,23 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 		for line in blurb.split("\n"):
 
-			silly_prize_found = 0
-			#these three should be enough to catch all of our silly prize names...
-			if string.find(line, "BOOK ") > -1:
-				silly_prize_found = 1
-			elif string.find(line, "WINNER ") > -1:
-				silly_prize_found = 1
-			elif string.find(line, "GUILD") > -1:        
-				silly_prize_found = 1
-			if silly_prize_found == 1:
-				linewidth = stringWidth(line, "Gentium Basic Bold Italic", 18, "latin-1")
-				c.setFont("Gentium Basic Bold Italic", 18)
-			else:
-				linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
-				c.setFont("Gentium Basic", 16)
+##			silly_prize_found = 0
+##			#these three should be enough to catch all of our silly prize names...
+##			if string.find(line, "BOOK ") > -1:
+##				silly_prize_found = 1
+##			elif string.find(line, "WINNER ") > -1:
+##				silly_prize_found = 1
+##			elif string.find(line, "GUILD") > -1:        
+##				silly_prize_found = 1
+##			if silly_prize_found == 1:
+##				linewidth = stringWidth(line, "Gentium Basic Bold Italic", 18, "latin-1")
+##				c.setFont("Gentium Basic Bold Italic", 18)
+##			else:
+##				linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
+##				c.setFont("Gentium Basic", 16)
+
+			linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
+			c.setFont("Gentium Basic", 16)
 
 			if linewidth < (A4[0] - 4*cm):
 			#if linewidth < (A4[0] - 2*cm):
