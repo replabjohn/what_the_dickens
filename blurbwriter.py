@@ -143,7 +143,7 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                 c2 = random.choice(characters)
             else:
                 c2 = characters
-        pt2 = random.choice((c1, "%s and %s" % (c1, c2)))
+            pt2 = random.choice((c1, "%s and %s" % (c1, c2)))
     else:
         randnum = random.choice(0,1,1)
         if randnum == 0:
@@ -276,7 +276,8 @@ def blurb_type_2(blurb, quotechar='"', author=None, bookname=None):
                                                         #"book",
                                                         "author",
                                                         "writer",
-                                                        "writing")),
+                                                        #"writing"
+                                                        )),
                                          random.choice(writers),
                                          random.choice((".", ".", "!"))
                                          )
