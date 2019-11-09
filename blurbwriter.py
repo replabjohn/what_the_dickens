@@ -78,6 +78,8 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
 
     if title == None:
         title = random.choice(source.index.index)
+        while title[0] not in source.index.characters_dict.keys():
+            title = random.choice(source.index.index)
         title = title[1]
         thistitle, thisauthor = string.split(title, " by ")
 
@@ -171,9 +173,8 @@ def make_attribution(blurb):
     return """%s\n%s\n""" % (blurb, name)
 
 
-def blurb_type_00(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_00(blurb, quotechar='"', author=None, bookname=None):
     """Use this blurb first, and just the once." """
-
 
 #(Mention Seamus Heaney etc)
 
@@ -210,7 +211,7 @@ def blurb_type_00(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_1(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_1(blurb, quotechar='"', author=None, bookname=None):
     """Blurb type 1, eg: "This little book is a true delight." """
 
     newblurb = "%s is a%s%s%s" % (random.choice(("This", "This book",
@@ -228,7 +229,7 @@ def blurb_type_1(blurb, quotechar='"', county=None, author=None, towns=None, boo
     else:
         return "%s\n%s" % (blurb, newblurb)
 
-def blurb_type_2(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_2(blurb, quotechar='"', author=None, bookname=None):
     """Blurb type 2, eg: "The most magnificent book since Herodotus!" """
 
     writers = ["Herodotus", "Bruce Chatwin", "Bill Bryson", "Robert Byron", "Peter Mayle",
@@ -258,12 +259,12 @@ def blurb_type_2(blurb, quotechar='"', county=None, author=None, towns=None, boo
     else:
         return "%s\n%s" % (blurb, newblurb)
 
-def blurb_type_3(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_3(blurb, quotechar='"', author=None, bookname=None):
 
-    return blurb_type_2(blurb, quotechar, county, author, towns, bookname)
+    return blurb_type_2(blurb, quotechar='"', author=None, bookname=None)
 
 
-def blurb_type_4(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_4(blurb, quotechar='"', author=None, bookname=None):
 
     newblurb = random.choice(("You don't want the book to end.",
                               "You don't want this book to end.",
@@ -286,7 +287,7 @@ def blurb_type_4(blurb, quotechar='"', county=None, author=None, towns=None, boo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_5A(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_5A(blurb, quotechar='"', author=None, bookname=None):
     """Blurbs in the style 'The greatest work of literature since [NOBEL PRIZE WINNER]'s [FAMOUS BOOK].' """
 
     #selected winners of the Nobel Prize in Literature
@@ -380,7 +381,7 @@ def blurb_type_5A(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_5(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_5(blurb, quotechar='"', author=None, bookname=None):
     """Real (mainly) blurbs quoted in He Blurbed, She Blurbed
 By Rachel Donadio, New York Times, Aug. 15, 2008
 https://www.nytimes.com/2008/08/17/books/review/Donadio-t.html"""
@@ -426,7 +427,7 @@ My only complaint was that you didn't ask me for a blurb."""
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_6(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_6(blurb, quotechar='"', author=None, bookname=None):
     """make up our own quote by picking from a list of superlatives"""
 
     superlatives =["incomparable",
@@ -460,7 +461,7 @@ def blurb_type_6(blurb, quotechar='"', county=None, author=None, towns=None, boo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_7(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_7(blurb, quotechar='"', author=None, bookname=None):
     """quotes that appeared in Spy magazine's "Logrolling" column
 http://www.google.com/search?tbo=p&tbm=bks&q=logrolling&tbs=,bkt:m,bkms:1168684103302644736"""
 
@@ -482,7 +483,7 @@ http://www.google.com/search?tbo=p&tbm=bks&q=logrolling&tbs=,bkt:m,bkms:11686841
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_8(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_8(blurb, quotechar='"', author=None, bookname=None):
     """Quotes that appeared in: (and comments on it by readers)
 Who's helping who in the cover blurb game?
 https://www.theguardian.com/books/booksblog/2012/may/11/cover-blurb-book-recommendation"""
@@ -502,7 +503,7 @@ https://www.theguardian.com/books/booksblog/2012/may/11/cover-blurb-book-recomme
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_9(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_9(blurb, quotechar='"', author=None, bookname=None):
 
     num_elements = random.choice(range(1,3))
     newblurb = ""
@@ -528,7 +529,7 @@ def blurb_type_9(blurb, quotechar='"', county=None, author=None, towns=None, boo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_10(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_10(blurb, quotechar='"', author=None, bookname=None):
     """Blurbs quoted in 'How to Blurb and Blurb and Blurb'
 https://www.nytimes.com/2012/07/29/books/review/a-j-jacobs-on-his-blurbing-problem.html"""
 
@@ -546,7 +547,7 @@ https://www.nytimes.com/2012/07/29/books/review/a-j-jacobs-on-his-blurbing-probl
     else:
         return "%s\n%s" % (blurb, newblurb)
 
-def blurb_type_11(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_11(blurb, quotechar='"', author=None, bookname=None):
     """Pretentious literary quote, eg: 'Forget Harold Bloom, forget John Leonard, forget V.S. Pritchett, you simply cannot forget this book!"'"""
 
     authors = ["Henry James", "Franz Kafka", "Leo Tolstoy", "Shakespeare", "Erasmus", "V.S. Pritchett",
@@ -584,7 +585,7 @@ def blurb_type_11(blurb, quotechar='"', county=None, author=None, towns=None, bo
     else:
         return "%s\n%s" % (blurb, newblurb)
 
-def blurb_type_12(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_12(blurb, quotechar='"', author=None, bookname=None):
     """Converted from blurbs quoted on 'The Collected Blurbs of Gary Shteyngart' (https://shteyngartblurbs.tumblr.com/)"""
 
     if author == None:
@@ -802,7 +803,8 @@ def blurb_type_12(blurb, quotechar='"', county=None, author=None, towns=None, bo
                               "Pure shimmering brilliance.",
                               "As remarkable and moving a portrait of a place as I have seen in some time.",
                               "Mature yet playful, fanciful yet brimming with with the details of contemporary life.",
-                              "As remarkable and moving a portrait of %s as I have seen in some time." % county,
+                              #"As remarkable and moving a portrait of %s as I have seen in some time." % county,
+                              "As remarkable and moving a portrait as I have seen in some time.",
                               "Better than Leviticus and nearly as funny.",
                               "Each page is a cut and polished gem.",
                               "Do yourself a favour: walk over to the counter and buy this book now.",
@@ -819,7 +821,7 @@ def blurb_type_12(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
         
 
-def blurb_type_13(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_13(blurb, quotechar='"', author=None, bookname=None):
 
     """I-got-a-text-from-an-author type blurbs. eg: '"I got an SMS from Walter Kirn and he said "YOU SIMPLY MUST READ!"' """
 
@@ -947,7 +949,7 @@ def blurb_type_13(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-##def blurb_type_14(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+##def blurb_type_14(blurb, quotechar='"', author=None, bookname=None):
 ##
 ##    """Converted from a blurb by Gary Shteyngart: 'If Puchai were a
 ##    real country, I'd be a citizen by now, or at least an illegal
@@ -989,7 +991,7 @@ def blurb_type_13(blurb, quotechar='"', county=None, author=None, towns=None, bo
 ##        return "%s\n%s" % (blurb, newblurb)
 
 
-##def blurb_type_15(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+##def blurb_type_15(blurb, quotechar='"', author=None, bookname=None):
 ##
 ##    if author == None:
 ##        author = names.getName()
@@ -1031,7 +1033,7 @@ def blurb_type_13(blurb, quotechar='"', county=None, author=None, towns=None, bo
 ##        return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_16(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_16(blurb, quotechar='"', author=None, bookname=None):
 
     if author == None:
         author = names.getName()
@@ -1120,7 +1122,7 @@ def blurb_type_16(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_17(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_17(blurb, quotechar='"', author=None, bookname=None):
 
     if author == None:
         author = names.getName()
@@ -1190,7 +1192,7 @@ def blurb_type_17(blurb, quotechar='"', county=None, author=None, towns=None, bo
 
 
 
-def blurb_type_18(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_18(blurb, quotechar='"', author=None, bookname=None):
     """blurbs modelled on bits of those by Slavoj Žižek - see "A Selection of Slavoj Žižek’s Book Blurbs"
 https://thinkingblueguitars.wordpress.com/2011/08/30/a-selection-of-slavoj-zizeks-book-blurbs/"""
 
@@ -1278,7 +1280,7 @@ https://thinkingblueguitars.wordpress.com/2011/08/30/a-selection-of-slavoj-zizek
 
 
 
-def blurb_type_90(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_90(blurb, quotechar='"', author=None, bookname=None):
 
     if author == None:
         author = names.getName()
@@ -1322,6 +1324,7 @@ def blurb_type_90(blurb, quotechar='"', county=None, author=None, towns=None, bo
         #"%s has done us all an immense service by compiling this book." % author_surname,
         #"Roy is the Obi-Wan Kenobi of [writing teachers]."
         "%s is the Obi-Wan Kenobi of writing." % author,
+        "%s is the Obi-Wan Kenobi of writing." % author_surname,
         "%s is beautifully carpentered, the prose equivalent of a Shaker table." % random.choice(("The book", "This book", bookname)),
 
         #"This is the most useful book of its kind I've seen since
@@ -1333,9 +1336,10 @@ def blurb_type_90(blurb, quotechar='"', county=None, author=None, towns=None, bo
         "%s knows more about writing than anybody I know who is not dead." % (author_surname),
         "%s knows more about writing than anybody I know who is not currently dead." % (author_surname),
 
-        "You can hear %s's heart thumping on every page." % (county),
-        "You can hear %s's heart thumping away on every page." % (county),
-        "You can hear %s's heart thumping feverishly on every page." % (county),
+        "You can hear %s's heart thumping on every page." % (author_surname),
+        "You can hear %s's heart thumping away on every page." % (author),
+        "You can hear %s's heart thumping feverishly on every page." % (author_surname),
+        "You can hear %s's heart thumping feverishly on every page." % (author),
         #misquoting Egger's blurb for Nathan Englander's What We Talk About When We Talk About Anne Frank.
         #blurb from the Sunday Times, quoted by George Orwell in 1936 :
         "If you can read this book and not shriek with delight, your soul is dead.",
@@ -1358,7 +1362,7 @@ def blurb_type_90(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_91(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_91(blurb, quotechar='"', author=None, bookname=None):
     descriptions = ["beautiful", "well composed", "eloquent", "life affirming", "inspiring",
                     "bitter-sweet", "genre defining"]
 
@@ -1383,7 +1387,7 @@ def blurb_type_91(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_92(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_92(blurb, quotechar='"', author=None, bookname=None):
     """blurbs quoted in either the following article or comments on it in the comments section:
 https://www.theguardian.com/books/booksblog/2010/jul/06/david-grossman-nicole-krauss-blurb"""
 
@@ -1442,7 +1446,7 @@ https://www.theguardian.com/books/booksblog/2010/jul/06/david-grossman-nicole-kr
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_93(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_93(blurb, quotechar='"', author=None, bookname=None):
     """blurbs made up from variations on the following quote:
     'Great in parts, awful in others. Probably the most entertaining
     ludicrous, funny, idiotic, boring and fascinating book of the
@@ -1469,7 +1473,7 @@ def blurb_type_93(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_94(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_94(blurb, quotechar='"', author=None, bookname=None):
 
     if author == None:
         author = names.getName()
@@ -1515,7 +1519,7 @@ def blurb_type_94(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_95(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_95(blurb, quotechar='"', author=None, bookname=None):
 
     if author == None:
         author = names.getName()
@@ -1551,7 +1555,7 @@ def blurb_type_95(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_96(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_96(blurb, quotechar='"', author=None, bookname=None):
     """Collection of various random blurbs"""
 
 #    if county == None:
@@ -1570,10 +1574,10 @@ def blurb_type_96(blurb, quotechar='"', county=None, author=None, towns=None, bo
                               "A consumate example of travel writing.",
                               "%s is a certified genius and %s is a revelation." % (author, bookname),
                               "%s is a certified genius and this book is a revelation!" % author,
-                              "Brings %s to life." % county,
-                              "%s brings %s to life." % (author, county),
-                              "%s really brings %s to life." % (author, county),
-                              "%s truly brings %s to life." % (author, county),
+                              #"Brings %s to life." % county,
+                              #"%s brings %s to life." % (author, county),
+                              #"%s really brings %s to life." % (author, county),
+                              #"%s truly brings %s to life." % (author, county),
 
                               "Run%sdon't walk%sto buy this book%s" % (tempsep,
                                                                        tempsep,
@@ -1592,7 +1596,7 @@ def blurb_type_96(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_97(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_97(blurb, quotechar='"', author=None, bookname=None):
     """One-word blurbs."""
 
     newblurb = random.choice(("Brilliant",
@@ -1615,7 +1619,7 @@ def blurb_type_97(blurb, quotechar='"', county=None, author=None, towns=None, bo
         return "%s\n%s" % (blurb, newblurb)
 
 
-def blurb_type_98(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_98(blurb, quotechar='"', author=None, bookname=None):
     """ 'True reader reactions' :)..."""
 
     newblurb = (random.choice(("I hated this.",
@@ -1631,7 +1635,7 @@ def blurb_type_98(blurb, quotechar='"', county=None, author=None, towns=None, bo
     else:
         return "%s\n%s" % (blurb, newblurb)
 
-def blurb_type_99(blurb, quotechar='"', county=None, author=None, towns=None, bookname=None):
+def blurb_type_99(blurb, quotechar='"', author=None, bookname=None):
     """Random nonsense..."""
     
     newblurb = (random.choice(("The best use of neural networks since Star Trek's Commander Data.",
@@ -1650,7 +1654,7 @@ def blurb_type_99(blurb, quotechar='"', county=None, author=None, towns=None, bo
 
 
 
-def do_blurb(quotechar='"', county=None, author=None, towns=None, bookname=None, num_blurbs=10):
+def do_blurb(quotechar='"', author=None, characters=None, main_character=None, bookname=None, num_blurbs=10):
 
     DEBUG = 1
     #DEBUG = 0
@@ -1663,8 +1667,16 @@ def do_blurb(quotechar='"', county=None, author=None, towns=None, bookname=None,
 #        else:
 #            county = string.capitalize("%shire" % county)
 
-    if author==None:
+    if author == None:
         author = names.getName()
+
+    if bookname == None:
+        title = random.choice(source.index.index)
+        while title[0] not in source.index.characters_dict.keys():
+            title = random.choice(source.index.index)
+        title = title[1]
+        bookname, thisauthor = string.split(title, " by ")
+
 
     #num_blurbs = 1
     poss_types =["Type 1", "Type 2", "Type 3", "Type 4", "Type 5", "Type 6",
@@ -1681,7 +1693,7 @@ def do_blurb(quotechar='"', county=None, author=None, towns=None, bookname=None,
     inner_poss_types = list(poss_types)
     for i in range(0, num_blurbs):
         if i == 0:
-            b = blurb_type_00(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+            b = blurb_type_00(b, quotechar=quotechar, author=author, bookname=bookname)
         else:
             blurbtype = random.choice(inner_poss_types)
             inner_poss_types.remove(blurbtype)
@@ -1689,64 +1701,64 @@ def do_blurb(quotechar='"', county=None, author=None, towns=None, bookname=None,
                 inner_poss_types = list(poss_types)
 
             if blurbtype == "Type 1":
-                b = blurb_type_1(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_1(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 2":
-                b = blurb_type_2(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_2(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 3":
-                b = blurb_type_3(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_3(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 4":
-                b = blurb_type_4(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_4(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 5":
-                b = blurb_type_5(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_5(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 6":
-                b = blurb_type_6(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_6(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 7":
-                b = blurb_type_7(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_7(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 8":
-                b = blurb_type_8(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_8(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 9":
-                b = blurb_type_9(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_9(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 10":
-                b = blurb_type_10(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_10(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 11":
-                b = blurb_type_11(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_11(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 12":
-                b = blurb_type_12(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_12(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 13":
-                b = blurb_type_13(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_13(b, quotechar=quotechar, author=author, bookname=bookname)
             #elif blurbtype == "Type 14":
-            #    b = blurb_type_14(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+            #    b = blurb_type_14(b, quotechar=quotechar, author=author, bookname=bookname)
             #elif blurbtype == "Type 15":
-            #    b = blurb_type_15(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+            #    b = blurb_type_15(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 16":
-                b = blurb_type_16(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_16(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 17":
-                b = blurb_type_17(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_17(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 18":
-                b = blurb_type_18(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_18(b, quotechar=quotechar, author=author, bookname=bookname)
 
             elif blurbtype == "Type 90":
-                b = blurb_type_90(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_90(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 91":
-                b = blurb_type_91(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_91(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 92":
-                b = blurb_type_92(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_92(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 93":
-                b = blurb_type_93(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_93(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 94":
-                b = blurb_type_94(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_94(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 95":
-                b = blurb_type_95(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_95(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 96":
-                b = blurb_type_96(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_96(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 97":
-                b = blurb_type_97(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_97(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 98":
-                b = blurb_type_98(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_98(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 99":
-                b = blurb_type_99(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_99(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 5A":
-                b = blurb_type_5A(b, quotechar=quotechar, county=county, author=author, towns=towns, bookname=bookname)
+                b = blurb_type_5A(b, quotechar=quotechar, author=author, bookname=bookname)
             else:
                 if DEBUG == 1:
                     print "ERROR!"
@@ -1769,13 +1781,14 @@ def do_blurb(quotechar='"', county=None, author=None, towns=None, bookname=None,
     return blurbs
     #print b
 
-def make_cover_copy(author, county, towns, bookname):
+def make_cover_copy(author, characters, main_character, bookname):
     """Convenience function. Calls make_content_summary and do_blurb.
     Returns a string"""
 
     covercopy = ""
-    covercopy = make_content_summary(author=author, characters=None, main_character=None, title=None)
-    covercopy = "%s\n%s" % (covercopy, do_blurb('"', county, author, towns, bookname))
+    covercopy = make_content_summary(author=author, characters=characters, main_character=main_character, title=bookname)
+    #covercopy = "%s\n%s" % (covercopy, do_blurb('"', author=author, characters=characters, main_character=main_character, title=bookname))
+    covercopy = "%s\n%s" % (covercopy, do_blurb('"', author=author, characters=characters, main_character=main_character, bookname=bookname))
 
     return covercopy
 
@@ -1795,7 +1808,7 @@ if __name__ == "__main__":
     #    towns.append(place_name_generator.make_name(VERBOSE=0, LOG=0))
     bookname = "THIS BOOK" # placeholders - should be replaced if used for an actual book...
 
-    covercopy = make_cover_copy(author, county=None, towns=None, bookname=bookname)
+    covercopy = make_cover_copy(author=author, characters=None, main_character=None, bookname=None)
 
     print "\n"
     print covercopy
