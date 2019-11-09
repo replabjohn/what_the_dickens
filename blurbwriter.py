@@ -179,7 +179,9 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                             "'%s'" % thistitle,
                             thistitle))
 
-    description = "Read %s %s in this %s %s of %s.\n\n" % (pt1, pt2, pt3, pt4, bookbit)
+    description = "Read %s %s in %s %s %s of %s.\n\n\n" % (pt1, pt2,
+                                                           random.choice(("this", "%s's" % author, "%s's" % author)),
+                                                           pt3, pt4, bookbit)
                                                            #author, gender_word,
 
 

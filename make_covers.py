@@ -319,10 +319,11 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				newline = ""
 				for word in line.split():
 					newline2 = "%s %s" % (newline, word)
-					if silly_prize_found == 1:
-						newline2dwidth = stringWidth(newline2, "Gentium Basic Bold Italic", 18, "latin-1")
-					else:
-						newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
+#					if silly_prize_found == 1:
+#						newline2dwidth = stringWidth(newline2, "Gentium Basic Bold Italic", 18, "latin-1")
+#					else:
+#						newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
+					newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
 					if newline2dwidth > (A4[0] - 4*cm):
 					#if newline2dwidth > (A4[0] - 2*cm):
 						c.drawString(xpos, ypos, "%s" % (string.strip(newline)))
