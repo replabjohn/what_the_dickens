@@ -592,121 +592,8 @@ def blurb_type_12(blurb, quotechar='"', author=None, bookname=None):
         author = names.getName()
     if bookname == None:
         bookname = "THIS BOOK"
-##    if county == None:
-##        county = random.choice(place_name_generator.root_words)
-##        if county[-1] != "s":
-##            county = string.capitalize("%sshire" % county)
-##        else:
-##            county = string.capitalize("%shire" % county)
-
-##    if towns == None:
-##        num_towns = random.choice(range(6,10))
-##        towns = []
-##        for f in range(0, num_towns):
-##            towns.append(place_name_generator.make_name(VERBOSE=0, LOG=0))
-##    t1 = random.choice(towns)
-##    t2 = random.choice(towns)
-##    while t1 == t2:
-##        t2 = random.choice(towns)
 
     bookword = random.choice(("The book", "This book", bookname))
-
-##    #partial List of authors blurbed about by Gary Shteyngart (and the man himself) 
-##    authors = [
-##        "Gary Shteyngart",
-##        "Hanif Kureishi",
-##        "Uzodinma Iweala",
-##        "Jacob Silverman",
-##        "Sara Novic",
-##        "Francesca Marciano",
-##        "Andrew Lewis Conn",
-##        "Amanda Michalopoulou",
-##        "Walter Kirn",
-##        "Vladimir Lorchenkov",
-##        "Charles Blackstone",
-##        "John Schwartz",
-##        "Griffin Hansbury",
-##        "Manil Suri",
-##        "Jonathan Ames",
-##        "Patrick Wensink",
-##        "Ken Kalfus",
-##        "José Manuel Prieto",
-##        "Ilan Stavans",
-##        "Steve Sheinkin",
-##        "Lindy West",
-##        "Dan Savage",
-##        "Benjamin Anastas",
-##        "Scott Hutchins",
-##        "Francesco Pacifico",
-##        "Anna Winger",
-##        "Joshua Ferris",
-##        "Kiran Desai",
-##        "Andrew McCarthy",
-##        "A.M. Homes",
-##        "Rachel Shukert",
-##        "Kurt Andersen",
-##        "Edmund White",
-##        "Edmund White",
-##        "David Mitchell",
-##        "Molly Ringwald",
-##        "A.J. Jacobs",
-##        "Victor LaValle",
-##        "Gina Apostol",
-##        "Matt Dojny",
-##        "Gideon Lewis-Kraus",
-##        "Rajesh Parmeswaran",
-##        "Joshua Henkin",
-##        "Deb Olin Unferth",
-##        "Dinaw Mengestu",
-##        "Adam Langer",
-##        "Francine Prose",
-##        "Binnie Kirshenbaum",
-##        "Nayana Currimbhoy",
-##        "Cristina Nehring",
-##        "Adam Wilson",
-##        "Sayed Kashua",
-##        "H.M. Naqvi",
-##        "Upamanyu Chatterjee",
-##        "Joanna Smith Rakoff",
-##        "Vladimir Sorokin",
-##        "Karolina Waclawiak",
-##        "Gregor von Rezzori",
-##        "Janice Y.K. Lee",
-##        "Jonathan Lethem",
-##        "Aleksandar Hemon",
-##        "George Hagen",
-##        "Joseph Weisberg",
-##        "Julian Rubinstein",
-##        "Nathaniel Rich",
-##        "John Wray",
-##        "Aravind Adiga",
-##        "Mark Fitten",
-##        "Adam Haslett",
-##        "Reif Larsen",
-##        "Clancy Martin",
-##        "Anya Ulinich",
-##        "Paul La Farge",
-##        "Rebecca Curtis",
-##        "Laila Lalami",
-##        "Samantha Peale",
-##        "Ed Park",
-##        "Arthur Phillips",
-##        "Lev Grossman",
-##        "Darcy Cosper",
-##        "Jon-Jon Goulian",
-##        "Patrick DeWitt",
-##        "Jennifer DuBois",
-##        "Nathan Englander",
-##        "James Franco",
-##        "Kyung-Sook Shin",
-##        "Karen Russell",
-##        "Colson Whitehead",
-##        "Josh Emmons",
-##        "Etgar Keret",
-##        "Leigh Stein",
-##        "Alex Gilvarry",
-##        "Jennifer Miller"
-##        ]
 
     newblurb = random.choice(("A lovely slender volume that packs in entire worlds with complete mastery.",
                               "A scintillating, page-turning read.",
@@ -768,25 +655,7 @@ def blurb_type_12(blurb, quotechar='"', author=None, bookname=None):
                               "Punchy, hilarious and apparently even true.",
                               #"A thoughtful, skillfully drawn portrait of %s." % county,
                               "A thoughtful, skillfully drawn portrait.",
-                              #"%s's page-turner ranges brilliantly from %s to %s. A must read for anyone %s in %s." % (author, t1, t2,
-                              #                                                                                         random.choice(("interested",
-                              #                                                                                                         "who's even vaguely interested",
-                              #                                                                                                         "with even a vague interest",
-                              #                                                                                                         "with even a passing interest",
-                              #                                                                                                         "even vaguely interested")),
-                              #                                                                                         county),
-                              #"%s's page-turner ranges brilliantly from %s to %s. A must read for anyone %s in %s." % (author, t1, t2,
-                              #                                                                                         random.choice(("interested",
-                              #                                                                                                         "even vaguely interested")),
-                              #                                                                                         county),
-                              #"%s's page-turner ranges brilliantly from %s to %s. A must read." % (author, t1, t2),
                               "A must read.",
-                              #"A must read for anyone %s in %s." % ((random.choice(("interested",
-                              #                                                      "who's even vaguely interested",
-                              #                                                      "with even a vague interest",
-                              #                                                      "with even a passing interest",
-                              #                                                      "even vaguely interested")),
-                              #                                       county)),
                               "A quiet triumph of a book.",
                               "A book as delightful as it is disturbing.",
 
@@ -948,90 +817,7 @@ def blurb_type_13(blurb, quotechar='"', author=None, bookname=None):
     else:
         return "%s\n%s" % (blurb, newblurb)
 
-
-##def blurb_type_14(blurb, quotechar='"', author=None, bookname=None):
-##
-##    """Converted from a blurb by Gary Shteyngart: 'If Puchai were a
-##    real country, I'd be a citizen by now, or at least an illegal
-##    alien. What a glorious novel!'
-##
-##    (A bit meta, but what the hell :)"""
-##
-##    if author == None:
-##        author = names.getName()
-##    if bookname == None:
-##        bookname = "THIS BOOK"
-##    if county == None:
-##        county = random.choice(place_name_generator.root_words)
-##        #county = "%sshire" % county
-##        if county[-1] != "s":
-##            county = string.capitalize("%sshire" % county)
-##        else:
-##            county = string.capitalize("%shire" % county)
-##
-##    newblurb = random.choice((
-##        "If %s were a real place, I'd be a citizen by now, or at least an illegal alien." % county,
-##        "If %s were a real county, I'd be a citizen by now, or at least an illegal alien." % county,
-##        "If %s were a real place, I'd be a citizen by now." % county,
-##        "If %s were a real county, I'd be a citizen by now." % county,
-##        "If %s were a real place, I'd be a citizen by now... or at least an illegal alien." % county,
-##        "If %s were a real county, I'd be a citizen by now... or at least an illegal alien." % county,
-##        "If %s were a real place, I'd be a citizen by now (or at least an illegal alien)." % county,
-##        "If %s were a real county, I'd be a citizen by now (or at least an illegal alien)." % county,
-##        "If %s were a real country, I'd be a citizen by now, or at least an illegal alien." % county,
-##        "If %s were a real country, I'd be a citizen by now." % county,
-##        "If %s were a real country, I'd be a citizen by now... or at least an illegal alien." % county,
-##        "If %s were a real country, I'd be a citizen by now (or at least an illegal alien)." % county,
-##        ))
-##
-##    newblurb = '%s%s%s' % (quotechar, newblurb, quotechar)
-##    if blurb == "":
-##        return newblurb
-##    else:
-##        return "%s\n%s" % (blurb, newblurb)
-
-
-##def blurb_type_15(blurb, quotechar='"', author=None, bookname=None):
-##
-##    if author == None:
-##        author = names.getName()
-##    if bookname == None:
-##        bookname = "THIS BOOK"
-###    if county == None:
-###        county = random.choice(place_name_generator.root_words)
-###        #county = "%sshire" % county
-###        if county[-1] != "s":
-###            county = string.capitalize("%sshire" % county)
-###        else:
-###            county = string.capitalize("%shire" % county)
-##
-##    newblurb = random.choice((
-##        #"Perhaps the best [article] on [blurbs] written in [year]." % (random.choice(("book","volume","guide")),
-##        #[place], year),
-##        #"Perhaps the best [article] on [blurbs] written by [person]." % (random.choice(("book","volume","guide")),
-##        #"Perhaps the best [article] on [blurbs] written in [year]." % (random.choice(("book","volume","guide")),
-##        #[place], year),
-##        "Perhaps the best %s on %s ever written." % (random.choice(("book","volume","guide")), county),
-##        "Perhaps the best %s on %s ever written by %s." % (random.choice(("book","volume","guide")), county,author),
-##        "Possibly the best %s on %s ever written." % (random.choice(("book","volume","guide")), county),
-##        "Possibly the best %s on %s ever written by %s." % (random.choice(("book","volume","guide")), county,author),
-##        "Probably the best %s on %s ever written." % (random.choice(("book","volume","guide")), county),
-##        "Probably the best %s on %s ever written by %s." % (random.choice(("book","volume","guide")), county,author),
-##        "The best %s on %s ever written." % (random.choice(("book","volume","guide")), county),
-##        "The best %s on %s ever written by %s." % (random.choice(("book","volume","guide")), county,author),
-##        "%s is the best %s on %s ever written." % (bookname, random.choice(("book","volume","guide")), county),
-##        "%s is the best %s on %s ever written by %s." % (bookname, random.choice(("book","volume","guide")), county, author),
-##        "%s may be the best %s on %s ever written." % (bookname, random.choice(("book","volume","guide")), county),
-##        "%s may be the best %s on %s ever written by %s." % (bookname, random.choice(("book","volume","guide")), county, author),
-##
-##        ))
-##
-##    newblurb = '%s%s%s' % (quotechar, newblurb, quotechar)
-##    if blurb == "":
-##        return newblurb
-##    else:
-##        return "%s\n%s" % (blurb, newblurb)
-
+## [removed blurb_type_14 and blurb_type_15 = not relevant to this project ]
 
 def blurb_type_16(blurb, quotechar='"', author=None, bookname=None):
 
@@ -1039,13 +825,6 @@ def blurb_type_16(blurb, quotechar='"', author=None, bookname=None):
         author = names.getName()
     if bookname == None:
         bookname = "THIS BOOK"
-#    if county == None:
-#        county = random.choice(place_name_generator.root_words)
-#        #county = "%sshire" % county
-#        if county[-1] != "s":
-#            county = string.capitalize("%sshire" % county)
-#        else:
-#            county = string.capitalize("%shire" % county)
 
     split_phrases1 = ["Seminal",
                      #"The last word on the subject",
@@ -1128,13 +907,6 @@ def blurb_type_17(blurb, quotechar='"', author=None, bookname=None):
         author = names.getName()
     if bookname == None:
         bookname = "THIS BOOK"
-#    if county == None:
-#        county = random.choice(place_name_generator.root_words)
-#        #county = "%sshire" % county
-#        if county[-1] != "s":
-#            county = string.capitalize("%sshire" % county)
-#        else:
-#            county = string.capitalize("%shire" % county)
 
     author_split = string.split(author)
     if len(author_split) == 2:
@@ -1200,13 +972,6 @@ https://thinkingblueguitars.wordpress.com/2011/08/30/a-selection-of-slavoj-zizek
         author = names.getName()
     if bookname == None:
         bookname = "THIS BOOK"
-#    if county == None:
-#        county = random.choice(place_name_generator.root_words)
-#        #county = "%sshire" % county
-#        if county[-1] != "s":
-#            county = string.capitalize("%sshire" % county)
-#        else:
-#            county = string.capitalize("%shire" % county)
 
     author_split = string.split(author)
     if len(author_split) == 2:
@@ -1286,13 +1051,6 @@ def blurb_type_90(blurb, quotechar='"', author=None, bookname=None):
         author = names.getName()
     if bookname == None:
         bookname = "THIS BOOK"
-#    if county == None:
-#        county = random.choice(place_name_generator.root_words)
-#        #county = "%sshire" % county
-#        if county[-1] != "s":
-#            county = string.capitalize("%sshire" % county)
-#        else:
-#            county = string.capitalize("%shire" % county)
 
     author_split = string.split(author)
     author_firstname = author_split[0]
@@ -1558,14 +1316,6 @@ def blurb_type_95(blurb, quotechar='"', author=None, bookname=None):
 def blurb_type_96(blurb, quotechar='"', author=None, bookname=None):
     """Collection of various random blurbs"""
 
-#    if county == None:
-#        county = random.choice(place_name_generator.root_words)
-#        #county = "%sshire" % county
-#        if county[-1] != "s":
-#            county = string.capitalize("%sshire" % county)
-#        else:
-#            county = string.capitalize("%shire" % county)
-
     if author == None:
         author = names.getName()
     tempsep = random.choice((", ", ", ", " - "))
@@ -1574,10 +1324,6 @@ def blurb_type_96(blurb, quotechar='"', author=None, bookname=None):
                               "A consumate example of travel writing.",
                               "%s is a certified genius and %s is a revelation." % (author, bookname),
                               "%s is a certified genius and this book is a revelation!" % author,
-                              #"Brings %s to life." % county,
-                              #"%s brings %s to life." % (author, county),
-                              #"%s really brings %s to life." % (author, county),
-                              #"%s truly brings %s to life." % (author, county),
 
                               "Run%sdon't walk%sto buy this book%s" % (tempsep,
                                                                        tempsep,
@@ -1659,14 +1405,6 @@ def do_blurb(quotechar='"', author=None, characters=None, main_character=None, b
     DEBUG = 1
     #DEBUG = 0
 
-#    if county==None:
-#        county = random.choice(place_name_generator.root_words)
-#        #county = "%sshire" % county
-#        if county[-1] != "s":
-#            county = string.capitalize("%sshire" % county)
-#        else:
-#            county = string.capitalize("%shire" % county)
-
     if author == None:
         author = names.getName()
 
@@ -1726,10 +1464,9 @@ def do_blurb(quotechar='"', author=None, characters=None, main_character=None, b
                 b = blurb_type_12(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 13":
                 b = blurb_type_13(b, quotechar=quotechar, author=author, bookname=bookname)
-            #elif blurbtype == "Type 14":
-            #    b = blurb_type_14(b, quotechar=quotechar, author=author, bookname=bookname)
-            #elif blurbtype == "Type 15":
-            #    b = blurb_type_15(b, quotechar=quotechar, author=author, bookname=bookname)
+
+            #stripped out "Type 14" and "Type 15" - not relevant to this project
+
             elif blurbtype == "Type 16":
                 b = blurb_type_16(b, quotechar=quotechar, author=author, bookname=bookname)
             elif blurbtype == "Type 17":
@@ -1787,7 +1524,6 @@ def make_cover_copy(author, characters, main_character, bookname):
 
     covercopy = ""
     covercopy = make_content_summary(author=author, characters=characters, main_character=main_character, title=bookname)
-    #covercopy = "%s\n%s" % (covercopy, do_blurb('"', author=author, characters=characters, main_character=main_character, title=bookname))
     covercopy = "%s\n%s" % (covercopy, do_blurb('"', author=author, characters=characters, main_character=main_character, bookname=bookname))
 
     return covercopy
@@ -1796,16 +1532,7 @@ def make_cover_copy(author, characters, main_character, bookname):
 if __name__ == "__main__":
 
     author = names.getName()
-    #county = random.choice(place_name_generator.root_words)
-    #county = "%sshire" % county
-    #if county[-1] != "s":
-    #    county = string.capitalize("%sshire" % county)
-    #else:
-    #    county = string.capitalize("%shire" % county)
-    #num_towns = random.choice(range(6,10))
-    #towns = []
-    #for f in range(0, num_towns):
-    #    towns.append(place_name_generator.make_name(VERBOSE=0, LOG=0))
+
     bookname = "THIS BOOK" # placeholders - should be replaced if used for an actual book...
 
     covercopy = make_cover_copy(author=author, characters=None, main_character=None, bookname=None)
