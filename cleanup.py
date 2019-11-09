@@ -17,29 +17,13 @@ import string, io, StringIO
 import glob, os, random
 import time, re
 
+
+#Dictionary of phrases to replace. Used for simple instances of when one phrase (or even just a word)
+#can be replaced by something simpler.
+
 phrases_dict = {
 
-                "It appears, at first sight not unreasonable to suppose, that,":    {
-                    "phrase"        :   "It appears, at first sight not unreasonable to suppose, that,",
-                    "replacement"   :   "It appears, at first sight, that,"
-                    },
-
-                "by the express order of":    {
-                    "phrase"        :   "by the express order of",
-                    "replacement"   :   "by the order of"
-                    },
-
-                "this auspicious and comfortable state":    {
-                    "phrase"        :   "this auspicious and comfortable state",
-                    "replacement"   :   random.choice(("this auspicious state",
-                                                       "this comfortable state",
-                                                       "this state"))
-                    },
-
-                "possessed the inestimable merit":    {
-                    "phrase"        :   "possessed the inestimable merit",
-                    "replacement"   :   "possessed the merit"
-                    },
+                #numbers
 
                 "eight-and-forty":    {
                     "phrase"        :   "eight-and-forty",
@@ -55,12 +39,6 @@ phrases_dict = {
                     "phrase"        :   "one-and-twenty",
                     "replacement"   :   "twenty-one"
                     },
-
-                "Cock-and-a-Bull":    {
-                    "phrase"        :   "Cock-and-a-Bull",
-                    "replacement"   :   "cock-and-bull"
-                    },
-
                 "eight-and-twenty":    {
                     "phrase"        :   "eight-and-twenty",
                     "replacement"   :   "twenty-eight"
@@ -204,6 +182,35 @@ phrases_dict = {
                 "eight and forty":    {
                     "phrase"        :   "eight and forty",
                     "replacement"   :   "forty-eight"
+                    },
+
+                #other phrases
+
+                "It appears, at first sight not unreasonable to suppose, that,":    {
+                    "phrase"        :   "It appears, at first sight not unreasonable to suppose, that,",
+                    "replacement"   :   "It appears, at first sight, that,"
+                    },
+
+                "by the express order of":    {
+                    "phrase"        :   "by the express order of",
+                    "replacement"   :   "by the order of"
+                    },
+
+                "this auspicious and comfortable state":    {
+                    "phrase"        :   "this auspicious and comfortable state",
+                    "replacement"   :   random.choice(("this auspicious state",
+                                                       "this comfortable state",
+                                                       "this state"))
+                    },
+
+                "possessed the inestimable merit":    {
+                    "phrase"        :   "possessed the inestimable merit",
+                    "replacement"   :   "possessed the merit"
+                    },
+
+                "Cock-and-a-Bull":    {
+                    "phrase"        :   "Cock-and-a-Bull",
+                    "replacement"   :   "cock-and-bull"
                     },
 
                 "sparkled phosphorescently":    {
