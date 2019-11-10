@@ -1315,7 +1315,8 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 
 def make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
-					 blurb, background_colour=None, foreground_colour=None, cover_style="Type 1"):
+					 blurb, background_colour=None, foreground_colour=None,
+					 cover_style="Type 1", book_file=None):
 
 	"Makes the front cover. Nice big picture."
 
@@ -1340,10 +1341,10 @@ def make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 	c.setFillColorRGB(background_colour[0], background_colour[1], background_colour[2])
 
-	illustrationfn = pick_cover_pict()
+	illustrationfn = pick_cover_pict(book_file=book_file)
 
 	if VERBOSE == 1:
-		print "\tUsing illustration :", illustrationfn
+		print "\t\t\tUsing illustration :", illustrationfn
 
 	illustration = Image.open(illustrationfn)
 
@@ -2065,8 +2066,14 @@ def pick_colour():
 	return background_colour
 
 
-def pick_cover_pict():
-	"""randomly select a picture to use for the front cover"""
+def pick_cover_pict(book_file=None):
+	"""randomly select a picture to use for the front cover.
+
+If we pass in a filename with the 'book_file' argument, will attempt
+to find an image file using the beginning of that filename (will still
+pick a random image if it fals).
+
+"""
 
 	this_dir= os.getcwd()
 
@@ -2074,7 +2081,28 @@ def pick_cover_pict():
 		pic_dir = os.path.join(this_dir, "images", "illustrations")
 
 	os.chdir(pic_dir)
-	pics = glob.glob("*.*")
+	if book_file != None:
+		#do something clever here to pickan illustration from that book...
+		if string.find(book_file, "-") > -1:
+			prefix, suffix = string.split(book_file, "-", maxsplit=1)
+		elif string.find(book_file, "-") > -1:
+			prefix, suffix = string.split(book_file, ".", maxsplit=1)
+		else:
+			#give up!
+			prefix = "*"
+		if prefix != "*":
+			prefix = "%s*" % prefix
+		#print "prefix:\t '%s'" % prefix
+		pattern = "%s.*" % prefix
+
+		pics = glob.glob(pattern)
+
+		#still found nothing... oh well.
+		if pics == []:
+			pics = glob.glob("*.*")
+			
+	else:
+		pics = glob.glob("*.*")
 
 	#pics that have shown up in testing and aren't really suitable for front cover use...
 	exceptions = []
@@ -2084,6 +2112,8 @@ def pick_cover_pict():
 
 	pic_to_use = random.choice(pics)
 	pic_to_use = os.path.join(pic_dir, pic_to_use)
+
+
 
 	os.chdir(this_dir)
 
@@ -2134,12 +2164,13 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 
 	if VERBOSE == 1:
 		print "\tcreating front cover..."
-		print "\t\tbackground_colour:", background_colour
+		#print "\t\tbackground_colour:", background_colour
 
 	foreground_colour = pick_colour()
 
-	cover_pic = pick_cover_pict()
-	print cover_pic
+	cover_pic = pick_cover_pict(book_file=book_file)
+
+	#print cover_pic
 
 	#while background_colour == foreground_colour:
 	#    foreground_colour = pick_colour()
@@ -2190,21 +2221,21 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 		print blurb
 
 	if VERBOSE == 1:
-		print "\tGenerating ISBN..."
+		print "\t\tGenerating ISBN..."
 	ISBN = make_ISBN(spacer="-")
 	ISBN_for_barcode = string.strip(string.replace(string.replace(ISBN, "-", "")," ", ""))
 	if VERBOSE == 1:
-		print "\tISBN: '%s'" % ISBN
-		print "\tISBN_for_barcode: '%s'" % ISBN_for_barcode
+		print "\t\t\tISBN: '%s'" % ISBN
+		print "\t\t\tISBN_for_barcode: '%s'" % ISBN_for_barcode
 
 	price = random.choice(range(3,12))
 	price = "£%s.99" % price
 	if VERBOSE == 1:
-		print "\tprice: '%s'" % price
+		print "\t\t\tprice: '%s'" % price
 		print
 	
 	if VERBOSE == 1:
-		print "\tcreating back cover..."
+		print "\n\tcreating back cover..."
 
 	c, blurb = make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 							   blurb, background_colour=back, foreground_colour=fore,
@@ -2247,10 +2278,10 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 		print "===="
 
 	if VERBOSE == 1:
-		print "\tcreating front cover..."
-		print "\t\tbackground_colour:", background_colour
+		print "\n\tcreating front cover..."
+		#print "\t\tbackground_colour:", background_colour
 
-	cover_pic = pick_cover_pict()
+	cover_pic = pick_cover_pict(book_file=book_file)
 	print cover_pic
 
 	#while background_colour == foreground_colour:
@@ -2294,7 +2325,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 
 	c = make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 						 blurb, background_colour=back, foreground_colour=fore,
-						 cover_style=cover_style)
+						 cover_style=cover_style, book_file=d.dickens_filename)
 
 	make_text_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 					 blurb, background_colour=None, foreground_colour=None)
@@ -2309,17 +2340,17 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 	ISBN_for_barcode = string.strip(string.replace(string.replace(ISBN, "-", "")," ", ""))
 
 	if VERBOSE == 1:
-		print "\tISBN: '%s'" % ISBN
-		print "\tISBN_for_barcode: '%s'" % ISBN_for_barcode
+		print "\t\tISBN: '%s'" % ISBN
+		print "\t\tISBN_for_barcode: '%s'" % ISBN_for_barcode
 
 	price = random.choice(range(3,12))
 	price = "£%s.99" % price
 	if VERBOSE == 1:
-		print "\tprice: '%s'" % price
+		print "\t\tprice: '%s'" % price
 		print
 	
 	if VERBOSE == 1:
-		print "\tcreating back cover..."
+		print "\n\tcreating back cover..."
 	c, blurb  = make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								blurb, background_colour=back, foreground_colour=fore,
 								ISBN_text=ISBN, ISBN_for_barcode=ISBN_for_barcode, price=price,
