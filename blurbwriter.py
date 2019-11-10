@@ -103,11 +103,20 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
         if DEBUG == 1:
             print "\t\t(added fake dickens_title'%s')" % dickens_title
     else:
-        if string.find(title, " by ") > -1:
+        #if string.find(title, " by ") > -1:
+        #    thistitle, thisauthor = string.split(title, " by ")
+        #else:
+        #    thistitle, thisauthor = title, None
+
+        if string.find(dickens_title, " by ") > -1:
+            thistitle, thisauthor = string.split(dickens_title, " by ")
+        elif dickens_title != None:
+            thistitle, thisauthor = dickens_title, None
+        elif string.find(title, " by ") > -1:
             thistitle, thisauthor = string.split(title, " by ")
         else:
             thistitle, thisauthor = title, None
-    
+   
 
     author_firstname = string.split(author)[0]
     if author_firstname in names.male_firstnames:
@@ -150,7 +159,7 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
             pt2 = main_character
         else:
             if len(characters) == 1:
-                pt2 = "%2 and %s" % (main_character, characters)
+                pt2 = "%s and %s" % (main_character, characters)
             else:
                 c1 = random.choice(characters)
                 characters.remove(c1)
@@ -162,7 +171,7 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                 if randnum2 == 0:
                     pt2 = random.choice((c1, "%s and %s" % (main_character, c1)))
                 else:
-                    pt2 = random.choice((c1, "%s,%s and %s" % (main_character, c1, c2)))
+                    pt2 = random.choice((c1, "%s, %s and %s" % (main_character, c1, c2)))
 
     pt3 = random.choice(("classic",
                          "inventive",
@@ -178,6 +187,11 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                             "'%s' by %s" % (thistitle, thisauthor),
                             "'%s'" % thistitle,
                             thistitle))
+
+    #bookbit = random.choice(("Dickens' '%s'" % dickens_title,
+    #                        "'%s' by %s" % (dickens_title, random.choice(("Dickens", "Charles Dickens"))),
+    #                        "'%s'" % dickens_title,
+    #                        dickens_title))
 
     description = "Read %s %s in %s %s %s of %s.\n\n\n" % (pt1, pt2,
                                                            random.choice(("this", "%s's" % author, "%s's" % author)),
@@ -1546,18 +1560,19 @@ def do_blurb(quotechar='"', author=None, characters=None, main_character=None, b
         b = make_attribution(b)
 
         if blurbs != "":
-            blurbs = b
+            #blurbs = b
+            blurbs = "\n\n%s" % (b.decode("UTF-8", "ignore"))
         else:
             blurbs = "%s\n\n%s" % (blurbs, b)
     return blurbs
     #print b
 
-def make_cover_copy(author, characters, main_character, bookname):
+def make_cover_copy(author, characters, main_character, bookname, dickens_title=None):
     """Convenience function. Calls make_content_summary and do_blurb.
     Returns a string"""
 
     covercopy = ""
-    covercopy = make_content_summary(author=author, characters=characters, main_character=main_character, title=bookname)
+    covercopy = make_content_summary(author=author, characters=characters, main_character=main_character, title=bookname, dickens_title=dickens_title)
     covercopy = "%s\n%s" % (covercopy, do_blurb('"', author=author, characters=characters, main_character=main_character, bookname=bookname))
 
     return covercopy

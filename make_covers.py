@@ -2255,7 +2255,8 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 
 
 
-def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_style=None):
+def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_style=None,
+		book_file=None, dickens_book = None):
 
 	DEBUG = 0
 	#DEBUG = 1
@@ -2325,7 +2326,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 
 	c = make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 						 blurb, background_colour=back, foreground_colour=fore,
-						 cover_style=cover_style, book_file=d.dickens_filename)
+						 cover_style=cover_style, book_file=book_file)
 
 	make_text_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 					 blurb, background_colour=None, foreground_colour=None)
@@ -2354,7 +2355,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 	c, blurb  = make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								blurb, background_colour=back, foreground_colour=fore,
 								ISBN_text=ISBN, ISBN_for_barcode=ISBN_for_barcode, price=price,
-								cover_style=cover_style)
+								cover_style=cover_style,dickens_book = dickens_book)
 
 	make_text_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 						 blurb, background_colour=None, foreground_colour=None, ISBN=ISBN, price=price)
