@@ -1083,16 +1083,25 @@ London May 1857
 						 "main character":    "Amy Dorrit",
 						 },
 
-
-#   ["967-0.txt",   "Nicholas Nickleby by Charles Dickens"],
 	"967-0.txt":        {"filename":    "967-0.txt",
 						 "title":       "Nicholas Nickleby by Charles Dickens",
 						 "characters":
-										#from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-										#https://www.sparknotes.com/lit/christmascarol/characters/
-										["",
-										"",
-										""],
+										#from Charles Dickens Info - Characters in Nicholas Nickleby
+										#https://www.charlesdickensinfo.com/novels/nicholas-nickleby/whos-who/
+										["Madeline Bray",
+										"John Browdie",
+										"Charles Cheeryble",
+										["Edwin (Ned) Cheeryble", "Edwin Cheeryble", "Ned Cheeryble"],
+										"Frank Cheeryble",
+										"Kate Nickleby.",
+										"Vincent Crummles",
+										"Arthur Gride",
+										"Kate Nickleby",
+										"Nicholas Nickleby",
+										"Ralph Nickleby",
+										"Newman Noggs",
+										"Smike",
+										"Whackford Squeers"],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   ["containing a Faithful Account of the Fortunes, Misfortunes,",
@@ -1486,19 +1495,23 @@ Bradbury and Evans, Printers, Whitefriars.""",
 
 
 #   ["pg1465.txt",  "The Wreck of the Golden Mary by Charles Dickens"],
-##  "pg1465.txt":      {"filename":    "pg1465.txt",
-##                         "title":       "The Wreck of the Golden Mary by Charles Dickens",
-##                         "characters":
-##                                        #from Sparknotes - Literature - A Christmas Carol - CHARACTERS
-##                                        #https://www.sparknotes.com/lit/christmascarol/characters/
-##                                        ["",
-##                                        "",
-##                                        ""],
-##                         "chapter dividers":    None,
-##                         "chapter names":       None,
-##                         "garbage to delete":   [],
-##                       "main character":    None,
-##
+  "pg1465.txt":      {"filename":    "pg1465.txt",
+                         "title":       "The Wreck of the Golden Mary by Charles Dickens",
+                         "characters":
+                                        [
+											["Captain William George Ravender", "Captain Ravender"],
+											"John Steadiman",
+											"Mrs. Atherton",
+											["Lucy Atherton", "Golden Lucy"],
+											"Miss Coleshaw",
+											"Mr. Rarx"],
+                         "chapter dividers":    None,
+                         "chapter names":       None,
+                         "garbage to delete":   ['Transcribed from the 1894 Chapman and Hall edition of "Christmas Stories"',
+												 "by David Price, email ccx074@coventry.ac.uk"],
+                         "main character":    "Captain William George Ravender",
+						 },
+
 
 #["917-0.txt",   "Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens"],
 #Barnaby Rudge: A Tale of the Riots of 'Eighty by Charles Dickens
@@ -1852,8 +1865,20 @@ def modify_files(VERBOSE=1):
 									infile = infile.replace(surname_caps.encode("UTF-8", "ignore"), surname_placeholder_caps.encode("UTF-8", "ignore"))
 								except:
 									print "FAILED ON '%s'!" % surname
-			outfile.write(infile.decode("UTF-8", "ignore"))
-			outfile.close()
+			try:
+				try:
+					outfile.write(infile.decode("UTF-8", "ignore"))
+				except MemoryError:
+					for line in infile.split("\n"):
+						#Oops. Too big to do all at once. Try writing it a line at a
+						#time and see if that works...
+						outfile.write("%s\n" % line.decode("UTF-8", "ignore"))
+					#outfile.write(infile.encode("UTF-8", "ignore"))
+				outfile.close()
+			except:
+				print "FAILED ON:\n\t'%s'\n\t'%s" % ((os.path.join(thisdir, "modified", newfn)),f)
+				raise
+
 			if VERBOSE == 1:
 				print "\twrote output file '%s'\n" % os.path.join(thisdir, "modified", newfn)
 			else:
