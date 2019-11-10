@@ -221,7 +221,7 @@ def get_random_place():
     place = p[1][0]
     if string.find(place, " and ") > -1:
         if string.find(place, ", ") > -1:
-            places, county = string.split(place, ", ")
+            places, county = string.split(place, ", ", maxsplit=1)
             if string.find(places, " and ") > -1:
                 p2 = string.split(places, " and ")
                 p3 = random.choice(p2)
