@@ -503,12 +503,7 @@ THE PARISH BOY'S PROGRESS
 												 "LONDON: CHAPMAN & HALL, LD.",
 												 "NEW YORK: CHARLES SCRIBNER'S SONS",
 												 "1905",
-												 "AND\n                           REPRINTED PIECES {0}",
-												 "[Picture: Stephen and Rachael in the sick room]",
-												 "[Picture: Mr. Harthouse dines at the Bounderby's]",
-												 "[Picture: Mr. Harthouse dines at the Bounderby’s]",
-												 "[Picture: Mr. Harthouse and Tom Gradgrind in the garden]",
-												 "[Picture: Stephen Blackpool recovered from the Old Hell Shaft]"
+												 "AND\n                           REPRINTED PIECES {0}"
 												 ],
 						 "main character":    None,
 						 },
@@ -893,9 +888,7 @@ _Chatham, N.J._
 										"Mr. Winkle, Sr.",
 										"Wilkins Flasher",
 										"Philip Strother",
-										"Wade Grove",
-                                        #additional minor characters
-                                        "Joseph Smiggers"],
+										"Wade Grove"],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   ["Produced by Jo Churcher, and David Widger"],
@@ -1303,7 +1296,7 @@ hero should be lifted out of nature."""],
 										 ["Captain Edward (Ned) Cuttle", "Captain Edward Cuttle", "Captain Ned Cuttle",
 										  "Edward Cuttle", "Ned Cuttle", "Captain Cuttle"],
 										 "Florence Dombey",
-										 ["Paul Dombey", "Mr. Dombey", "Dom-bey"],
+										 ["Paul Dombey", "Mr. Dombey"],
 										 ["Paul Jr. Dombey", "Paul Dombey, Jr."],
 										 "Walter Gay",
 										 ["Solomon Gills", "Uncle Sol"],
@@ -1637,13 +1630,10 @@ LONDON: CONSTABLE & COMPANY, LIMITED
 										"Rosa Bud",
 										"Neville Landless",
 										"Helena Landless",
-										["the Reverend Septimus Crisparkle", "Mr. Crisparkle", "Septimus Crisparkle"],
+										"Mr. Crisparkle",
 										"Mr. Grewgious",
 										"Datchery",
-										"Durdles",
-                                         #Additional characters
-                                         "Mr. Honeythunder",
-                                         ],
+										"Durdles"],
 						 "chapter dividers":    "CHAPTER ",
 						 "chapter names":       None,
 						 "garbage to delete":   ["[Picture: Rochester castle]",
@@ -1671,6 +1661,11 @@ titles = ["Lady", "Grandmother", "Aunt", "Mrs.", "Miss", "Mr.", "Doctor", "Dr.",
 		  "Inspector", "Captain", "Prince", "Grandfather", "Alderman", "Brother",
 		  "Count", "Colonel", "The Hon.", "The Reverend", "Lieutenant", "Sir", "Master",
 		  "Monsieur", "Madame", "Mademoiselle", "Marquis", "Lieut.-Col."]
+
+def do_special_name(name):
+	#placeholder
+	#use NLTK to create a version of the character's name using synonyms
+	return name
 
 
 def modify_files(VERBOSE=1):
@@ -1733,17 +1728,32 @@ def modify_files(VERBOSE=1):
 
 
 			#make use of this later...
-			exceptions = ["Artful Dodger", "The Convict"]
+			exceptions = ["Artful Dodger",
+						  "The Convict",
+						  "An old clergyman",
+						  "The one-eyed bagman",
+						  "A scientific gentleman",
+						  "The Single Gentleman",
+						  "The Ghost Of Christmas Past",
+						  "The Ghost Of Christmas Present",
+						  "The Ghost Of Christmas Yet To Come",
+						  ]
 
 			CHARACTER_NUMBER = 0
 			for character_name in characters_dict[f]["characters"]:
-				#do all the characters first, in case they share surnames...
 				CHARACTER_NUMBER = CHARACTER_NUMBER + 1
-				placeholder = "[CHARACTER_NAME_%03d]" % CHARACTER_NUMBER
+				if character_name in exceptions:
+					placeholder = do_special_name(character_name)
+				else:
+					#do all the characters first, in case they share surnames...
+					placeholder = "[CHARACTER_NAME_%03d]" % CHARACTER_NUMBER
 				#infile = infile.replace(character_name.encode("UTF-8", "ignore"), placeholder.encode("UTF-8", "ignore"))
 				if type(character_name) in (StringType, UnicodeType):
 					character_name_caps = string.upper(character_name)
-					placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
+					if character_name in exceptions:
+						placeholder_caps = do_special_name(placeholder)
+					else:
+						placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
 					try:
 						infile = infile.replace(character_name.decode("UTF-8", "ignore"), placeholder.decode("UTF-8", "ignore"))
 					except:
@@ -1761,7 +1771,10 @@ def modify_files(VERBOSE=1):
 				elif type(character_name) in (TupleType, ListType):
 					for cn in character_name:
 						character_name_caps = string.upper(cn)
-						placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
+						if cn in exceptions:
+							placeholder_caps = do_special_name(placeholder)
+						else:
+							placeholder_caps = "[CHARACTER_NAME_CAPS_%03d]" % CHARACTER_NUMBER
 						try:
 							infile = infile.replace(cn.decode("UTF-8", "ignore"), placeholder.decode("UTF-8", "ignore"))
 							infile = infile.replace(character_name_caps.decode("UTF-8", "ignore"), placeholder_caps.decode("UTF-8", "ignore"))
