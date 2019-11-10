@@ -243,6 +243,26 @@ phrases_dict = {
                     "replacement"   :   "had just"
                     },
 
+                "to-morrow":    {
+                    "phrase"        :   "to-morrow",
+                    "replacement"   :   "tomorrow"
+                    },
+                
+                "a-comin’":    {
+                    "phrase"        :   "a-comin’",
+                    "replacement"   :   "coming"
+                    },
+
+                "a-comin'":    {
+                    "phrase"        :   "a-comin'",
+                    "replacement"   :   "coming"
+                    },
+
+                "three-fourths":    {
+                    "phrase"        :   "three-fourths",
+                    "replacement"   :   "three-quarters"
+                    },
+
                 #remove underscores indicating italics...
                 #We'll just ignore them.
                 "_":    {
@@ -261,9 +281,6 @@ phrases_dict = {
 
 ##TO ADD LATER...
 
-#"jingled and jingled" -> "jingled"
-#	#remove any instances of "X and X"?
-
 #"alive this day" -> "alive today"
 #	#remove some other instances of "this day"...?
 
@@ -277,31 +294,39 @@ phrases_dict = {
 #Lascars
 
 def cleanup(text, VERBOSE=0, use_log=0):
+    DEBUG = 0
+    #DEBUG = 1
+
     if use_log == 1:
         #LOGFILE = open("CLEANUP_LOG.txt", "w")
         LOGFILE = open("CLEANUP_LOG.txt", "a")
-    for key in phrases_dict.keys():
-        IN = phrases_dict[key]["phrase"]
-        OUT = phrases_dict[key]["replacement"]
-        if string.find(text, phrases_dict[key]["phrase"]):
+    ORIGINAL_LENGTH = len(string.split(text, " "))
+
+    dict_keys = phrases_dict.keys()
+    dict_keys.sort()
+
+    for key in dict_keys:
+        IN = phrases_dict[key]["phrase"].decode("UTF-8", "ignore")
+        OUT = phrases_dict[key]["replacement"].decode("UTF-8", "ignore")
+        if string.find(text.decode("UTF-8", "ignore"), phrases_dict[key]["phrase"].decode("UTF-8", "ignore")):
             text = string.replace(text, IN, OUT)
             if VERBOSE == 1:
                 print "\t REPLACED '%s' WITH '%s'" % (IN, OUT)
             if use_log == 1:
                 LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (IN, OUT))
-        if string.find(text, string.capitalize(phrases_dict[key]["phrase"])):
+        if string.find(text, string.capitalize(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
             text = string.replace(text, string.capitalize(IN), string.capitalize(OUT))
             if VERBOSE == 1:
                 print "\t REPLACED '%s' WITH '%s'" % (string.capitalize(IN), string.capitalize(OUT))
             if use_log == 1:
                 LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capitalize(IN), string.capitalize(OUT)))
-        if string.find(text, string.capwords(phrases_dict[key]["phrase"])):
+        if string.find(text, string.capwords(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
             text = string.replace(text, string.capwords(IN), string.capwords(OUT))
             if VERBOSE == 1:
                 print "\t REPLACED '%s' WITH '%s'" % (string.capwords(IN), string.capwords(OUT))
             if use_log == 1:
                 LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capwords(IN), string.capwords(OUT)))
-        if string.find(text, string.upper(phrases_dict[key]["phrase"])):
+        if string.find(text, string.upper(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
             text = string.replace(text, string.upper(IN), string.upper(OUT))
             if VERBOSE == 1:
                 print "\t REPLACED '%s' WITH '%s'" % (string.upper(IN), string.upper(OUT))
@@ -309,6 +334,59 @@ def cleanup(text, VERBOSE=0, use_log=0):
                 LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.upper(IN), string.upper(OUT)))
         if use_log == 1:
             LOGFILE.write("\n")
+
+        #"jingled and jingled" -> "jingled"
+        #	#remove any instances of "X and X"?
+
+    #naive word split will do here. No need to tokenize it...
+    words_split = string.split(text, " ")
+
+    exceptions =["her"]
+
+    # 'her' tends to be things like 'it lay between her and her lover' or
+    #  'work-basket between her and her old attendant', which just become
+    #  nonsense of you remove the "and her" bit.
+
+    for w in range(1, len(words_split)-1):
+        try:
+            if words_split[w] == "and":
+                if words_split[w-1] == words_split[w+1]:
+                    if words_split[w-1] in exceptions:
+                        pass
+                    else:
+                        if DEBUG == 1:
+                            print "\nworking on bit '%s'..." % string.join(words_split[w-5:w+5])
+                        converted = "%s %s %s" % (words_split[w-1], words_split[w], words_split[w+1])
+                        converted_to = words_split[w-1]
+                        if VERBOSE == 1:
+                            print "\t \t ...REMOVING WORD '%s'..." % (words_split[w])
+                        words_split.remove(words_split[w])
+                        #we've removed words_split[w], so this removes what WAS words_split[w+1]
+                        if VERBOSE == 1:
+                            print "\t \t ...REMOVING WORD '%s'..." % (words_split[w])
+                        words_split.remove(words_split[w])
+                        
+                        if VERBOSE == 1:
+                            print "\t CONVERTED '%s' TO '%s'" % (converted, converted_to)
+                        if use_log == 1:
+                            LOGFILE.write("\t CONVERTED '%s' TO '%s'\n" % (converted, converted_to))
+        except IndexError:
+            #we've removed too many words. Must be at the end of the list now
+            break
+    text = string.join(words_split, " ")
+
+    NEW_LENGTH = len(string.split(text, " "))
+    DIFFERENCE = ORIGINAL_LENGTH - NEW_LENGTH
+
+    if VERBOSE == 1:
+        print "\n\t Original length of 'text':\t %s words" % ORIGINAL_LENGTH
+        print "\t Length of revised 'text':\t %s words" % NEW_LENGTH
+        print "\t Change:\t %s words" % DIFFERENCE
+    if use_log == 1:
+        LOGFILE.write("\n\n\t Original length of 'text':\t %s words\n" % ORIGINAL_LENGTH)
+        LOGFILE.write("\t Length of revised 'text':\t %s words\n" % NEW_LENGTH)
+        LOGFILE.write("\t Change:\t %s words\n\n\n" % DIFFERENCE)
+
     return text
 
 def demo():
