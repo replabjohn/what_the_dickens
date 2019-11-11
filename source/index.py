@@ -1479,7 +1479,9 @@ Bradbury and Evans, Printers, Whitefriars.""",
                          "chapter dividers":    "PART ",
                          "chapter names":       None,
                          "garbage to delete":   ["Transcribed from the 1905 Chapman and Hall “Hard Times and Reprinted",
-"Pieces” edition by David Price, email ccx074@pglaf.org",
+												 "Pieces” edition by David Price, email ccx074@pglaf.org",
+												 'Transcribed from the 1905 Chapman Hall "Hard Times Reprinted',
+												 'Pieces" edition by David Price, email ccx074@pglaf.org',
                                                  """FOOTNOTES
 
 
@@ -1499,7 +1501,7 @@ Bradbury and Evans, Printers, Whitefriars.""",
                          "title":       "The Wreck of the Golden Mary by Charles Dickens",
                          "characters":
                                         [
-											["Captain William George Ravender", "Captain Ravender"],
+											["Captain William George Ravender", "Captain Ravender", "William George Ravender"],
 											"John Steadiman",
 											"Mrs. Atherton",
 											["Lucy Atherton", "Golden Lucy"],
