@@ -306,32 +306,124 @@ def cleanup(text, VERBOSE=0, use_log=0):
     dict_keys.sort()
 
     for key in dict_keys:
-        IN = phrases_dict[key]["phrase"].decode("UTF-8", "ignore")
-        OUT = phrases_dict[key]["replacement"].decode("UTF-8", "ignore")
-        if string.find(text.decode("UTF-8", "ignore"), phrases_dict[key]["phrase"].decode("UTF-8", "ignore")):
-            text = string.replace(text, IN, OUT)
-            if VERBOSE == 1:
-                print "\t REPLACED '%s' WITH '%s'" % (IN, OUT)
-            if use_log == 1:
-                LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (IN, OUT))
-        if string.find(text, string.capitalize(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
-            text = string.replace(text, string.capitalize(IN), string.capitalize(OUT))
-            if VERBOSE == 1:
-                print "\t REPLACED '%s' WITH '%s'" % (string.capitalize(IN), string.capitalize(OUT))
-            if use_log == 1:
-                LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capitalize(IN), string.capitalize(OUT)))
-        if string.find(text, string.capwords(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
-            text = string.replace(text, string.capwords(IN), string.capwords(OUT))
-            if VERBOSE == 1:
-                print "\t REPLACED '%s' WITH '%s'" % (string.capwords(IN), string.capwords(OUT))
-            if use_log == 1:
-                LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capwords(IN), string.capwords(OUT)))
-        if string.find(text, string.upper(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
-            text = string.replace(text, string.upper(IN), string.upper(OUT))
-            if VERBOSE == 1:
-                print "\t REPLACED '%s' WITH '%s'" % (string.upper(IN), string.upper(OUT))
-            if use_log == 1:
-                LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.upper(IN), string.upper(OUT)))
+        try:
+            IN = phrases_dict[key]["phrase"].decode("UTF-8", "ignore")
+            OUT = phrases_dict[key]["replacement"].decode("UTF-8", "ignore")
+        except:
+            IN = phrases_dict[key]["phrase"].encode("UTF-8", "ignore")
+            OUT = phrases_dict[key]["replacement"].encode("UTF-8", "ignore")
+
+        try:
+            if string.find(text.decode("UTF-8", "ignore"), phrases_dict[key]["phrase"].decode("UTF-8", "ignore")):
+                text = string.replace(text.decode("UTF-8", "ignore"), IN.decode("UTF-8", "ignore"), OUT.decode("UTF-8", "ignore"))
+                if VERBOSE == 1:
+                    print "\t REPLACED '%s' WITH '%s'" % (IN.decode("UTF-8", "ignore"), OUT.decode("UTF-8", "ignore"))
+                if use_log == 1:
+                    LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (IN.decode("UTF-8", "ignore"), OUT.decode("UTF-8", "ignore")))
+        except:
+            try:
+                if string.find(text.encode("UTF-8", "ignore"), phrases_dict[key]["phrase"].encode("UTF-8", "ignore")):
+                    text = string.replace(text.encode("UTF-8", "ignore"), IN.encode("UTF-8", "ignore"), OUT.encode("UTF-8", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (IN.encode("UTF-8", "ignore"), OUT.encode("UTF-8", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (IN.encode("UTF-8", "ignore"), OUT.encode("UTF-8", "ignore")))
+            except:
+                #print "text:", text.decode("ascii", "ignore")
+                #print "text:", text.encode("ascii", "ignore")
+                #print """phrases_dict[key]["phrase"]:""", phrases_dict[key]["phrase"].decode("ascii", "ignore")
+
+                if string.find(text.encode("ascii", "ignore"), phrases_dict[key]["phrase"].decode("ascii", "ignore")):
+                    text = string.replace(text.encode("UTF-8", "ignore"), IN.encode("UTF-8", "ignore"), OUT.encode("UTF-8", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (IN.encode("ascii", "ignore"), OUT.encode("ascii", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (IN.encode("ascii", "ignore"), OUT.encode("ascii", "ignore")))
+
+        try:
+            if string.find(text.decode("UTF-8", "ignore"), string.capitalize(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
+                text = string.replace(text.decode("UTF-8", "ignore"), string.capitalize(IN).decode("UTF-8", "ignore"), string.capitalize(OUT).decode("UTF-8", "ignore"))
+                if VERBOSE == 1:
+                    print "\t REPLACED '%s' WITH '%s'" % (string.capitalize(IN).decode("UTF-8", "ignore"), string.capitalize(OUT).decode("UTF-8", "ignore"))
+                if use_log == 1:
+                    LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capitalize(IN).decode("UTF-8", "ignore"), string.capitalize(OUT).decode("UTF-8", "ignore")))
+        except:
+            try:
+                if string.find(text.encode("UTF-8", "ignore"), string.capitalize(phrases_dict[key]["phrase"].encode("UTF-8", "ignore"))):
+                    text = string.replace(text.encode("UTF-8", "ignore"), string.capitalize(IN).encode("UTF-8", "ignore"), string.capitalize(OUT).encode("UTF-8", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (string.capitalize(IN).encode("UTF-8", "ignore"), string.capitalize(OUT).encode("UTF-8", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capitalize(IN).encode("UTF-8", "ignore"), string.capitalize(OUT).encode("UTF-8", "ignore")))
+            except:
+                #print "text:", text.decode("ascii", "ignore")
+                #print """phrases_dict[key]["phrase"]:""", phrases_dict[key]["phrase"].decode("ascii", "ignore")
+                if string.find(text.decode("ascii", "ignore"), string.capitalize(phrases_dict[key]["phrase"].decode("ascii", "ignore"))):
+                    #print text.decode("ascii", "ignore")
+                    #print string.capitalize(IN).encode("ascii", "ignore")
+                    #print string.capitalize(OUT).encode("ascii", "ignore")
+                    text = string.replace(text.decode("ascii", "ignore"), string.capitalize(IN).encode("ascii", "ignore"), string.capitalize(OUT).encode("ascii", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (string.capitalize(IN).encode("ascii", "ignore"), string.capitalize(OUT).encode("ascii", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capitalize(IN).encode("ascii", "ignore"), string.capitalize(OUT).encode("ascii", "ignore")))
+
+        try:
+            if string.find(text.decode("UTF-8", "ignore"), string.capwords(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
+                text = string.replace(text.decode("UTF-8", "ignore"), string.capwords(IN).decode("UTF-8", "ignore"), string.capwords(OUT).decode("UTF-8", "ignore"))
+                if VERBOSE == 1:
+                    print "\t REPLACED '%s' WITH '%s'" % (string.capwords(IN).decode("UTF-8", "ignore"), string.capwords(OUT).decode("UTF-8", "ignore"))
+                if use_log == 1:
+                    LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capwords(IN), string.capwords(OUT)))
+        except:
+            try:
+                if string.find(text.encode("UTF-8", "ignore"), string.capwords(phrases_dict[key]["phrase"].encode("UTF-8", "ignore"))):
+                    text = string.replace(text.encode("UTF-8", "ignore"), string.capwords(IN).encode("UTF-8", "ignore"), string.capwords(OUT).encode("UTF-8", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (string.capwords(IN).encode("UTF-8", "ignore"), string.capwords(OUT).encode("UTF-8", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capwords(IN).encode("UTF-8", "ignore"), string.capwords(OUT).encode("UTF-8", "ignore")))
+            except:
+                #print text.encode("ascii", "ignore")
+                #print string.capwords(phrases_dict[key]["phrase"].decode("ascii", "ignore"))
+                #print text.encode("ascii", "ignore")
+                #print string.capwords(IN).encode("ascii", "ignore")
+                #print string.capwords(OUT).decode("ascii", "ignore")
+                if string.find(text.encode("ascii", "ignore"), string.capwords(phrases_dict[key]["phrase"].decode("ascii", "ignore"))):
+                    text = string.replace(text.encode("ascii", "ignore"), string.capwords(IN).encode("ascii", "ignore"), string.capwords(OUT).decode("ascii", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (string.capwords(IN).encode("ascii", "ignore"), string.capwords(OUT).decode("ascii", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.capwords(IN).encode("ascii", "ignore"), string.capwords(OUT).decode("ascii", "ignore")))
+
+        try:
+            if string.find(text.decode("UTF-8", "ignore"), string.upper(phrases_dict[key]["phrase"].decode("UTF-8", "ignore"))):
+                text = string.replace(text.decode("UTF-8", "ignore"), string.upper(IN).decode("UTF-8", "ignore"), string.upper(OUT).decode("UTF-8", "ignore"))
+                if VERBOSE == 1:
+                    print "\t REPLACED '%s' WITH '%s'" % (string.upper(IN).decode("UTF-8", "ignore"), string.upper(OUT).decode("UTF-8", "ignore"))
+                if use_log == 1:
+                    LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.upper(IN).decode("UTF-8", "ignore"), string.upper(OUT).decode("UTF-8", "ignore")))
+        except:
+            try:
+                if string.find(text.encode("UTF-8", "ignore"), string.upper(phrases_dict[key]["phrase"].encode("UTF-8", "ignore"))):
+                    text = string.replace(text.encode("UTF-8", "ignore"), string.upper(IN).encode("UTF-8", "ignore"), string.upper(OUT).encode("UTF-8", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (string.upper(IN).encode("UTF-8", "ignore"), string.upper(OUT).encode("UTF-8", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.upper(IN).encode("UTF-8", "ignore"), string.upper(OUT).encode("UTF-8", "ignore")))
+            except:
+                #print text.encode("ascii", "ignore")
+                #print string.upper(phrases_dict[key]["phrase"].decode("ascii", "ignore"))
+                #print text.encode("ascii", "ignore")
+                #print string.upper(IN).encode("ascii", "ignore")
+                #print string.upper(OUT).encode("ascii", "ignore")
+                if string.find(text.encode("ascii", "ignore"), string.upper(phrases_dict[key]["phrase"].decode("ascii", "ignore"))):
+                    text = string.replace(text.encode("ascii", "ignore"), string.upper(IN).encode("ascii", "ignore"), string.upper(OUT).encode("ascii", "ignore"))
+                    if VERBOSE == 1:
+                        print "\t REPLACED '%s' WITH '%s'" % (string.upper(IN).encode("ascii", "ignore"), string.upper(OUT).encode("ascii", "ignore"))
+                    if use_log == 1:
+                        LOGFILE.write("\t REPLACED '%s' WITH '%s'\n" % (string.upper(IN).encode("ascii", "ignore"), string.upper(OUT).encode("ascii", "ignore")))
+
         if use_log == 1:
             LOGFILE.write("\n")
 
