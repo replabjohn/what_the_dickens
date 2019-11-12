@@ -11,6 +11,12 @@ from nltk.corpus import wordnet
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 
+VERBOSE = 1
+VERBOSE = 0
+
+__VERSION__ = "0.02a"
+
+
 def split_into_paras(text):
     """Simply splits text into paragraphs by splitting on the string '\n\n'"""
     paras = string.split(text, "\n\n")
@@ -68,6 +74,7 @@ def check_for_exeptions(word):
     elif word == "doed": return "did"
     elif word == "sawed": return "saw"
     elif word == "fancys": return "fancies"
+    elif word == "buddys": return "buddies"
     elif word == "gived": return "gave"
     elif word == "drawed": return "drew"
     elif word == "drewed": return "drew"
@@ -77,38 +84,45 @@ def check_for_exeptions(word):
     elif word == "cattles": return "cattle"
     elif word == "marshs": return "marshes"
     elif word == "maritaled": return "married"
+    elif word == "meeted": return "met"
+    elif word == "seing": return "seeing"
     else: return word
 
-def get_synonym(word, POS_tag=None):
+
+def get_synonym(word, POS_tag=None, VERBOSE=0):
     "uses wordnet to look up a synonym for the word 'word"""
     #VERY EXPERIMENTAL!
 
     #get Set of Synonmys (SynSet)
     synset = wordnet.synsets(word)
     if len(synset) == 0:
-        #no synosyms found, just return the original word
+        #no synonyms found, just return the original word
         return word
+
     #now pick a random element to use
     element_to_use = random.choice(range(0,len(synset)))
     synonym = synset[element_to_use].lemmas()[0].name()
-
 
     if string.find(synonym, "_") > -1:
         #treat as a failure...
         return word
 
-    #These are a bit simplistic and don't allow for exceptions...
-    if POS_tag in ['IN', 'PRP', 'NN', 'CD']:
+    #These are a bit simplistic and don't allow for (some) exceptions...
+    if POS_tag in ['IN', 'PRP', 'NN', 'CD', 'UH']:
         #These ones tend to screw up when supplying synonyms - just use the original.
         return word
+
     elif POS_tag == "VBG":
         #verb, present participle or gerund
-        #telegraphing stirring focusing angering judging stalling lactating
-        if synonym[-3:] != "ing":
+        #telegraphing stirring focusing angering judging stalling lactating...
+        if synonym[-3:] != "e":
+            synonym = "%sing" % synonym[:-1]
+        elif synonym[-3:] != "ing":
             synonym = "%sing" % synonym
+
     elif POS_tag == "VBN":
         #verb, past participle
-        #multihulled dilapidated aerosolized chaired languished panelized used
+        #multihulled dilapidated aerosolized chaired languished panelized used...
         if synonym[-2:] != "ed":
             if synonym[-1:] == "e":
                 synonym = "%sd" % synonym
@@ -116,9 +130,10 @@ def get_synonym(word, POS_tag=None):
                 synonym = "%sied" % synonym[:-1]
             else:
                 synonym = "%sed" % synonym
+
     elif POS_tag == "VBD":
         #verb, past tense
-        #dipped pleaded swiped regummed soaked tidied convened halted registered
+        #dipped pleaded swiped regummed soaked tidied convened halted registered...
         if synonym[-2:] != "ed":
             if synonym[-1:] == "e":
                 synonym = "%sd" % synonym
@@ -126,13 +141,33 @@ def get_synonym(word, POS_tag=None):
                 synonym = "%sied" % synonym[:-1]
             else:
                 synonym = "%sed" % synonym
+
     elif POS_tag == "NNS":
         #NNS: noun, common, plural
-        #    undergraduates scotches bric-a-brac products bodyguards facets coasts
+        #    undergraduates scotches bric-a-brac products bodyguards facets coasts...
         #if synonym[-1] == "y":
         #    synonym = "%sies" % synonym[:-1]
         if synonym[-1:] != "s":
             synonym = "%ss" % synonym
+
+    elif POS_tag == "RB":
+        #adverb
+        #occasionally unabatingly maddeningly adventurously professedly...
+        #if synonym[-2:] != "ly":
+        #    synonym = "%sly" % synonym
+        pass
+
+    elif POS_tag == "RBR":
+        #adverb, comparative
+        #further gloomier grander graver greater grimmer harder harsher...
+        if synonym[-2:] != "er":
+            synonym = "%ser" % synonym
+
+    elif POS_tag == "RBS":
+        #adverb, superlative
+        #best biggest bluntest earliest farthest first furthest hardest..
+        if synonym[-3:] != "est":
+            synonym = "%sest" % synonym
 
     synonym = check_for_exeptions(synonym)
 
@@ -144,30 +179,12 @@ def get_synonym(word, POS_tag=None):
     elif word == string.upper(word):
         synonym = string.upper(synonym)
 
-    if synonym != word:
-        print "\tORIGINAL WORD:\t'%s'" % word
-        print "\tSYNONYM:\t'%s'\n\n" % synonym
+    if VERBOSE > 0:
+        if synonym != word:
+            print "\tORIGINAL WORD:\t'%s'" % word
+            print "\tSYNONYM:\t'%s'\n\n" % synonym
 
     return synonym
-
-
-def get_synonym_new(word):
-
-	synonyms = []
-	similar_tos = []
-
-	print "\nSYNONYMS:"
-	for syn in wordnet.synsets(word):
-		for l in syn.lemmas():
-			synonyms.append(l.name())
-			print l.name()
-
-	print "\n\nSIMILAR TOS:"
-	for syn in wordnet.synsets(word):
-		for sim in syn.similar_tos():
-			print('    {}'.format(sim))
-
-	return synonyms
 
 
 def get_stem(word):
@@ -201,7 +218,6 @@ def get_lemmas(word, pos=None):
 
 def get_pos_tags(text):
     """does Parts of Speech tagging for 'text'.
-
 
 POS Tag info:
 
@@ -347,29 +363,24 @@ WRB: Wh-adverb
 ``: opening quotation mark
 """
 
-
-
     words = None
     tagged = None
-
-    #stub
-    #PLACEHOLDER
 
     if type(text) in (StringType, UnicodeType):
         words = nltk.word_tokenize(text)
     elif type(text) in (ListType, TupleType):
         words = text    #assume we've already split on words...
-        #pass #assume we've already split on words...
+    else:
+        words = text    #assume we've already split on words...
 
     if words != None:
         tagged = nltk.pos_tag(words)
 
-    #return word
     return tagged
 
 
 
-def modify_text(text):
+def modify_text(text, VERBOSE=0):
     """collects together all our text modification routines)"""
 
     stop_words = get_stopwords()
@@ -381,7 +392,7 @@ def modify_text(text):
     OUTPUT = ""
 
     for para in paras:
-        #OUTPUT = "\n\n%s " % (OUTPUT)
+
         if OUTPUT != "":
             OUTPUT = "%s\n\n" % (OUTPUT)
 
@@ -397,19 +408,17 @@ def modify_text(text):
                                       "AUTHOR_CAPS", "CHARACTER_NAME_", "CHARACTER_NAME_CAPS_", "CHARACTER_",
                                       "_SURNAME", "_FIRSTNAME", "_FIRSTNAME_CAPS", "_SURNAME_CAPS"]
 
-
-
-
         for sent in raw_sentences:
 
             if OUTPUT != "":
                 if sent != raw_sentences[0]:
                     OUTPUT = "%s " % (OUTPUT)
 
-            #print "\n\n%s\n\n" % (20*"=")
-            #print "\nRAW SENTENCe:"
-            #print "sent:", sent
-            #raw_words = split_into_words(text)
+            if VERBOSE > 0:
+                print "\n\n%s\n\n" % (20*"=")
+                print "\nRAW SENTENCe:"
+                print "sent:", sent
+
             raw_words = split_into_words(sent)
             words_to_output  = []
             words_info       = []
@@ -417,75 +426,18 @@ def modify_text(text):
             # keep stopwords - no use to Natural Language Toolkit,
             # but give us the 'framework' for our sentence.
 
-
-##            #mods = 0
-##            for w in range(0, len(raw_words)):
-##                try:
-##                    #word = raw_words[w-mods]
-##                except:
-##                    print
-##                    print raw_words
-##                    print
-##                    raise
-
-
-                #FUCKED = SORT OUT LATER...
-##                while raw_words.count("]") > 0:
-##                    print "STARTING LOOP..."
-##                    #print "word:", word,
-##                    for ph in known_placeholder_elements:
-##                        if string.find(ph, word) > -1:
-##                            print "!!!FOUND PLACEHOLDER!!! '%s'!" % ph
-##                            print "w:", w
-##                            #print "len(words_to_output):", words_to_output
-##                            #print "len(raw_words):", len(raw_words)
-##                            #print "raw_words:", raw_words
-##                        #if string.find(raw_words[w-1], "[") > -1:
-##                            thisword = "[%s]" % word
-##                            #if w >0:
-##                                #words_to_output.remove(words_to_output[w-1])
-##                                #words_info.remove(words_to_output[w-1])
-##                                #raw_words.remove(words_to_output[w-1])
-##                            mods = mods +1
-##                            raw_words[w] = thisword
-##                            raw_words.remove(raw_words[w-1])
-##                            raw_words.remove(raw_words[w+1])
-##                            #words_to_output.remove(words_to_output[w+1])
-##                            #words_info.remove(words_to_output[w+1])
-##                            #words_to_output.append(thisword)
-##                            #print "raw_words[w-mods]:", raw_words[w-mods]
-##                            #words_info.append("PLACEHOLDER")
-##                            #mods = mods +1
-##                            print "BREAK!"
-##                            break
-##                            #should only break us out of this INBER LOOP...
-##                    if raw_words.count("]") == 0:
-##                        break
-####                        if string.find(raw_words[w-1], "]") > -1:
-####                            thisword = "[%s]" % word
-####                            words_to_output.remove(words_to_output[w-1])
-####                            words_info.remove(words_to_output[w-1])
-####                            raw_words.remove(words_to_output[w-1])
-####                            raw_words.remove(words_to_output[w+1])
-####                            #words_to_output.remove(words_to_output[w+1])
-####                            words_info.remove(words_to_output[w+1])
-####                            words_to_output.append(thisword)
-####                            words_info.append("PLACEHOLDER")
-##
-##            print "raw_words:"
-##            print raw_words
-##            sys.exit(-1)
-
             for w in range(0, len(raw_words)):
                 #is it a placeholder?
                 if w < len(raw_words)-1:
-                    #print "\t -- word:", raw_words[w]
+                    if VERBOSE > 1:
+                        print "\t -- word:", raw_words[w]
                     if raw_words[w+1] == "]":
                         if w>0:
                             if raw_words[w-1] == "[":
                                 word = "[%s]" % raw_words[w]
                                 raw_words[w] = word
-                                #print "!!! REPLACED '%s' WITH '[%s]' !!!" % (raw_words[w],raw_words[w])
+                                if VERBOSE > 1:
+                                    print "!!! REPLACED '%s' WITH '[%s]' !!!" % (raw_words[w],raw_words[w])
 
             for w in range(0, len(raw_words)):
                 try:
@@ -496,17 +448,14 @@ def modify_text(text):
                     pass
 
 
-            #print "\n\nRAW_WORDS (AFTER MODIFICATION):"
-            #print raw_words
-            #print;print
+            if VERBOSE > 0:
+                print "\n\nRAW_WORDS (AFTER MODIFICATION):"
+                print raw_words
+                print;print
 
-            ##tagged_words = get_pos_tags(text)
-            #tagged_words = get_pos_tags(sent)
-            #print "\n\n****\nTAGGED_WORDS:\n**** %s\n\n****\n\n\n" % tagged_words
-
-            #tagged_words = get_pos_tags(text)
             tagged_words = get_pos_tags(raw_words)
-            print "\n\n****\nTAGGED_WORDS:\n**** %s\n\n****\n\n\n" % tagged_words
+            if VERBOSE > 0:
+                print "\n\n****\nTAGGED_WORDS:\n**** %s\n\n****\n\n\n" % tagged_words
 
             adjective_types = ["JJR", "JJS", "JJ"]
             #JJ: adjective or numeral, ordinal
@@ -516,14 +465,14 @@ def modify_text(text):
             #JJS: adjective, superlative
             #    calmest cheapest choicest classiest cleanest clearest closest commonest
 
-
             for w in range(0, len(raw_words)):
                 word = raw_words[w]
-                #print "tagged_words[w][1]:", tagged_words[w][1]
+                if VERBOSE >1:
+                    print "tagged_words[w][1]:", tagged_words[w][1]
+                    print "word:", word,
 
-                #print "word:", word,
                 if word in stop_words:
-                    #stopwordswill give the sentence its 'framework'
+                    #stopwords will give the sentence its 'framework'
                     words_to_output.append(word)
                     words_info.append("STOPWORD")
                 elif word in string.punctuation:
@@ -534,39 +483,32 @@ def modify_text(text):
                     words_to_output.append(word)
                     words_info.append("PLACEHOLDER")
                 elif tagged_words[w][1] in adjective_types:
-                    #print 
                     synonym = get_synonym(word)
                     words_to_output.append(synonym)
                     words_info.append("ADJECTIVE (REPLACED BY SYNONYM)")
                 else:
 #                    words_to_output.append("")
 #                    words_info.append(None)
-
-                    synonym = get_synonym(word, tagged_words[w][1])
+                    synonym = get_synonym(word, tagged_words[w][1], VERBOSE)
                     words_to_output.append(synonym)
                     #words_to_output.append(word)
                     words_info.append(tagged_words[w][1])
 
-
-            print "*** PARA:..."                    
-            print words_to_output
-            print words_info
-            print "\n\n"
-
-##            OUTPUT = ""
-##            for w in range(0, len(raw_words)):
-##                if words_info[w] == "PUNCTUATION":
-##                    OUTPUT = "%s%s " % (OUTPUT, words_to_output[w])
-##                #elif words_info[w] == "PLACEHOLDER":
-##                #    OUTPUT = "%s%s " % (OUTPUT, words_to_output[w])
-##                else:
-##                    OUTPUT = "%s%s " % (OUTPUT, words_to_output[w])
+            if VERBOSE > 0:
+                print "*** PARA:..."                    
+                print words_to_output
+                print words_info
+                print "\n\n"
 
             for w in range(0, len(words_to_output)):
                 if words_info[w] in ["PUNCTUATION", "POS"]:
                     OUTPUT = "%s%s" % (OUTPUT, string.strip(words_to_output[w]))
-                #elif words_info[w] == "PLACEHOLDER":
-                #    OUTPUT = "%s%s " % (OUTPUT, words_to_output[w])
+                elif words_info[w] == "PLACEHOLDER":
+                    #OUTPUT = "%s%s " % (OUTPUT, words_to_output[w])
+                    if w == 0:
+                        OUTPUT = "%s%s" % (OUTPUT, string.strip(words_to_output[w]))
+                    else:
+                        OUTPUT = "%s %s" % (OUTPUT, string.strip(words_to_output[w]))
                 else:
                     #if words_info[w-1] != "PUNCTUATION":
                     #    OUTPUT = "%s " % (OUTPUT)
@@ -575,19 +517,17 @@ def modify_text(text):
                     else:
                         OUTPUT = "%s %s" % (OUTPUT, string.strip(words_to_output[w]))
 
-
-            #print OUTPUT
-            #sys.exit(-1)
-
+            if VERBOSE > 1:
+                print OUTPUT
 
     return OUTPUT
 
-#    return text
 
+def demo(VERBOSE=0):
 
+    """test routine, using the first three paragraphs of 'Great Expectations'."""
 
-
-sample_text = """My father's family name being [CHARACTER_001_SURNAME], and my Christian name [CHARACTER_001_FIRSTNAME], my
+    sample_text = """My father's family name being [CHARACTER_001_SURNAME], and my Christian name [CHARACTER_001_FIRSTNAME], my
 infant tongue could make of both names nothing longer or more explicit
 than [CHARACTER_NAME_001]. So, I called myself [CHARACTER_NAME_001], and came to be called [CHARACTER_NAME_001].
 
@@ -626,32 +566,31 @@ of it all and beginning to cry, was [CHARACTER_NAME_001].
 
 """
 
+#split_into_para1 = string.split(sample_text, "\n\n")
 
-split_into_para1 = string.split(sample_text, "\n\n")
+#split_into_para = split_into_paras(sample_text)
 
-split_into_para = split_into_paras(sample_text)
+#para1 = split_into_para[0]
 
-para1 = split_into_para[0]
+#if split_into_para1 != split_into_para:
+#    print "huh? split_into_para1 != split_into_para"
 
-if split_into_para1 != split_into_para:
-    print "huh? split_into_para1 != split_into_para"
+    print "\n"
 
-print "\n"
+    final_text = modify_text(sample_text, VERBOSE=VERBOSE)
 
-#print "FIRST PARAGRAPH:"
-#print split_into_para[0]
-#print "\n"
+    print "\n\n%s\n\n" % (20*"=")
+    print "SAMPLE TEXT:"
+    print sample_text
+    print "\n\n%s\n\n" % (10*".")
+    print "OUR NEW, REVISED TEXT:"
+    print final_text
 
-#print "split_into_sentences(para1):"
-#print split_into_sentences(para1)
+    print "\n\n%s\n\n" % (20*"=")
 
-final_text = modify_text(sample_text)
 
-print "\n\n%s\n\n" % (20*"=")
-print "SAMPLE TEXT:"
-print sample_text
-print "\n\n%s\n\n" % (10*".")
-print "OUR NEW, REVISED TEXT:"
-print final_text
 
-print "\n\n%s\n\n" % (20*"=")
+
+if __name__ == "__main__":
+    print "%s (version: %s)" % (os.path.basename(__file__), __VERSION__ )
+    demo(VERBOSE=VERBOSE)
