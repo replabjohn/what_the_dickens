@@ -60,6 +60,27 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
     #'title' is the name of THIS book.
     #'dickens_title' is the name of the Dickens story it is retelling
 
+
+#    things to consider - possible additions?
+#"A tragic, romantic and complicated story about the inheritance and
+#absurdities of English law in the 1850s."
+
+#A coming of age story about the struggles and obstacles of life that a
+#young man (David Copperfield) must overcome.
+
+#An epic tale that follows its protagonist, a boy named Pip, and charts
+#his progress through life full of unexpected turns.
+
+#Tragic and deeply moving tale portraying a number of different
+#characters and their growth through troubles and trials. (172 pages)
+
+#Classic novel that tells a story of injustice and hope through the
+#eyes of an orphaned boy who escapes to London. (267 pages)
+
+#Murder-mystery novel focusing on money and its effect on the intriguing characters. Satiric masterpiece.
+
+
+
     DEBUG = 1
     #DEBUG = 0
     #should pass these in... but if they're empty, just fake them...

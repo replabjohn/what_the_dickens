@@ -4,7 +4,7 @@
 #cleanup.py
 
 """
-A module to remove some of the tautology, redundancy, repepititon,
+A module to remove some of the tautology, redundancy, repetiton,
 purple prose and annoying phrases that Dickens is prone to... or at
 least, those that we can catch.
 
@@ -13,7 +13,7 @@ least, those that we can catch.
 VERBOSE = 1
 VERBOSE = 0
 
-import string, io, StringIO
+import string, io#, StringIO
 import glob, os, random
 import time, re
 
@@ -263,19 +263,24 @@ phrases_dict = {
                     "replacement"   :   "three-quarters"
                     },
 
-                #remove underscores indicating italics...
-                #We'll just ignore them.
-                "_":    {
-                    "phrase"        :   "_",
-                    "replacement"   :   ""
+                ", nay, ":    {
+                    "phrase"        :   ", nay, ",
+                    "replacement"   :   ", "
                     },
 
-                #HACK!
-                #Fix for a placeholder mangled by the above...
-                "[INTROEND]":    {
-                    "phrase"        :   "[INTROEND]",
-                    "replacement"   :   "[INTRO_END]"
-                    },
+##                #remove underscores indicating italics...
+##                #We'll just ignore them.
+##                "_":    {
+##                    "phrase"        :   "_",
+##                    "replacement"   :   ""
+##                    },
+##
+##                #HACK!
+##                #Fix for a placeholder mangled by the above...
+##                "[INTROEND]":    {
+##                    "phrase"        :   "[INTROEND]",
+##                    "replacement"   :   "[INTRO_END]"
+##                    },
 
 }
 
@@ -332,7 +337,9 @@ def cleanup(text, VERBOSE=0, use_log=0):
                 #print "text:", text.decode("ascii", "ignore")
                 #print "text:", text.encode("ascii", "ignore")
                 #print """phrases_dict[key]["phrase"]:""", phrases_dict[key]["phrase"].decode("ascii", "ignore")
-
+                #print text.encode("UTF-8", "ignore")
+                #print IN.encode("UTF-8", "ignore")
+                #print OUT.encode("UTF-8", "ignore")
                 if string.find(text.encode("ascii", "ignore"), phrases_dict[key]["phrase"].decode("ascii", "ignore")):
                     text = string.replace(text.encode("UTF-8", "ignore"), IN.encode("UTF-8", "ignore"), OUT.encode("UTF-8", "ignore"))
                     if VERBOSE == 1:
