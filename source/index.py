@@ -1752,6 +1752,7 @@ def modify_files(VERBOSE=1):
 						  "The Ghost Of Christmas Past",
 						  "The Ghost Of Christmas Present",
 						  "The Ghost Of Christmas Yet To Come",
+						  'The Zephyr',
 						  ]
 
 			CHARACTER_NUMBER = 0
