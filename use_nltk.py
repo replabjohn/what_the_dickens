@@ -4,17 +4,26 @@ import string, os, random
 
 from types import StringType, UnicodeType, ListType, TupleType
 
+VERBOSE = 1
+#VERBOSE = 0
+
+
+#print a message here if in VERBOSE mode, since importing NLTK takes
+#an appreciable time...
+if VERBOSE == 1:
+    print "Importing NLTK..."
+
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords
-from nltk.corpus import wordnet
-from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords, wordnet
+from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-VERBOSE = 1
-VERBOSE = 0
+if VERBOSE == 1:
+    print "NLTK imported OK.\n"
 
-__VERSION__ = "0.02a"
+
+__VERSION__ = "0.02b"
+
 
 
 def split_into_paras(text):
@@ -31,34 +40,37 @@ def split_into_words(text):
     return word_tokenize(text)
 
 
-def replace_adjective(text):
-    """
-
-JJ: adjective or numeral, ordinal
-    third ill-mannered pre-war regrettable oiled calamitous first separable
-    ectoplasmic battery-powered participatory fourth still-to-be-named
-    multilingual multi-disciplinary ...
-JJR: adjective, comparative
-    bleaker braver breezier briefer brighter brisker broader bumper busier
-    calmer cheaper choosier cleaner clearer closer colder commoner costlier
-    cozier creamier crunchier cuter ...
-JJS: adjective, superlative
-    calmest cheapest choicest classiest cleanest clearest closest commonest
-    corniest costliest crassest creepiest crudest cutest darkest deadliest
-    dearest deepest densest dinkiest ...
-
-"""
-    #stub
-    #PLACEHOLDER
-    
-    return text
-
+##def replace_adjective(text):
+##    """
+##
+##JJ: adjective or numeral, ordinal
+##    third ill-mannered pre-war regrettable oiled calamitous first separable
+##    ectoplasmic battery-powered participatory fourth still-to-be-named
+##    multilingual multi-disciplinary ...
+##JJR: adjective, comparative
+##    bleaker braver breezier briefer brighter brisker broader bumper busier
+##    calmer cheaper choosier cleaner clearer closer colder commoner costlier
+##    cozier creamier crunchier cuter ...
+##JJS: adjective, superlative
+##    calmest cheapest choicest classiest cleanest clearest closest commonest
+##    corniest costliest crassest creepiest crudest cutest darkest deadliest
+##    dearest deepest densest dinkiest ...
+##
+##"""
+##    #stub
+##    #PLACEHOLDER
+##    
+##    return text
+##
 
 def get_stopwords():
     stop_words = set(stopwords.words("English"))
     return stop_words
 
-def check_for_exeptions(word):
+def check_for_exceptions(word):
+    """check (and hopefully correct) for irregular and/or mangled
+    words."""
+
     #probably better way to generalise this...
     if word == "buryed": return "buried"
     elif word == "childs": return "children"
@@ -86,6 +98,13 @@ def check_for_exeptions(word):
     elif word == "maritaled": return "married"
     elif word == "meeted": return "met"
     elif word == "seing": return "seeing"
+    elif word == "begiing": return "beginning"
+    elif word == "feeing": return "feeding"
+    elif word == "groing": return "growing"
+    elif word == "beginnining": return "beginning"
+    elif word == "eveing": return "evening"
+    elif word == "evenining": return "evening"
+
     else: return word
 
 
@@ -169,7 +188,7 @@ def get_synonym(word, POS_tag=None, VERBOSE=0):
         if synonym[-3:] != "est":
             synonym = "%sest" % synonym
 
-    synonym = check_for_exeptions(synonym)
+    synonym = check_for_exceptions(synonym)
 
     #check for case...
     if word == string.lower(word):
@@ -423,7 +442,7 @@ def modify_text(text, VERBOSE=0):
             words_to_output  = []
             words_info       = []
             words_with_info  = []
-            # keep stopwords - no use to Natural Language Toolkit,
+            # keep stopwords - no use to Natural Language Tool Kit,
             # but give us the 'framework' for our sentence.
 
             for w in range(0, len(raw_words)):
@@ -592,5 +611,5 @@ of it all and beginning to cry, was [CHARACTER_NAME_001].
 
 
 if __name__ == "__main__":
-    print "%s (version: %s)" % (os.path.basename(__file__), __VERSION__ )
+    print "\n%s (version: %s)" % (os.path.basename(__file__), __VERSION__ )
     demo(VERBOSE=VERBOSE)
