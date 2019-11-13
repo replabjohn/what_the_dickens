@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.02b"
+__VERSION__ = "0.02d"
 
 
 
@@ -104,6 +104,19 @@ def check_for_exceptions(word):
     elif word == "beginnining": return "beginning"
     elif word == "eveing": return "evening"
     elif word == "evenining": return "evening"
+    elif word == "telled": return "told"
+    elif word == "goed": return "went"
+    elif word == "saied": return "said"
+    elif word == "tring": return "trying"
+    elif word == "trimed": return "trimmed"
+    elif word == "steing": return "stepping"
+    elif word == "pusing": return "pushing"
+    elif word == "plaied": return "played"
+    elif word == "jealousys": return "jealousies"
+    elif word == "plaing": return "playing"
+    elif word == "listeing": return "listening"
+    elif word == "begined": return "began"
+    elif word == "droped": return "dropped"
 
     else: return word
 
