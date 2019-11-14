@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.02d"
+__VERSION__ = "0.02f"
 
 
 
@@ -72,8 +72,9 @@ def check_for_exceptions(word):
     words."""
 
     #probably better way to generalise this...
+    #Use a dict?
+
     if word == "buryed": return "buried"
-    elif word == "childs": return "children"
     elif word == "weared": return "wore"
     elif word == "thinked": return "thought"
     elif word == "bringed": return "brought"
@@ -85,18 +86,49 @@ def check_for_exceptions(word):
     elif word == "seed": return "saw"
     elif word == "doed": return "did"
     elif word == "sawed": return "saw"
-    elif word == "fancys": return "fancies"
-    elif word == "buddys": return "buddies"
     elif word == "gived": return "gave"
     elif word == "drawed": return "drew"
     elif word == "drewed": return "drew"
-    elif word == "involveing": return "involving"
     elif word == "taked": return "taken"
     elif word == "finded": return "found"
-    elif word == "cattles": return "cattle"
-    elif word == "marshs": return "marshes"
-    elif word == "maritaled": return "married"
     elif word == "meeted": return "met"
+    elif word == "telled": return "told"
+    elif word == "goed": return "went"
+    elif word == "saied": return "said"
+    elif word == "begined": return "began"
+    elif word == "droped": return "dropped"
+    elif word == "dimed": return "dimmed"
+    elif word == "detered": return "deterred"
+    elif word == "trimed": return "trimmed"
+    elif word == "plaied": return "played"
+    elif word == "falled": return "fell"
+    elif word == "maked": return "made"
+    elif word == "troted": return "trotted"
+    elif word == "lefted": return "left"
+    elif word == "geted": return "got"
+    elif word == "growed": return "grew"
+    elif word == "sinked": return "sank"
+    elif word == "readed": return "read"
+    elif word == "lefted": return "left"
+    elif word == "repeled": return "repelled"
+    elif word == "fited": return "fitted"
+    elif word == "becomed": return "became"
+    elif word == "forgeted": return "forgot"
+    elif word == "borned": return "born"
+
+    elif word == "childs": return "children"
+    elif word == "buddys": return "buddies"
+    elif word == "cattles": return "cattle"
+    elif word == "jealousys": return "jealousies"
+    elif word == "technicalitys": return "technicalities"
+    elif word == "marshs": return "marshes"
+    elif word == "matchs": return "matches"
+    elif word == "partys": return "parties"
+    elif word == "citizenrys": return "citizenries"
+    elif word == "potatos": return "potatoes"
+    elif word == "daies": return "days"
+
+    elif word == "fancys": return "fancies"
     elif word == "seing": return "seeing"
     elif word == "begiing": return "beginning"
     elif word == "feeing": return "feeding"
@@ -104,21 +136,39 @@ def check_for_exceptions(word):
     elif word == "beginnining": return "beginning"
     elif word == "eveing": return "evening"
     elif word == "evenining": return "evening"
-    elif word == "telled": return "told"
-    elif word == "goed": return "went"
-    elif word == "saied": return "said"
+    elif word == "involveing": return "involving"
     elif word == "tring": return "trying"
-    elif word == "trimed": return "trimmed"
     elif word == "steing": return "stepping"
     elif word == "pusing": return "pushing"
-    elif word == "plaied": return "played"
-    elif word == "jealousys": return "jealousies"
     elif word == "plaing": return "playing"
     elif word == "listeing": return "listening"
-    elif word == "begined": return "began"
-    elif word == "droped": return "dropped"
+    elif word == "sittining": return "sitting"
+    elif word == "direcing": return "directing"
+    elif word == "triing": return "tripping"
+    elif word == "ruing": return "running"
+    elif word == "repeaing": return "repeating"
+    elif word == "staning": return "standing"
+    elif word == "consising": return "consisting"
+    elif word == "furnishining": return "furnishing"
+    elif word == "knowining": return "knowing"
+    elif word == "flesing": return "fleshing"
+    elif word == "protesing": return "protesting"
+    elif word == "leing": return "letting"
+    elif word == "looing": return "looking"
+    elif word == "approacing": return "approaching"
+    elif word == "begining": return "beginning"
+    elif word == "hasteing": return "hastening"
 
-    else: return word
+    elif word == "maritaled": return "married"
+
+    elif word == "pretenses": return "pretences"
+    elif word == "harbored": return "harboured"
+
+    elif word == "Overlord": return "Lord"
+
+    else:
+        #print "\tNO EXCEPTIONS FOUND - RETURNING '%s'" % word
+        return word
 
 
 def get_synonym(word, POS_tag=None, VERBOSE=0):
@@ -137,6 +187,8 @@ def get_synonym(word, POS_tag=None, VERBOSE=0):
 
     if string.find(synonym, "_") > -1:
         #treat as a failure...
+        #reject things like 'agate_line', 'first_gear',
+        # 'basketball_team', 'universal_joint', 'sidereal_day' etc
         return word
 
     #These are a bit simplistic and don't allow for (some) exceptions...
@@ -147,8 +199,10 @@ def get_synonym(word, POS_tag=None, VERBOSE=0):
     elif POS_tag == "VBG":
         #verb, present participle or gerund
         #telegraphing stirring focusing angering judging stalling lactating...
-        if synonym[-3:] != "e":
+        #involveing -> involving
+        if synonym[-3:] == "e":
             synonym = "%sing" % synonym[:-1]
+        #everything else...
         elif synonym[-3:] != "ing":
             synonym = "%sing" % synonym
 
@@ -177,9 +231,17 @@ def get_synonym(word, POS_tag=None, VERBOSE=0):
     elif POS_tag == "NNS":
         #NNS: noun, common, plural
         #    undergraduates scotches bric-a-brac products bodyguards facets coasts...
-        #if synonym[-1] == "y":
-        #    synonym = "%sies" % synonym[:-1]
-        if synonym[-1:] != "s":
+
+        #party->parties etc
+        if synonym[-1] == "y":
+            synonym = "%sies" % synonym[:-1]
+        #wolf->wolves, leaf->leaves etc 
+        elif synonym[-1:] == "f":
+            synonym = "%sves" % synonym[:-1]
+        elif synonym[-2:] == "fs":
+            synonym = "%sves" % synonym[:-2]
+        #everything else
+        elif synonym[-1:] != "s":
             synonym = "%ss" % synonym
 
     elif POS_tag == "RB":
@@ -534,7 +596,11 @@ def modify_text(text, VERBOSE=0):
 
             for w in range(0, len(words_to_output)):
                 if words_info[w] in ["PUNCTUATION", "POS"]:
-                    OUTPUT = "%s%s" % (OUTPUT, string.strip(words_to_output[w]))
+                    if words_to_output[w] == "(":
+                        OUTPUT = "%s %s" % (OUTPUT, string.strip(words_to_output[w]))
+                    else:
+                        OUTPUT = "%s%s" % (OUTPUT, string.strip(words_to_output[w]))
+                    #OUTPUT = "%s%s" % (OUTPUT, string.strip(words_to_output[w]))
                 elif words_info[w] == "PLACEHOLDER":
                     #OUTPUT = "%s%s " % (OUTPUT, words_to_output[w])
                     if w == 0:
