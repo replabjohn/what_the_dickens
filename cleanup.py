@@ -13,7 +13,7 @@ least, those that we can catch.
 VERBOSE = 1
 VERBOSE = 0
 
-__VERSION__ == "0.2b"
+__VERSION__ = "0.2c"
 
 import string, io
 import glob, os, random
