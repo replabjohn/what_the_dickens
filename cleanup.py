@@ -13,7 +13,7 @@ least, those that we can catch.
 VERBOSE = 1
 VERBOSE = 0
 
-__VERSION__ = "0.2c"
+__VERSION__ = "0.2d"
 
 import string, io
 import glob, os, random
@@ -290,6 +290,20 @@ phrases_dict = {
                     "replacement"   :   "I "
                     },
 
+                "never once":    {
+                    "phrase"        :   "never once",
+                    "replacement"   :   "never"
+                    },
+
+                "connexion":    {
+                    "phrase"        :   "connexion",
+                    "replacement"   :   "connection"
+                    },
+
+                "such-like":    {
+                    "phrase"        :   "such-like",
+                    "replacement"   :   "such"
+                    },
 
 ##                #remove underscores indicating italics...
 ##                #We'll just ignore them.

@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.02f"
+__VERSION__ = "0.02j"
 
 
 
@@ -74,6 +74,7 @@ def check_for_exceptions(word):
     #probably better way to generalise this...
     #Use a dict?
 
+    #-ed words
     if word == "buryed": return "buried"
     elif word == "weared": return "wore"
     elif word == "thinked": return "thought"
@@ -115,19 +116,38 @@ def check_for_exceptions(word):
     elif word == "becomed": return "became"
     elif word == "forgeted": return "forgot"
     elif word == "borned": return "born"
+    elif word == "breaked": return "broke"
+    elif word == "choosed": return "chose"
+    elif word == "knowed": return "knew"
+    elif word == "cuted": return "cut"
+    elif word == "cutted": return "cut"
+    elif word == "hited": return "hit"
+    elif word == "hitted": return "hit"
+    elif word == "niped": return "nipped"
+    elif word == "dried-uped": return "dried-up"
+    elif word == "holded": return "held"
+    elif word == "soughted": return "sought"
+    elif word == "catched": return "caught"
+    elif word == "awfuled": return "awful"
+    elif word == "gaged": return "gagged"
+    elif word == "stoped": return "stopped"
+    elif word == "haved": return "had"
+    elif word == "speaked": return "spoke"
+    elif word == "puted": return "put"
+    elif word == "putted": return "put"
+    elif word == "fighted": return "fought"
+    elif word == "rubed": return "rubbed"
+    elif word == "wraped": return "wrapped"
+    elif word == "brokened": return "broken"
+    elif word == "rised": return "rose"
+    elif word == "submited": return "submitted"
+    elif word == "modeled": return "modelled"
+    elif word == "stealed": return "stole"
+    elif word == "felted": return "felt"
+    elif word == "runed": return "ran"      #assuming past tense of 'run' is more common tahn anything involving runes
+    elif word == "runned": return "ran"
 
-    elif word == "childs": return "children"
-    elif word == "buddys": return "buddies"
-    elif word == "cattles": return "cattle"
-    elif word == "jealousys": return "jealousies"
-    elif word == "technicalitys": return "technicalities"
-    elif word == "marshs": return "marshes"
-    elif word == "matchs": return "matches"
-    elif word == "partys": return "parties"
-    elif word == "citizenrys": return "citizenries"
-    elif word == "potatos": return "potatoes"
-    elif word == "daies": return "days"
-
+    #-ing words
     elif word == "fancys": return "fancies"
     elif word == "seing": return "seeing"
     elif word == "begiing": return "beginning"
@@ -158,13 +178,78 @@ def check_for_exceptions(word):
     elif word == "approacing": return "approaching"
     elif word == "begining": return "beginning"
     elif word == "hasteing": return "hastening"
+    elif word == "slitheing": return "slithering"
+    elif word == "ading": return "adding"
+    elif word == "droopining": return "drooping"
+    elif word == "hoveing": return "hovering"
+    elif word == "shuddeing": return "shuddering"
+    elif word == "transfiing": return "transfixing"
+    elif word == "traveling": return "travelling"
+    elif word == "necessitateing": return "necessitating"
+    elif word == "makeing": return "making"
+    elif word == "placeing": return "placing"
+    elif word == "misplaceing": return "misplacing"
+    elif word == "frameing": return "framing"
+    elif word == "sobing": return "sobbing"
+    elif word == "obligeing": return "obliging"
+    elif word == "delaied": return "delayed"
+    elif word == "lieing": return "lying"
+    elif word == "separateing": return "separating"
+    elif word == "snoged": return "snogged"
+    elif word == "grining": return "grinning"
+    elif word == "giveing": return "giving"
+    elif word == "dieing": return "dying"
+    elif word == "lodgeing": return "lodging"
+    elif word == "puting": return "putting"
+    elif word == "raiseing": return "raising"
+    elif word == "strideing": return "striding"
+    elif word == "squareing": return "squaring"
+    elif word == "inhaleing": return "inhaling"
+    elif word == "composeing": return "composing"
+    elif word == "stimulateing": return "stimulating"
+    elif word == "becomeing": return "becoming"
+    elif word == "jingleing": return "jingling"
+    elif word == "noteing": return "noting"
+    elif word == "squating": return "squatting"
+    elif word == "rebeling": return "rebelling"
+    elif word == "pauseing": return "pausing"
 
-    elif word == "maritaled": return "married"
+    #-incorrect plurals
+    elif word == "childs": return "children"
+    elif word == "buddys": return "buddies"
+    elif word == "cattles": return "cattle"
+    elif word == "jealousys": return "jealousies"
+    elif word == "technicalitys": return "technicalities"
+    elif word == "marshs": return "marshes"
+    elif word == "matchs": return "matches"
+    elif word == "partys": return "parties"
+    elif word == "citizenrys": return "citizenries"
+    elif word == "potatos": return "potatoes"
+    elif word == "daies": return "days"
+    elif word == "branchs": return "branches"
+    elif word == "foots": return "feet"
+    elif word == "raies": return "rays"
 
+    #US spellings -> UK spellings
+    elif word == "pretense": return "pretence"
     elif word == "pretenses": return "pretences"
+    elif word == "harbor": return "harbour"
+    elif word == "harbors": return "harbours"
     elif word == "harbored": return "harboured"
+    elif word == "endeavor": return "endeavour"
+    elif word == "endeavors": return "endeavours"
+    elif word == "endeavored": return "endeavoured"
+    elif word == "honor": return "honour"
+    elif word == "honors": return "honours"
+    elif word == "honored": return "honoured"
+
+    #Other things...
+    elif word == "maritaled": return "married"
+    elif word == "Ampere": return "A"           #Ampere is highly unlikely to turn up in a Dickens story.
+    elif word == "whitethorn": return "may"
 
     elif word == "Overlord": return "Lord"
+    elif word == "Godhead": return "God"
 
     else:
         #print "\tNO EXCEPTIONS FOUND - RETURNING '%s'" % word
@@ -200,7 +285,7 @@ def get_synonym(word, POS_tag=None, VERBOSE=0):
         #verb, present participle or gerund
         #telegraphing stirring focusing angering judging stalling lactating...
         #involveing -> involving
-        if synonym[-3:] == "e":
+        if synonym[-1:] == "e":
             synonym = "%sing" % synonym[:-1]
         #everything else...
         elif synonym[-3:] != "ing":
@@ -510,7 +595,7 @@ def modify_text(text, VERBOSE=0):
 
             if VERBOSE > 0:
                 print "\n\n%s\n\n" % (20*"=")
-                print "\nRAW SENTENCe:"
+                print "\nRAW SENTENCE:"
                 print "sent:", sent
 
             raw_words = split_into_words(sent)
