@@ -13,7 +13,7 @@ least, those that we can catch.
 VERBOSE = 1
 VERBOSE = 0
 
-__VERSION__ = "0.2d"
+__VERSION__ = "0.3a"
 
 import string, io
 import glob, os, random
@@ -186,6 +186,116 @@ phrases_dict = {
                     "replacement"   :   "forty-eight"
                     },
 
+                #years
+
+                "one thousand eight hundred and twenty-six":    {
+                    "phrase"        :   "one thousand eight hundred and twenty-six",
+                    "replacement"   :   "1826"
+                    },
+
+                "one thousand eight hundred and thirty-six":    {
+                    "phrase"        :   "one thousand eight hundred and thirty-six",
+                    "replacement"   :   "1836"
+                    },
+
+                "one thousand eight hundred and thirty-seven":    {
+                    "phrase"        :   "one thousand eight hundred and thirty-seven",
+                    "replacement"   :   "1837"
+                    },
+
+                "one thousand eight hundred and forty":    {
+                    "phrase"        :   "one thousand eight hundred and forty",
+                    "replacement"   :   "1840"
+                    },
+
+                "one thousand eight hundred and fifty":    {
+                    "phrase"        :   "one thousand eight hundred and fifty",
+                    "replacement"   :   "1850"
+                    },
+
+                "one thousand eight hundred and fifty-one":    {
+                    "phrase"        :   "one thousand eight hundred and fifty-one",
+                    "replacement"   :   "1851"
+                    },
+
+                "one thousand eight hundred and fifty-six":    {
+                    "phrase"        :   "one thousand eight hundred and fifty-six",
+                    "replacement"   :   "1856"
+                    },
+
+                "one thousand eight hundred and sixty-four":    {
+                    "phrase"        :   "one thousand eight hundred and sixty-four",
+                    "replacement"   :   "1864"
+                    },
+
+                "the year of our Lord":    {
+                    "phrase"        :   "the year of our Lord",
+                    "replacement"   :   "the year"
+                    },
+
+
+                #half-past [X] o'clock
+
+                "half-past one o'clock":    {
+                    "phrase"        :   "half-past one o'clock",
+                    "replacement"   :   "half-past one"
+                    },
+
+                "half-past two o'clock":    {
+                    "phrase"        :   "half-past two o'clock",
+                    "replacement"   :   "half-past two"
+                    },
+
+                "half-past three o'clock":    {
+                    "phrase"        :   "half-past three o'clock",
+                    "replacement"   :   "half-past three"
+                    },
+
+                "half-past four o'clock":    {
+                    "phrase"        :   "half-past four o'clock",
+                    "replacement"   :   "half-past four"
+                    },
+
+                "half-past five o'clock":    {
+                    "phrase"        :   "half-past five o'clock",
+                    "replacement"   :   "half-past five"
+                    },
+
+                "half-past six o'clock":    {
+                    "phrase"        :   "half-past six o'clock",
+                    "replacement"   :   "half-past six"
+                    },
+
+                "half-past seven o'clock":    {
+                    "phrase"        :   "half-past seven o'clock",
+                    "replacement"   :   "half-past seven"
+                    },
+
+                "half-past eight o'clock":    {
+                    "phrase"        :   "half-past eight o'clock",
+                    "replacement"   :   "half-past eight"
+                    },
+
+                "half-past nine o'clock":    {
+                    "phrase"        :   "half-past nine o'clock",
+                    "replacement"   :   "half-past nine"
+                    },
+
+                "half-past ten o'clock":    {
+                    "phrase"        :   "half-past ten o'clock",
+                    "replacement"   :   "half-past ten"
+                    },
+
+                "half-past eleven o'clock":    {
+                    "phrase"        :   "half-past eleven o'clock",
+                    "replacement"   :   "half-past eleven"
+                    },
+
+                "half-past twelve o'clock":    {
+                    "phrase"        :   "half-past twelve o'clock",
+                    "replacement"   :   "half-past twelve"
+                    },
+
                 #other phrases
 
                 "It appears, at first sight not unreasonable to suppose, that,":    {
@@ -304,6 +414,19 @@ phrases_dict = {
                     "phrase"        :   "such-like",
                     "replacement"   :   "such"
                     },
+
+                ", I am grateful to say,":    {
+                    "phrase"        :   ", I am grateful to say,",
+                    "replacement"   :   ", "
+                    },
+
+                "&c.":    {
+                    "phrase"        :   "&c.",
+                    "replacement"   :   "etc."
+                    },
+
+
+
 
 ##                #remove underscores indicating italics...
 ##                #We'll just ignore them.

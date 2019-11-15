@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.02j"
+__VERSION__ = "0.02m"
 
 
 
@@ -146,6 +146,18 @@ def check_for_exceptions(word):
     elif word == "felted": return "felt"
     elif word == "runed": return "ran"      #assuming past tense of 'run' is more common tahn anything involving runes
     elif word == "runned": return "ran"
+    elif word == "stired": return "stirred"
+    elif word == "decaied": return "decayed"
+    elif word == "enjoied": return "enjoyed"
+    elif word == "beholded": return "beheld"
+    elif word == "holded": return "held"
+    elif word == "blured": return "blurred"
+    elif word == "sleeped": return "slept"
+    elif word == "teached": return "tought"
+    elif word == "keeped": return "kept"
+    elif word == "striked": return "struck"
+    elif word == "beared": return "born"
+    elif word == "arised": return "arose"
 
     #-ing words
     elif word == "fancys": return "fancies"
@@ -213,6 +225,12 @@ def check_for_exceptions(word):
     elif word == "squating": return "squatting"
     elif word == "rebeling": return "rebelling"
     elif word == "pauseing": return "pausing"
+    elif word == "chiping": return "chipping"
+    elif word == "diing": return "dying"
+    elif word == "seting": return "setting"
+    elif word == "tiing": return "tying"
+    #ORIGINAL WORD:	'reading'
+    elif word == "interpretationing": return "interpreting"
 
     #-incorrect plurals
     elif word == "childs": return "children"
@@ -229,6 +247,9 @@ def check_for_exceptions(word):
     elif word == "branchs": return "branches"
     elif word == "foots": return "feet"
     elif word == "raies": return "rays"
+    elif word == "peachs": return "peaches"
+    elif word == "womans": return "women"
+    elif word == "knifes": return "knives"
 
     #US spellings -> UK spellings
     elif word == "pretense": return "pretence"
@@ -242,10 +263,17 @@ def check_for_exceptions(word):
     elif word == "honor": return "honour"
     elif word == "honors": return "honours"
     elif word == "honored": return "honoured"
+    elif word == "color": return "colour"
+    elif word == "colors": return "colours"
+    elif word == "colored": return "coloured"
 
     #Other things...
     elif word == "maritaled": return "married"
     elif word == "Ampere": return "A"           #Ampere is highly unlikely to turn up in a Dickens story.
+    elif word == "Adenine": return "A"          #...even more unlikely to turn up in a Dickens story.
+    elif word == "semen": return "come"         # !!! 
+    elif word == "cunt": return "snatch"       # DO NOT WANT THESE IN OUR OUTPUT!
+
     elif word == "whitethorn": return "may"
 
     elif word == "Overlord": return "Lord"
