@@ -58,6 +58,21 @@ DICKENS_MALE_NAMES = [
 	"Jean-baptiste" # allows for error by using 'string.capwords'
 	]
 
+#so we can import from elsewhere...
+exceptions = ["Artful Dodger",
+			  "The Convict",
+			  "An old clergyman",
+			  "The one-eyed bagman",
+			  "A scientific gentleman",
+			  "The Single Gentleman",
+			  "The Ghost Of Christmas Past",
+			  "The Ghost Of Christmas Present",
+			  "The Ghost Of Christmas Yet To Come",
+			  "The Zephyr",
+			  "The Portly Gentlemen"
+			  ]
+
+
 
 def check_gender(name):
 	"""checks name to see if its recognised as male or female.
@@ -252,6 +267,7 @@ def prettify(text):
 		text = string.replace(text, "... ", u"\u2026 ") #(U+2026) Horizontal Ellipsis  “…”
 		#assume they're all right single quotes...
 		text = string.replace(text, "'", u"\u2019") #'RIGHT SINGLE QUOTATION MARK' (U+2019)
+		text = string.replace(text, "`", u"\u2019") #'RIGHT SINGLE QUOTATION MARK' (U+2019)
 		newtext = ""
 		inquotes = 0
 		for chr in text:
@@ -786,7 +802,64 @@ fully consistent with their types.
 
 								   GEORGE AL[CHARACTER_NAME_CAPS_008] WILLIAMS.
 _Chatham, N.J._
-"""],
+""",
+
+												 """
+CONTENTS
+
+
+A CHRISTMAS CAROL
+
+STAVE                                                                 PAGE
+
+  I _Marley's Ghost_                                                    11
+ II _The First of the Three Spirits_                                    32
+III _The Second of the Three Spirits_                                   51
+ IV _The Last of the Spirits_                                           76
+  V _The End of it_                                                     93
+
+
+
+
+ILLUSTRATIONS
+
+
+A CHRISTMAS CAROL
+
+_"He had been Tim's blood horse all the way from church."_    Frontispiece
+
+_"A Merry Christmas, Uncle! God save you!" cried a cheerful voice._     14
+
+_To sit staring at those fixed glazed eyes in silence, for a moment,
+    would play, Scrooge felt, the very deuce with him._                 26
+
+_"You recollect the way?" inquired the spirit. "Remember it!" cried
+    Scrooge, with fervour; "I could walk it blindfold."_                36
+
+_"Why, it's Ali Baba!" Scrooge exclaimed in ecstasy. "It's dear old
+    honest Ali Baba!"_                                                  38
+
+
+
+
+A CHRISTMAS CAROL
+
+In Prose
+
+BEING A GHOST STORY OF CHRISTMAS
+
+
+""",
+												 """ILLUSTRATIONS""",
+												 """[Illustration: _"A Merry Christmas, uncle! God save you!" cried a
+cheerful voice._]""",
+												 """[Illustration: _To sit staring at those fixed glazed eyes in silence,
+for a moment, would play, Scrooge felt, the very deuce with him._]""",
+												 """[Illustration: _"You recollect the way?" inquired the spirit. "Remember
+it!" cried Scrooge with fervour; "I could walk it blindfold."_]""",
+												 """[Illustration: _"Why, it's Ali Baba!" Scrooge exclaimed in ecstasy.
+"It's dear old honest Ali Baba."_]""",
+													 ],
 						 "main character":    "Ebenezer Scrooge",
 						 },
 
@@ -1752,7 +1825,8 @@ def modify_files(VERBOSE=1):
 						  "The Ghost Of Christmas Past",
 						  "The Ghost Of Christmas Present",
 						  "The Ghost Of Christmas Yet To Come",
-						  'The Zephyr',
+						  "The Zephyr",
+						  "The Portly Gentlemen"
 						  ]
 
 			CHARACTER_NUMBER = 0

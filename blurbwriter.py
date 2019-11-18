@@ -6,53 +6,11 @@ critics' quotes) for the back cover"""
 
 import random, string
 import names
-#import place_name_generator, pubs, newspapers
 import newspapers
 import source.index
 
 from types import *
 
-
-def make_stupid_award(county=None, towns=None):
-
-    if towns == None:
-        this_town = place_name_generator.make_name(VERBOSE=0, LOG=0)
-    elif type(towns) in [ListType, TupleType]:
-        this_town = random.choice(towns)
-    else:
-        this_town = towns
-
-    pub = pubs.make_pub_name()
-
-    award = random.choice(("WINNER OF THE %s TOWNWOMANS' GUILD 'BOOK OF THE YEAR' AWARD." % this_town,
-                           "WINNER OF THE %s TOWNWOMANS' GUILD 'TRAVEL BOOK OF THE YEAR' AWARD." % this_town,
-                           "WINNER OF THE %s TOWNWOMANS' GUILD 'LOCAL HISTORY BOOK OF THE YEAR' AWARD." % this_town,
-                           "VOTED BOOK OF THE YEAR BY THE %s TOWNWOMANS' GUILD." % this_town,
-                           "VOTED BOOK OF THE YEAR BY THE REGULARS AT THE %s, %s." % (pub,this_town),
-                           "VOTED TRAVEL BOOK OF THE YEAR BY THE %s TOWNWOMANS' GUILD." % this_town,
-                           "VOTED TRAVEL BOOK OF THE YEAR BY THE REGULARS AT THE %s, %s." % (pub,this_town),
-                           "VOTED LOCAL HISTORY BOOK OF THE YEAR BY THE %s TOWNWOMANS' GUILD." % this_town,
-                           "VOTED LOCAL HISTORY BOOK OF THE YEAR BY THE REGULARS AT THE %s, %s." % (pub,this_town),
-                           "VOTED BOOK OF THE YEAR BY THE %s ALLOTMENT SOCIETY." % this_town,
-                           "VOTED TRAVEL BOOK OF THE YEAR BY THE %s ALLOTMENT SOCIETY." % this_town,
-                           "VOTED LOCAL HISTORY BOOK OF THE YEAR BY THE %s ALLOTMENT SOCIETY." % this_town,
-                           "VOTED BOOK OF THE YEAR BY THE %s LITERARY GUILD." % this_town,
-                           "VOTED TRAVEL BOOK OF THE YEAR BY THE %s LITERARY GUILD." % this_town,
-                           "VOTED LOCAL HISTORY BOOK OF THE YEAR BY THE %s LITERARY GUILD." % this_town,
-                           "VOTED BOOK OF THE YEAR BY THE %s BOOK CLUB." % this_town,
-                           "VOTED TRAVEL BOOK OF THE YEAR BY THE %s BOOK CLUB." % this_town,
-                           "VOTED LOCAL HISTORY BOOK OF THE YEAR BY THE %s BOOK CLUB." % this_town,
-                           "WINNER OF THE %s PRIZE FOR LITERATURE." % this_town,
-                           "WINNER OF THE LITERATURE PRIZE AT THE %s FESTIVAL." % this_town,
-                           "RUNNER UP IN THE %s TOWNWOMANS' GUILD 'BOOK OF THE YEAR' AWARD." % this_town,
-                           "RUNNER UP IN THE %s TOWNWOMANS' GUILD 'TRAVEL BOOK OF THE YEAR' AWARD." % this_town,
-                           "RUNNER UP IN THE %s TOWNWOMANS' GUILD 'LOCAL HISTORY BOOK OF THE YEAR' AWARD." % this_town,
-
-                           ))
-    award = string.upper(award)
-    return(award)
-
-#def make_content_summary(author=None, county=None, towns=None):
 def make_content_summary(author=None, characters=None, main_character=None, title=None, dickens_title=None):
     """Make up a paragraph or two of blurb (or possibly "flap copy" if you want to be technical),
     to go on the back cover. Basically a (randomly generated) brief description of the book."""
@@ -79,10 +37,9 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
 
 #Murder-mystery novel focusing on money and its effect on the intriguing characters. Satiric masterpiece.
 
-
-
     DEBUG = 1
     #DEBUG = 0
+
     #should pass these in... but if they're empty, just fake them...
     if author == None:
         author = names.getName()
@@ -209,17 +166,10 @@ def make_content_summary(author=None, characters=None, main_character=None, titl
                             "'%s'" % thistitle,
                             thistitle))
 
-    #bookbit = random.choice(("Dickens' '%s'" % dickens_title,
-    #                        "'%s' by %s" % (dickens_title, random.choice(("Dickens", "Charles Dickens"))),
-    #                        "'%s'" % dickens_title,
-    #                        dickens_title))
-
     description = "Read %s %s in %s %s %s of %s.\n\n\n" % (pt1, pt2,
                                                            random.choice(("this", "%s's" % author, "%s's" % author)),
                                                            pt3, pt4, bookbit)
                                                            #author, gender_word,
-
-
 
     return description
 
@@ -238,7 +188,7 @@ def make_attribution(blurb):
 def blurb_type_00(blurb, quotechar='"', author=None, bookname=None):
     """Use this blurb first, and just the once." """
 
-#(Mention Seamus Heaney etc)
+    #(Mention Seamus Heaney etc)
 
     lit_translations = [
     ["Seamus Heaney", "Beowulf"],
@@ -1017,7 +967,6 @@ def blurb_type_17(blurb, quotechar='"', author=None, bookname=None):
         "This book is quirky, and nicely presented.",
         "%s is quirky. And nicely presented." % bookname,
         "%s is quirky, and nicely presented." % bookname,
-
         ))
 
     newblurb = '%s%s%s' % (quotechar, newblurb, quotechar)

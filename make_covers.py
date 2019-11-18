@@ -2,8 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import os, string, random, glob, time
-import blurbwriter, names#, place_name_generator
-#from make_body_text import make_prettier
+import blurbwriter, names
 from source.index import prettify
 
 import reportlab
@@ -211,7 +210,7 @@ def make_ISBN(spacer="-", year_generated=None):
 def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 					blurb, background_colour=None, foreground_colour=None,
 					ISBN_text=None, ISBN_for_barcode=None, price=None,
-					cover_style="Type 1"):
+					cover_style="Type 1", dickens_book = None):
 
 	"""creates the back cover for our book."""
 
@@ -282,21 +281,6 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 		for line in blurb.split("\n"):
 
-##			silly_prize_found = 0
-##			#these three should be enough to catch all of our silly prize names...
-##			if string.find(line, "BOOK ") > -1:
-##				silly_prize_found = 1
-##			elif string.find(line, "WINNER ") > -1:
-##				silly_prize_found = 1
-##			elif string.find(line, "GUILD") > -1:        
-##				silly_prize_found = 1
-##			if silly_prize_found == 1:
-##				linewidth = stringWidth(line, "Gentium Basic Bold Italic", 18, "latin-1")
-##				c.setFont("Gentium Basic Bold Italic", 18)
-##			else:
-##				linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
-##				c.setFont("Gentium Basic", 16)
-
 			linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
 			c.setFont("Gentium Basic", 16)
 
@@ -319,10 +303,6 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				newline = ""
 				for word in line.split():
 					newline2 = "%s %s" % (newline, word)
-#					if silly_prize_found == 1:
-#						newline2dwidth = stringWidth(newline2, "Gentium Basic Bold Italic", 18, "latin-1")
-#					else:
-#						newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
 					newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
 					if newline2dwidth > (A4[0] - 4*cm):
 					#if newline2dwidth > (A4[0] - 2*cm):
@@ -355,16 +335,11 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				print "...YPOS STILL MORE THAN 182..."
 				print "--==******==--"
 				print
-			#thisblurb = blurbwriter.do_blurb(quotechar='"', county=county, author=author,
-			#								 towns=towns, bookname=bookname, num_blurbs=1)
-
 			thisblurb = blurbwriter.do_blurb(quotechar='"', author=author, characters=None,
 											 main_character=None, bookname=bookname,
 											 num_blurbs=1, thisblurb=thisblurbnum)
 
 			while thisblurb in used_blurbs:
-				#thisblurb = blurbwriter.do_blurb(quotechar='"', county=county, author=author,
-				#								 towns=towns, bookname=bookname, num_blurbs=1)
 				thisblurb = blurbwriter.do_blurb(quotechar='"', author=author, characters=None,
 												 main_character=None, bookname=bookname,
 												 num_blurbs=1, thisblurb=thisblurbnum)
@@ -378,7 +353,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				print "========================="
 				print "created new blurb..."
 				print "thisblurb:"
-				print "'%s'" % thisblurb.encode("ascii", "ignore")
+				try:
+					print "'%s'" % thisblurb.decode("ascii", "ignore")
+				except:
+					print "'%s'" % thisblurb.encode("ascii", "ignore")
 				print "'ypos: %s'" % ypos
 				print "========================="
 			
@@ -389,7 +367,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				if DEBUG == 1:
 					print "FOUND A NEWLINE...."
 					print "thisblurb:"
-					print "'%s'" % thisblurb.encode("ascii", "ignore")
+					try:
+						print "'%s'" % thisblurb.decode("ascii", "ignore")
+					except:
+						print "'%s'" % thisblurb.encode("ascii", "ignore")
 					print
 				for line in thisblurb.split("\n"):
 					line = string.strip(line)
@@ -421,7 +402,7 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								if DEBUG == 1:
 									print "ATTRIBUTION LINE NOT FOUND... SETTING FONT TO BASIC..."
 								c.setFont("Gentium Basic", 14)
-							c.drawString(xpos, ypos, "%s" % (string.strip(line)))#poopoo
+							c.drawString(xpos, ypos, "%s" % (string.strip(line)))
 						else:
 							#it's a long line...
 							newlineslist = []
@@ -482,19 +463,15 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 						ypos = ypos-18
 					
-					#ypos = ypos-20
-				#ypos = ypos-10
-
-			#if thisblurbwidth < (A4[0] - 4*cm):
-			#    c.drawString(xpos, ypos, "%s" % (string.strip(thisblurb)))
-			#
-			#else:
 			else:
 
 				if DEBUG == 1:
 					print "NEWLINE *NOT* FOUND..."
 					print "thisblurb:"
-					print "'%s'" % thisblurb
+					try:
+						print "'%s'" % thisblurb.decode('ascii','ignore')
+					except:
+						print "'%s'" % thisblurb.encode('ascii','ignore')
 					print
 
 				if thisblurbwidth < (A4[0] - 4*cm):
@@ -531,12 +508,12 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 			if DEBUG == 1:
 				print "***************"
 				print "blurb (in loop)"
-				print "'%s'" % blurb.encode("ascii", 'ignore')
+				try:
+					print "'%s'" % blurb.decode("ascii", 'ignore')
+				except:
+					print "'%s'" % blurb.encode("ascii", 'ignore')
 				print "***************"
 				print
-
-			#newline2dwidth = stringWidth(thisblurb, "Gentium Basic", 14, "latin-1")
-			#c.drawString(xpos, ypos, "%s" % (string.strip(thisblurb)))
 
 			ypos = ypos-20
 			if DEBUG == 1:
@@ -637,20 +614,8 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 		for line in blurb.split("\n"):
 
-			silly_prize_found = 0
-			#these three should be enough to catch all of our silly prize names...
-			if string.find(line, "BOOK ") > -1:
-				silly_prize_found = 1
-			elif string.find(line, "WINNER ") > -1:
-				silly_prize_found = 1
-			elif string.find(line, "GUILD") > -1:        
-				silly_prize_found = 1
-			if silly_prize_found == 1:
-				linewidth = stringWidth(line, "Gentium Basic Bold Italic", 18, "latin-1")
-				c.setFont("Gentium Basic Bold Italic", 18)
-			else:
-				linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
-				c.setFont("Gentium Basic", 16)
+			linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
+			c.setFont("Gentium Basic", 16)
 
 			if linewidth < (A4[0] - 4*cm):
 			#if linewidth < (A4[0] - 2*cm):
@@ -671,10 +636,8 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				newline = ""
 				for word in line.split():
 					newline2 = "%s %s" % (newline, word)
-					if silly_prize_found == 1:
-						newline2dwidth = stringWidth(newline2, "Gentium Basic Bold Italic", 18, "latin-1")
-					else:
-						newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
+					newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
+
 					if newline2dwidth > (A4[0] - 4*cm):
 					#if newline2dwidth > (A4[0] - 2*cm):
 						c.drawString(xpos, ypos, "%s" % (string.strip(newline)))
@@ -706,16 +669,13 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				print "...YPOS STILL MORE THAN 182..."
 				print "--==******==--"
 				print
-			#thisblurb = blurbwriter.do_blurb(quotechar='"', county=county, author=author,
-			#								 towns=towns, bookname=bookname, num_blurbs=1)
+
 			thisblurb = blurbwriter.do_blurb(quotechar='"', author=author,
 											 characters=None, main_character=None,
 											 bookname=bookname, num_blurbs=1,
 											 thisblurb=thisblurbnum)
 
 			while thisblurb in used_blurbs:
-				#thisblurb = blurbwriter.do_blurb(quotechar='"', county=county, author=author,
-				#								 towns=towns, bookname=bookname, num_blurbs=1)
 				thisblurb = blurbwriter.do_blurb(quotechar='"', author=author,
 												 characters=None, main_character=None,
 												 bookname=bookname, num_blurbs=1,
@@ -729,7 +689,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				print "========================="
 				print "created new blurb..."
 				print "thisblurb:"
-				print "'%s'" % thisblurb.encode("ascii", "ignore")
+				try:
+					print "'%s'" % thisblurb.decode("ascii", "ignore")
+				except:
+					print "'%s'" % thisblurb.encode("ascii", "ignore")
 				print "'ypos: %s'" % ypos
 				print "========================="
 			
@@ -740,7 +703,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				if DEBUG == 1:
 					print "FOUND A NEWLINE...."
 					print "thisblurb:"
-					print "'%s'" % thisblurb.encode("ascii", "ignore")
+					try:
+						print "'%s'" % thisblurb.decode("ascii", "ignore")
+					except:
+						print "'%s'" % thisblurb.encode("ascii", "ignore")
 					print
 				for line in thisblurb.split("\n"):
 					line = string.strip(line)
@@ -774,7 +740,7 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								if DEBUG == 1:
 									print "ATTRIBUTION LINE NOT FOUND... SETTING FONT TO BASIC..."
 								c.setFont("Gentium Basic", 14)
-							c.drawString(xpos, ypos, "%s" % (string.strip(line)))#poopoo
+							c.drawString(xpos, ypos, "%s" % (string.strip(line)))
 						else:
 							#it's a long line...
 							newlineslist = []
@@ -836,19 +802,15 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 						ypos = ypos-18
 					
-					#ypos = ypos-20
-				#ypos = ypos-10
-
-			#if thisblurbwidth < (A4[0] - 4*cm):
-			#    c.drawString(xpos, ypos, "%s" % (string.strip(thisblurb)))
-			#
-			#else:
 			else:
 
 				if DEBUG == 1:
 					print "NEWLINE *NOT* FOUND..."
 					print "thisblurb:"
-					print "'%s'" % thisblurb
+					try:
+						print "'%s'" % thisblurb.decode('ascii', 'ignore')
+					except:
+						print "'%s'" % thisblurb.encode('ascii', 'ignore')
 					print
 
 				if thisblurbwidth < (A4[0] - 4*cm):
@@ -887,12 +849,12 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 			if DEBUG == 1:
 				print "***************"
 				print "blurb (in loop)"
-				print "'%s'" % blurb.encode("ascii", 'ignore')
+				try:
+					print "'%s'" % blurb.decode("ascii", 'ignore')
+				except:
+					print "'%s'" % blurb.encode("ascii", 'ignore')
 				print "***************"
 				print
-
-			#newline2dwidth = stringWidth(thisblurb, "Gentium Basic", 14, "latin-1")
-			#c.drawString(xpos, ypos, "%s" % (string.strip(thisblurb)))
 
 			ypos = ypos-20
 			if DEBUG == 1:
@@ -997,20 +959,8 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 		for line in blurb.split("\n"):
 
-			silly_prize_found = 0
-			#these three should be enough to catch all of our silly prize names...
-			if string.find(line, "BOOK ") > -1:
-				silly_prize_found = 1
-			elif string.find(line, "WINNER ") > -1:
-				silly_prize_found = 1
-			elif string.find(line, "GUILD") > -1:        
-				silly_prize_found = 1
-			if silly_prize_found == 1:
-				linewidth = stringWidth(line, "Gentium Basic Bold Italic", 18, "latin-1")
-				c.setFont("Gentium Basic Bold Italic", 18)
-			else:
-				linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
-				c.setFont("Gentium Basic", 16)
+			linewidth = stringWidth(line, "Gentium Basic", 16, "latin-1")
+			c.setFont("Gentium Basic", 16)
 
 			if linewidth < (A4[0] - 4*cm):
 			#if linewidth < (A4[0] - 2*cm):
@@ -1031,10 +981,9 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				newline = ""
 				for word in line.split():
 					newline2 = "%s %s" % (newline, word)
-					if silly_prize_found == 1:
-						newline2dwidth = stringWidth(newline2, "Gentium Basic Bold Italic", 18, "latin-1")
-					else:
-						newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
+
+					newline2dwidth = stringWidth(newline2, "Gentium Basic", 16, "latin-1")
+
 					if newline2dwidth > (A4[0] - 4*cm):
 					#if newline2dwidth > (A4[0] - 2*cm):
 						c.drawString(xpos, ypos, "%s" % (string.strip(newline)))
@@ -1066,15 +1015,12 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				print "...YPOS STILL MORE THAN 182..."
 				print "--==******==--"
 				print
-			#thisblurb = blurbwriter.do_blurb(quotechar='"', county=county, author=author,
-			#								 towns=towns, bookname=bookname, num_blurbs=1)
+
 			thisblurb = blurbwriter.do_blurb(quotechar='"', author=author, characters=None, 
 											 main_character=None, bookname=bookname, num_blurbs=1,
 											 thisblurb=thisblurbnum)
 
 			while thisblurb in used_blurbs:
-				#thisblurb = blurbwriter.do_blurb(quotechar='"', county=county, author=author,
-				#								 towns=towns, bookname=bookname, num_blurbs=1)
 				thisblurb = blurbwriter.do_blurb(quotechar='"', author=author, characters=None, 
 												 main_character=None, bookname=bookname, num_blurbs=1,
 												 thisblurb=thisblurbnum)
@@ -1087,7 +1033,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				print "========================="
 				print "created new blurb..."
 				print "thisblurb:"
-				print "'%s'" % thisblurb.encode("ascii", "ignore")
+				try:
+					print "'%s'" % thisblurb.decode("ascii", "ignore")
+				except:
+					print "'%s'" % thisblurb.encode("ascii", "ignore")
 				print "'ypos: %s'" % ypos
 				print "========================="
 			
@@ -1098,7 +1047,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 				if DEBUG == 1:
 					print "FOUND A NEWLINE...."
 					print "thisblurb:"
-					print "'%s'" % thisblurb.encode("ascii", "ignore")
+					try:
+						print "'%s'" % thisblurb.decode("ascii", "ignore")
+					except:
+						print "'%s'" % thisblurb.encode("ascii", "ignore")
 					print
 				for line in thisblurb.split("\n"):
 					line = string.strip(line)
@@ -1132,7 +1084,7 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								if DEBUG == 1:
 									print "ATTRIBUTION LINE NOT FOUND... SETTING FONT TO BASIC..."
 								c.setFont("Gentium Basic", 14)
-							c.drawString(xpos, ypos, "%s" % (string.strip(line)))#poopoo
+							c.drawString(xpos, ypos, "%s" % (string.strip(line)))
 						else:
 							#it's a long line...
 							newlineslist = []
@@ -1194,19 +1146,15 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 						ypos = ypos-18
 					
-					#ypos = ypos-20
-				#ypos = ypos-10
-
-			#if thisblurbwidth < (A4[0] - 4*cm):
-			#    c.drawString(xpos, ypos, "%s" % (string.strip(thisblurb)))
-			#
-			#else:
 			else:
 
 				if DEBUG == 1:
 					print "NEWLINE *NOT* FOUND..."
 					print "thisblurb:"
-					print "'%s'" % thisblurb
+					try:
+						print "'%s'" % thisblurb.decode('ascii','ignore')
+					except:
+						print "'%s'" % thisblurb.encode('ascii','ignore')
 					print
 
 				if thisblurbwidth < (A4[0] - 4*cm):
@@ -1237,13 +1185,12 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 			if DEBUG == 1:
 				print "***************"
 				print "blurb (in loop)"
-				print "'%s'" % blurb.encode("ascii", 'ignore')
+				try:
+					print "'%s'" % blurb.decode("ascii", 'ignore')
+				except:
+					print "'%s'" % blurb.encode("ascii", 'ignore')
 				print "***************"
 				print
-
-
-			#newline2dwidth = stringWidth(thisblurb, "Gentium Basic", 14, "latin-1")
-			#c.drawString(xpos, ypos, "%s" % (string.strip(thisblurb)))
 
 			ypos = ypos-20
 			if DEBUG == 1:
@@ -2355,7 +2302,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 	c, blurb  = make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								blurb, background_colour=back, foreground_colour=fore,
 								ISBN_text=ISBN, ISBN_for_barcode=ISBN_for_barcode, price=price,
-								cover_style=cover_style,dickens_book = dickens_book)
+								cover_style=cover_style, dickens_book = dickens_book)
 
 	make_text_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 						 blurb, background_colour=None, foreground_colour=None, ISBN=ISBN, price=price)
@@ -2381,12 +2328,7 @@ if __name__ == "__main__":
 		outfileName = "covers-test-%s.pdf" % (string.upper(string.replace(s, " ", "-")))
 		 
 		author = names.getName()
-		#num_towns = random.choice(range(6,10))
-		#towns = []
-		#for f in range(0, num_towns):
-		#	towns.append(place_name_generator.make_name(VERBOSE=0, LOG=0))
-		#county, bookname_single_line, bookname = main.make_title()
-		#county, bookname, bookname_multi_line = main.make_title()
+
 		bookname, is_eponymous, old_eponymous_character, new_eponymous_character = main.make_title()
 
 		bookname = string.capwords(string.strip(bookname))
