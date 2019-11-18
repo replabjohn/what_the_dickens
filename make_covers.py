@@ -1423,7 +1423,7 @@ def make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 					#n = "%s %s" % (n, word)
 					n = "%s %s" % (string.strip(n), string.strip(word))
 			xpos = (A4[0]/2.0) - (stringWidth("%s" % (string.strip(n)), "Gentium Basic Bold", 50, "latin-1")/2.0)
-			c.drawString(xpos, ypos, "%s" % (string.strip(n)))  #pewpew
+			c.drawString(xpos, ypos, "%s" % (string.strip(n)))
 		else:
 			xpos = (A4[0]/2.0) - (stringWidth(newline2, "Gentium Basic Bold", 50, "latin-1")/2.0)
 			ypos = (A4[1] - 4 * cm)
