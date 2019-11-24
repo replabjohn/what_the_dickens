@@ -851,14 +851,14 @@ BEING A GHOST STORY OF CHRISTMAS
 
 """,
 												 """ILLUSTRATIONS""",
-												 """[Illustration: _"A Merry Christmas, uncle! God save you!" cried a
-cheerful voice._]""",
-												 """[Illustration: _To sit staring at those fixed glazed eyes in silence,
-for a moment, would play, Scrooge felt, the very deuce with him._]""",
-												 """[Illustration: _"You recollect the way?" inquired the spirit. "Remember
-it!" cried Scrooge with fervour; "I could walk it blindfold."_]""",
-												 """[Illustration: _"Why, it's Ali Baba!" Scrooge exclaimed in ecstasy.
-"It's dear old honest Ali Baba."_]""",
+												 """[Illustration: _"A Merry Christmas, uncle! God save you!" cried a""",
+												 '''cheerful voice._]''',
+												 """[Illustration: _To sit staring at those fixed glazed eyes in silence,""",
+												 '''for a moment, would play, Scrooge felt, the very deuce with him._]''',
+												 """[Illustration: _"You recollect the way?" inquired the spirit. "Remember""",
+												 '''it!" cried Scrooge with fervour; "I could walk it blindfold."_]''',
+												 """[Illustration: _"Why, it's Ali Baba!" Scrooge exclaimed in ecstasy.""",
+												 '''"It's dear old honest Ali Baba."_]''',
 													 ],
 						 "main character":    "Ebenezer Scrooge",
 						 },
