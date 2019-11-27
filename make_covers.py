@@ -1816,38 +1816,39 @@ def write_page_to_disk(outfileName, text, pagewidth=80, VERBOSE=0):
 	outfile = open(outfileName, "a")
 
 	newline = ""
-	for line in text.split("\n"):
-		if len(line) < pagewidth:
-			try:
-				outfile.write("%s\n" % line.decode("UTF-8", "ignore"))
-			except:
+	if text not in (None, ""):
+		for line in text.split("\n"):
+			if len(line) < pagewidth:
 				try:
-					outfile.write("%s\n" % line.encode("UTF-8", "ignore"))
-				except:
-					outfile.write("%s\n" % line.decode("ascii", "ignore"))
-		else:
-			newline = ""
-			for word in text.split(" "):
-				newline2 = "%s %s" % (newline, word)
-				newline2dwidth = len(newline2)
-				if newline2dwidth > pagewidth:
-					try:
-						outfile.write(u"%s\n" % newline.decode('ascii', 'ignore'))
-					except:
-						outfile.write(u"%s\n" % newline.encode('ascii', 'ignore'))
-					newline = "%s" % word
-				else:
-					newline= newline2
-			try:
-				outfile.write(u"%s\n" % string.strip(newline.decode("UTF-8", "ignore")))
-			except:
-				try:
-					outfile.write(u"%s\n" % string.strip(newline.encode("UTF-8", "ignore")))
+					outfile.write("%s\n" % line.decode("UTF-8", "ignore"))
 				except:
 					try:
-						outfile.write("%s\n" % newline.decode('ascii', 'ignore'))
+						outfile.write("%s\n" % line.encode("UTF-8", "ignore"))
 					except:
-						outfile.write("%s\n" % newline.encode('ascii', 'ignore'))
+						outfile.write("%s\n" % line.decode("ascii", "ignore"))
+			else:
+				newline = ""
+				for word in text.split(" "):
+					newline2 = "%s %s" % (newline, word)
+					newline2dwidth = len(newline2)
+					if newline2dwidth > pagewidth:
+						try:
+							outfile.write(u"%s\n" % newline.decode('ascii', 'ignore'))
+						except:
+							outfile.write(u"%s\n" % newline.encode('ascii', 'ignore'))
+						newline = "%s" % word
+					else:
+						newline= newline2
+				try:
+					outfile.write(u"%s\n" % string.strip(newline.decode("UTF-8", "ignore")))
+				except:
+					try:
+						outfile.write(u"%s\n" % string.strip(newline.encode("UTF-8", "ignore")))
+					except:
+						try:
+							outfile.write("%s\n" % newline.decode('ascii', 'ignore'))
+						except:
+							outfile.write("%s\n" % newline.encode('ascii', 'ignore'))
 	if VERBOSE == 1:
 		print "... wrote to '%s'..." % (outfileName)
 	outfile.close()
@@ -1868,15 +1869,18 @@ def make_text_front_cover(c, VERBOSE, outfileName, width, height, author, bookna
 		else:
 			outdir = os.getcwd()
 
-	fn_root = "TEST_COVERS_OUTPUT"
+	if outfileName in (None, ""):
+		fn_root = "TEST_COVERS_OUTPUT"
+	else:
+		fn_root = str(string.split(outfileName, ".")[0])
 
-	if os.path.isfile(os.path.join(outdir, "%s.txt" % fn_root)):
-		if os.path.isfile(os.path.join(outdir, "%s_OLD.txt" % fn_root)):
-			new_fname = "%s_OLD_%s.txt" % (fn_root, "%06d" % random.choice(range(0,99999)))
-		else:
-			new_fname = "%s_OLD.txt" % fn_root
-		os.rename(os.path.join(outdir, "%s.txt" % fn_root),
-				  os.path.join(outdir, new_fname))
+##	if os.path.isfile(os.path.join(outdir, "%s.txt" % fn_root)):
+##		if os.path.isfile(os.path.join(outdir, "%s_OLD.txt" % fn_root)):
+##			new_fname = "%s_OLD_%s.txt" % (fn_root, "%06d" % random.choice(range(0,99999)))
+##		else:
+##			new_fname = "%s_OLD.txt" % fn_root
+##		os.rename(os.path.join(outdir, "%s.txt" % fn_root),
+##				  os.path.join(outdir, new_fname))
 
 	outfile = open(os.path.join(outdir, "%s.txt" % fn_root), "w")
 
@@ -1891,7 +1895,8 @@ def make_text_front_cover(c, VERBOSE, outfileName, width, height, author, bookna
 
 	outfile.close()
 	if VERBOSE == 1:
-		print "\t\twrote text version of front cover to file '%s'" % os.path.join(outdir, "%s.txt" % county)
+#		print "\t\twrote text version of front cover to file '%s'" % os.path.join(outdir, "%s.txt" % outfileName)
+		print "\t\twrote text version of front cover to file '%s'" % os.path.join(outdir, outfileName)
 
 
 def make_text_back_cover_final_twiddles(VERBOSE=1, outfileName=None, price="£4.99", ISBN="0 9999999999999",
@@ -1957,41 +1962,53 @@ def make_text_back_cover(c, VERBOSE, outfileName, width, height, author, booknam
 		else:
 			outdir = os.getcwd()
 
-	fn_root = "TEST_COVERS_OUTPUT"
+	if outfileName == None:
+		fn_root = "TEST_COVERS_OUTPUT"
+	else:
+		fn_root = string.split(outfileName, ".")[0]
 
-	if os.path.isfile(os.path.join(outdir, "%s.txt" % fn_root)):
-		if os.path.isfile(os.path.join(outdir, "%s_OLD.txt" % fn_root)):
-			new_fname = "%s_OLD_%s.txt" % (fn_root, "%06d" % random.choice(range(0,99999)))
-		else:
-			new_fname = "%s_OLD.txt" % fn_root
-		os.rename(os.path.join(outdir, "%s.txt" % fn_root),
-				  os.path.join(outdir, new_fname))
+	#assume we've aleady renamed any text file with the front cover
+##	if os.path.isfile(os.path.join(outdir, "%s.txt" % fn_root)):
+##		if os.path.isfile(os.path.join(outdir, "%s_OLD.txt" % fn_root)):
+##			new_fname = "%s_OLD_%s.txt" % (fn_root, "%06d" % random.choice(range(0,99999)))
+##		else:
+##			new_fname = "%s_OLD.txt" % fn_root
+##		os.rename(os.path.join(outdir, "%s.txt" % fn_root),
+##				  os.path.join(outdir, new_fname))
 
 	outfile = open(os.path.join(outdir, "%s.txt" % fn_root), "a")
 
 	seperator = "="*20
+	seperator = "%s\n\n" % seperator
 
-	outfile.write(seperator)
-	outfile.write("\n[BACK COVER]\n")
+	#outfile.write(seperator)
+	###outfile.write("\n\n[BACK COVER]\n")
 	#outfile.write(seperator)
 
 	back_cover_text = "\n%s\n\n%s\n" % (string.upper(bookname), blurb)
 	if VERBOSE > 1:
 		print "back_cover_text:"
 		print back_cover_text
+##	write_page_to_disk(outfileName=os.path.join(outdir, "%s.txt" % fn_root),
+##					   text=back_cover_text,
+##					   pagewidth=80,
+##					   VERBOSE=1)
+
+	#outfile.write("\n%s\n" % string.upper(bookname))
+	#outfile.write("\n%s\n\n" % string.upper(bookname))
+	#outfile.write("\n%s\n" % blurb)
+
+	#outfile.write(seperator)
+
 	write_page_to_disk(outfileName=os.path.join(outdir, "%s.txt" % fn_root),
 					   text=back_cover_text,
 					   pagewidth=80,
 					   VERBOSE=1)
 
-	#outfile.write("\n%s\n" % string.upper(bookname))
-	#outfile.write("\n%s\n" % blurb)
 
-	#outfile.write(seperator)
-
-	#sort out price and ISBN later...
+	#sort out price and ISBN...
 	make_text_back_cover_final_twiddles(VERBOSE=1, outfileName="%s.txt" % fn_root,
-										price="£4.99", ISBN="0 9999999999999",
+										price=price, ISBN=ISBN,
 										pagewidth=80)
 
 	outfile.close()
