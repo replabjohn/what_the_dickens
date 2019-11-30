@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.04c"
+__VERSION__ = "0.04d"
 
 
 
@@ -470,7 +470,53 @@ def check_for_exceptions(word):
     elif word == "stuned": return "stunned"
     elif word == "sufferred": return "suffered"
     elif word == "sunged": return "sang"
+    elif word == "readded": return "read"
+    elif word == "sustainned": return "sustained"
+    elif word == "swallowwed": return "swallowed"
+    elif word == "sweeped": return "swept"
+    elif word == "sweepped": return "swept"
+    elif word == "sweetenned": return "sweetened"
+    elif word == "swepted": return "swept"
+    elif word == "swimed": return "swam"
+    elif word == "thickenned": return "thickened"
+    elif word == "thoughted": return "thought"
+    elif word == "throwed": return "threw"
+    elif word == "throwwed": return "threw"
+    elif word == "thunderred": return "thundered"
+    elif word == "tightenned": return "tightened"
+    elif word == "toied": return "toyed"
+    elif word == "totaled": return "totalled"
+    elif word == "trainned": return "trained"
+    elif word == "transfered": return "transferred"
+    elif word == "transmited": return "transmitted"
+    elif word == "traveled": return "travelled"
+    elif word == "treatted": return "treated"
+    elif word == "travelers": return "travellers"
+    elif word == "unwraped": return "unwrapped"
+    elif word == "unwraping": return "unwrapping"
+    elif word == "upholded": return "upheld"
+    elif word == "usherred": return "ushered"
+    elif word == "utterred": return "uttered"
+    elif word == "tuged": return "tugged"
+    elif word == "typeseted": return "typeset"
+    elif word == "unbrokened": return "unbroken"
+    elif word == "unbrokenned": return "unbroken"
+    elif word == "uncoverred": return "uncovered"
+    elif word == "undergoed": return "underwent"
+    elif word == "understoodded": return "understood"
+    elif word == "viewwed": return "viewed"
+    elif word == "visitted": return "visited"
+    elif word == "vomitted": return "vomited"
+    elif word == "waitted": return "waited"
+    elif word == "wallowwed": return "wallowed"
+    elif word == "waxxed": return "waxed"
+    elif word == "wearred": return "wore"
 
+    elif word == "wheelled": return "wheeled"
+    elif word == "withdrawed": return "withdrew"
+    elif word == "withdrawwed": return "withdrew"
+    elif word == "wonderred": return "wondered"
+    elif word == "writed": return "wrote"
 
     elif word == "maritalled": return "married"
     elif word == "maritaled": return "married"
@@ -592,7 +638,19 @@ def check_for_exceptions(word):
     elif word == "repeling": return "repelling"
     elif word == "riging": return "rigging"
     elif word == "saging": return "sagging"
-
+    elif word == "stiring": return "stirring"
+    elif word == "shoveling": return "shovelling"
+    elif word == "skiping": return "skipping"
+    elif word == "snaping": return "snapping"
+    elif word == "snoging": return "snogging"
+    elif word == "spining": return "spinning"
+    elif word == "spoting": return "spotting"
+    elif word == "totaling": return "totalling"
+    elif word == "triming": return "trimming"
+    elif word == "tuging": return "tugging"
+    elif word == "typeseting": return "typesetting"
+    elif word == "wheting": return "whetting"
+    elif word == "wraping": return "wrapping"
 
 
 
@@ -644,8 +702,26 @@ def check_for_exceptions(word):
     elif word == "poultrymans": return "poultrymen"
     elif word == "seamans": return "seamen"
     elif word == "servicemans": return "servicemen"
+    elif word == "revelers": return "revellers"
+    elif word == "saturdaies": return "saturdays"
+    elif word == "stagecoachs": return "stagecoaches"
+    elif word == "switchs": return "switches"
+    elif word == "toies": return "toys"
+    elif word == "tooths": return "teeth"
+    elif word == "turkeies": return "turkeys"
+    elif word == "waies": return "ways"
+    elif word == "wishs": return "wishes"
+    elif word == "witchs": return "witches"
 
 
+
+    elif word == "reproachs": return "reproaches"
+    elif word == "portraies": return "portrays"
+    elif word == "scratchs": return "scratches"
+    elif word == "searchs": return "searches"
+    elif word == "smashs": return "smashes"
+    elif word == "snatchs": return "snatches"
+    elif word == "staies": return "stays"
 
     elif word == "annexs": return "annexes"
     elif word == "annoies": return "annoys"
@@ -664,11 +740,11 @@ def check_for_exceptions(word):
     elif word == "perplexs": return "perplexes"
     elif word == "plaies": return "plays"
     elif word == "plats": return "plates"
-
+    elif word == "headwaies": return "headways"
 
     elif word == "reachs": return "reaches"
-
-
+    elif word == "touchs": return "touches"
+    elif word == "varnishs": return "varnishes"
 
     #US spellings -> UK spellings
     elif word == "center": return "centre"
@@ -715,6 +791,9 @@ def check_for_exceptions(word):
     elif word == "plowwed": return "ploughed"
     elif word == "plowing": return "ploughing"
 
+    elif word == "theater": return "theatre"
+    elif word == "theaters": return "theatres"
+
 
     #elements...
     elif word == "americium": return "am"
@@ -722,14 +801,21 @@ def check_for_exceptions(word):
     elif word == "dysprosium": return "dies"
     elif word == "oxygen": return "o"
     elif word == "nobelium": return "no"        # much more likely be to be just plain 'no' than the name of an element.
+    elif word == "uranium": return "us"         # confirmed, no instances of 'uranium' in source texts
+    elif word == "vanadium": return "v"
 
 
-
+    #numbers
+    elif word == "trey": return "three"
+    elif word == "four-spot": return "four"
+    elif word == "five-spot": return "five"
+    elif word == "ten-spot": return "ten"
 
     #Other things...
     elif word == "ampere": return "a"           #Ampere is highly unlikely to turn up in a Dickens story.
     elif word == "adenine": return "a"          #...even more unlikely to turn up in a Dickens story.
     elif word == "angstrom": return "a"         #...this too.
+    elif word == "uracil": return "us"
 
     elif word == "ala": return "alas"
     elif word == "whitethorn": return "may"
@@ -738,11 +824,13 @@ def check_for_exceptions(word):
     elif word == "distinguishs": return "distinguishes"
 
     elif word == "fagot": return "faggot"
-    elif word == "five-spot": return "five"
     elif word == "fixs": return "fixes"
-    elif word == "four-spot": return "four"
 
     elif word == "subsequentlies": return "subsequently"
+    elif word == "willfully": return "wilfully"
+
+    elif word == "u": return "us"
+
 
 
     elif word == "semen": return "come"         # !!! 
