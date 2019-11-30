@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.04d"
+__VERSION__ = "0.04e"
 
 
 
@@ -651,10 +651,11 @@ def check_for_exceptions(word):
     elif word == "typeseting": return "typesetting"
     elif word == "wheting": return "whetting"
     elif word == "wraping": return "wrapping"
+    elif word == "skiming": return "skimming"
+    elif word == "skining": return "skinning"
+    elif word == "organisming": return "being"
 
-
-
-    #-incorrect plurals
+    #-incorrect plurals (and other -s/-es words) 
     elif word == "boies": return "boys"
     elif word == "boxs": return "boxes"
     elif word == "branchs": return "branches"
@@ -712,8 +713,6 @@ def check_for_exceptions(word):
     elif word == "waies": return "ways"
     elif word == "wishs": return "wishes"
     elif word == "witchs": return "witches"
-
-
 
     elif word == "reproachs": return "reproaches"
     elif word == "portraies": return "portrays"
@@ -794,7 +793,6 @@ def check_for_exceptions(word):
     elif word == "theater": return "theatre"
     elif word == "theaters": return "theatres"
 
-
     #elements...
     elif word == "americium": return "am"
     elif word == "calcium": return "ca"         # shows up up as eg "can't" -> "ca" + "n't" (don't want "calcium n't"!)
@@ -803,7 +801,6 @@ def check_for_exceptions(word):
     elif word == "nobelium": return "no"        # much more likely be to be just plain 'no' than the name of an element.
     elif word == "uranium": return "us"         # confirmed, no instances of 'uranium' in source texts
     elif word == "vanadium": return "v"
-
 
     #numbers
     elif word == "trey": return "three"
@@ -831,11 +828,32 @@ def check_for_exceptions(word):
 
     elif word == "u": return "us"
 
-
-
+    # stuff we absolutely DO NOT WANT in our output
     elif word == "semen": return "come"         # !!! 
     elif word == "cunt": return "snatch"        # DO NOT WANT THESE IN OUR OUTPUT!
     elif word == "orgasming": return "coming"
+
+    # some of these are just plain weird. Wordnet, what were you on...?
+    # Can be pretty damn sure that none of these will come up in Dickens novel :)
+    elif word == "bastardly": return "mean"
+    elif word == "clitoris": return "buttons"
+    elif word == "deflowered": return "ruined"
+    elif word == "fellated": return "blew"
+    elif word == "fucks": return "screws"
+    elif word == "gonorrhea": return "clap"
+    elif word == "heterosexual": return "straight"
+    elif word == "homo": return "men"
+    elif word == "homos": return "men"
+    elif word == "inseminate": return "sow"
+    elif word == "orificing": return "opening"
+    elif word == "penis": return "members"
+    elif word == "piddled": return "trifled"
+    elif word == "queered": return "exposed"
+    elif word == "queers": return "perils"
+    elif word == "raped": return "despoil"
+    elif word == "semened": return "come"
+    elif word == "testis": return "nuts"
+    elif word == "whoremasters": return "tricks"
 
     elif word == "overlord": return "lord"
     elif word == "godhead": return "god"
