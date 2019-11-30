@@ -2013,7 +2013,7 @@ def make_text_back_cover(c, VERBOSE, outfileName, width, height, author, booknam
 
 	outfile.close()
 	if VERBOSE == 1:
-		print "\t\twrote text version of back cover to file '%s'" % os.path.join(outdir, "%s.txt" % county)
+		print "\t\twrote text version of back cover to file '%s'" % os.path.join(outdir, "%s.txt" % fn_root)
 
 
 def pick_colour():
