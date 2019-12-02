@@ -1290,7 +1290,7 @@ def make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 
 	illustrationfn = pick_cover_pict(book_file=book_file)
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\t\tUsing illustration :", illustrationfn
 
 	illustration = Image.open(illustrationfn)
@@ -1849,8 +1849,8 @@ def write_page_to_disk(outfileName, text, pagewidth=80, VERBOSE=0):
 							outfile.write("%s\n" % newline.decode('ascii', 'ignore'))
 						except:
 							outfile.write("%s\n" % newline.encode('ascii', 'ignore'))
-	if VERBOSE == 1:
-		print "... wrote to '%s'..." % (outfileName)
+	if VERBOSE > 0:
+		print "\n... wrote to '%s'..." % (outfileName)
 	outfile.close()
 
 
@@ -1894,7 +1894,7 @@ def make_text_front_cover(c, VERBOSE, outfileName, width, height, author, bookna
 	outfile.write(seperator)
 
 	outfile.close()
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 #		print "\t\twrote text version of front cover to file '%s'" % os.path.join(outdir, "%s.txt" % outfileName)
 		print "\t\twrote text version of front cover to file '%s'" % os.path.join(outdir, outfileName)
 
@@ -2012,7 +2012,7 @@ def make_text_back_cover(c, VERBOSE, outfileName, width, height, author, booknam
 										pagewidth=80)
 
 	outfile.close()
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\twrote text version of back cover to file '%s'" % os.path.join(outdir, "%s.txt" % fn_root)
 
 
@@ -2126,7 +2126,7 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 		print background_colour["Name"]
 		print "===="
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\tcreating front cover..."
 		#print "\t\tbackground_colour:", background_colour
 
@@ -2172,7 +2172,7 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 		foreground_colour = fore
 
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\tcreating front cover..."
 	c = make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 						 blurb, background_colour=back, foreground_colour=fore,
@@ -2184,21 +2184,21 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 	if VERBOSE >1:
 		print blurb
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\tGenerating ISBN..."
 	ISBN = make_ISBN(spacer="-")
 	ISBN_for_barcode = string.strip(string.replace(string.replace(ISBN, "-", "")," ", ""))
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\t\tISBN: '%s'" % ISBN
 		print "\t\t\tISBN_for_barcode: '%s'" % ISBN_for_barcode
 
 	price = random.choice(range(3,12))
 	price = "£%s.99" % price
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\t\tprice: '%s'" % price
 		print
 	
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\n\tcreating back cover..."
 
 	c, blurb = make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
@@ -2211,7 +2211,7 @@ def getCovers(c, VERBOSE, outfileName, width, height, author, bookname, blurb):
 
 	c.save()
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\twrote file '%s'" % outfileName
 		print "DONE"
 
@@ -2228,7 +2228,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 	if cover_style == None:
 		cover_style = get_cover_style()
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\tcover_style:", cover_style
 
 	foreground_colour = pick_colour()
@@ -2242,7 +2242,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 		print background_colour["Name"]
 		print "===="
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\n\tcreating front cover..."
 		#print "\t\tbackground_colour:", background_colour
 
@@ -2285,7 +2285,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 		foreground_colour = fore
 
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\tcreating front cover..."
 
 	c = make_front_cover(c, VERBOSE, outfileName, width, height, author, bookname,
@@ -2298,23 +2298,23 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 	if VERBOSE >1:
 		print blurb
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\tGenerating ISBN..."
 
 	ISBN = make_ISBN(spacer="-")
 	ISBN_for_barcode = string.strip(string.replace(string.replace(ISBN, "-", "")," ", ""))
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\tISBN: '%s'" % ISBN
 		print "\t\tISBN_for_barcode: '%s'" % ISBN_for_barcode
 
 	price = random.choice(range(3,12))
 	price = "£%s.99" % price
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\t\tprice: '%s'" % price
 		print
 	
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\n\tcreating back cover..."
 	c, blurb  = make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 								blurb, background_colour=back, foreground_colour=fore,
@@ -2326,7 +2326,7 @@ def run(c, VERBOSE, outfileName, width, height, author, bookname, blurb, cover_s
 
 	c.save()
 
-	if VERBOSE == 1:
+	if VERBOSE > 0:
 		print "\twrote file '%s'" % outfileName
 	print "DONE"
 
