@@ -851,6 +851,7 @@ def check_for_exceptions(word):
     elif word == "einsteinium": return "e"
 
     #numbers
+    elif word == "deuce": return "two"
     elif word == "trey": return "three"
     elif word == "four-spot": return "four"
     elif word == "five-spot": return "five"
@@ -875,7 +876,9 @@ def check_for_exceptions(word):
     elif word == "willfully": return "wilfully"
 
     elif word == "lashkar-e-taiba": return "let"
+    elif word == "lashkar-e-taibaed": return "let"
     elif word == "harkat-ul-mujahidin": return "hum"
+    elif word == "harkat-ul-mujahidined": return "hummed"
     elif word == "dimash": return "damascus"
 
     # stuff we absolutely DO NOT WANT in our output
@@ -1229,7 +1232,7 @@ WRB: Wh-adverb
 
 
 
-def modify_text(text, VERBOSE=0):
+def modify_text(text, VERBOSE=0, d=None):
     """collects together all our text modification routines)"""
 
     stop_words = get_stopwords()
@@ -1239,6 +1242,17 @@ def modify_text(text, VERBOSE=0):
     paras_to_output = []
 
     OUTPUT = ""
+
+    if d == None:
+        chapter_dividers = "DUMMY-DUMMY-DUMMY"
+        chapter_names = []
+    else:
+        if d.chapter_dividers == None:
+            chapter_dividers = "DUMMY-DUMMY-DUMMY"
+        else:
+            chapter_dividers = d.chapter_dividers
+        if d.chapter_names == None:
+            chapter_names = []
 
     for para in paras:
 
@@ -1328,6 +1342,13 @@ def modify_text(text, VERBOSE=0):
                     #one of our placeholders.... pass through unaltered
                     words_to_output.append(word)
                     words_info.append("PLACEHOLDER")
+                elif string.lower(string.strip(word)) == string.lower(string.strip(chapter_dividers)):
+                    #pass through chapter headings unchanged
+                    words_to_output.append(word)
+                    words_info.append("CHAPTER WORD")
+                elif string.strip(word) in chapter_names:
+                    words_to_output.append(word)
+                    words_info.append("CHAPTER WORD")
                 elif tagged_words[w][1] in adjective_types:
                     synonym = get_synonym(word.decode("ascii", "ignore"))
                     words_to_output.append(synonym)

@@ -421,21 +421,17 @@ phrases_dict = {
                     },
 
 
+                ", therefore, ":    {
+                    "phrase"        :   ", therefore, ",
+                    "replacement"   :   ", ."
+                    },
 
 
-##                #remove underscores indicating italics...
-##                #We'll just ignore them.
-##                "_":    {
-##                    "phrase"        :   "_",
-##                    "replacement"   :   ""
-##                    },
-##
-##                #HACK!
-##                #Fix for a placeholder mangled by the above...
-##                "[INTROEND]":    {
-##                    "phrase"        :   "[INTROEND]",
-##                    "replacement"   :   "[INTRO_END]"
-##                    },
+                ", decidedly, ":    {
+                    "phrase"        :   ", decidedly, ",
+                    "replacement"   :   ", ."
+                    },
+
 
 }
 
