@@ -1179,8 +1179,10 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 					#xpos = (A4[0]/2.0) - (stringWidth(newline2, "Gentium Basic Bold", 24, "latin-1")/2.0)
 					c.drawString(xpos, ypos, "%s" % (string.strip(newline)))
 
-
-			blurb = "%s\n\n%s" % (blurb, thisblurb)
+			try:
+				blurb = "%s\n\n%s" % (blurb.decode("UTF-8", "ignore"), thisblurb.decode("UTF-8", "ignore"))
+			except:
+				blurb = "%s\n\n%s" % (blurb.encode("UTF-8", "ignore"), thisblurb.encode("UTF-8", "ignore"))
 
 			if DEBUG == 1:
 				print "***************"
@@ -1817,8 +1819,15 @@ def write_page_to_disk(outfileName, text, pagewidth=80, VERBOSE=0):
 
 	newline = ""
 	if text not in (None, ""):
+
 		for line in text.split("\n"):
-			if len(line) < pagewidth:
+
+			if string.find(line, "[INTRO#END]") > -1:
+				seperator = "="*20
+				seperator = "\n\n%s\n\n" % seperator
+				outfile.write("%s\n" % seperator.decode("UTF-8", "ignore"))
+
+			elif len(line) < pagewidth:
 				try:
 					outfile.write("%s\n" % line.decode("UTF-8", "ignore"))
 				except:
