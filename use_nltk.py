@@ -22,7 +22,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.04f"
+__VERSION__ = "0.04g"
 
 
 
@@ -518,6 +518,32 @@ def check_for_exceptions(word):
     elif word == "wraped": return "wrapped"
     elif word == "writed": return "wrote"
 
+    elif word == "eatted": return "ate"
+    elif word == "sleepped": return "slept"
+    elif word == "refered": return "referred"
+    elif word == "stealled": return "stole"
+    elif word == "builded": return "built"
+    elif word == "appealled": return "appealed"
+    elif word == "spured": return "spurred"
+    elif word == "puckerred": return "puckered"
+    elif word == "bited": return "bit"
+    elif word == "litterred": return "littered"
+    elif word == "enterred": return "entered"
+    elif word == "peerred": return "peered"
+    elif word == "chainned": return "chained"
+    elif word == "sweared": return "swore"
+    elif word == "springed": return "sprung"
+    elif word == "gallopped": return "galloped"
+    elif word == "impeled": return "impelled"
+    elif word == "swinged": return "swung"
+
+    elif word == "weatherred": return "weathered"
+    elif word == "wanderred": return "wandered"
+    elif word == "wailled": return "wailed"
+    elif word == "volunteerred": return "volunteered"
+    elif word == "vowwed": return "vowed"
+    elif word == "unpluged": return "unplugged"
+
     #-ing words
     elif word == "ading": return "adding"
     elif word == "approacing": return "approaching"
@@ -650,6 +676,14 @@ def check_for_exceptions(word):
     elif word == "whistleing": return "whistling"
     elif word == "wraping": return "wrapping"
 
+    elif word == "scaning": return "scanning"
+    elif word == "disintering": return "disinterring"
+    elif word == "demuring": return "demurring"
+    elif word == "sniveling": return "snivelling"
+    elif word == "eying": return "eyeing"
+    elif word == "triping": return "tripping"
+    elif word == "beging": return "begging"
+
     #-incorrect plurals (and other -s/-es words) 
     elif word == "annexs": return "annexes"
     elif word == "annoies": return "annoys"
@@ -735,6 +769,17 @@ def check_for_exceptions(word):
     elif word == "witchs": return "witches"
     elif word == "womans": return "women"
 
+    elif word == "workmans": return "workmen"
+    elif word == "teachs": return "teaches"
+    elif word == "chimneies": return "chimneys"
+    elif word == "breechs": return "breeches"
+    elif word == "blowtorchs": return "blowtorches"
+    elif word == "horsemans": return "horsemen"
+    elif word == "yeomans": return "yeomen"
+    elif word == "twitchs": return "twitches"
+    elif word == "englishmans": return "englishmen"
+
+
     #US spellings -> UK spellings
     elif word == "center": return "centre"
     elif word == "centers": return "centres"
@@ -782,6 +827,18 @@ def check_for_exceptions(word):
     elif word == "theater": return "theatre"
     elif word == "theaters": return "theatres"
 
+    elif word == "discolor": return "discolour"
+    elif word == "discolors": return "discolours"
+    elif word == "discolored": return "discoloured"
+    elif word == "molding": return "moulding"
+    elif word == "moldings": return "moildings"
+    elif word == "molded": return "moulded"
+    elif word == "neighbor": return "neighbour"
+    elif word == "neighbors": return "neighbours"
+    elif word == "neighboring": return "neighbouring"
+    elif word == "candor": return "candour"
+
+
     #elements...
     elif word == "americium": return "am"
     elif word == "calcium": return "ca"         # shows up up as eg "can't" -> "ca" + "n't" (don't want "calcium n't"!)
@@ -790,6 +847,8 @@ def check_for_exceptions(word):
     elif word == "nobelium": return "no"        # much more likely be to be just plain 'no' than the name of an element.
     elif word == "uranium": return "us"         # confirmed, no instances of 'uranium' in source texts
     elif word == "vanadium": return "v"
+
+    elif word == "einsteinium": return "e"
 
     #numbers
     elif word == "trey": return "three"
@@ -814,6 +873,10 @@ def check_for_exceptions(word):
     elif word == "uracil": return "us"
     elif word == "whitethorn": return "may"
     elif word == "willfully": return "wilfully"
+
+    elif word == "lashkar-e-taiba": return "let"
+    elif word == "harkat-ul-mujahidin": return "hum"
+    elif word == "dimash": return "damascus"
 
     # stuff we absolutely DO NOT WANT in our output
     elif word == "semen": return "come"         # !!! 
@@ -1225,14 +1288,10 @@ def modify_text(text, VERBOSE=0):
                                 if VERBOSE > 1:
                                     print "!!! REPLACED '%s' WITH '[%s]' !!!" % (raw_words[w],raw_words[w])
 
-            for w in range(0, len(raw_words)):
-                try:
-                    if raw_words[w] in ["[","]"]:
-                        raw_words.remove(raw_words[w])
-                except IndexError:
-                    #we've deleted too many words.
-                    pass
-
+            while "[" in raw_words:
+                raw_words.remove("[")
+            while "]" in raw_words:
+                raw_words.remove("]")
 
             if VERBOSE > 0:
                 print "\n\nRAW_WORDS (AFTER MODIFICATION):"
