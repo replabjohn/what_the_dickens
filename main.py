@@ -132,6 +132,7 @@ class DataHolder:
 		self.dickens_filename = None
 		self.chapter_dividers = None
 		self.chapter_names = None
+		self.chapter_heads_to_check = []
 
 		self.text = None
 
@@ -1965,7 +1966,8 @@ def make_text(d, VERBOSE):
 
 
 					new_characters.append(NEW_CHARACTER)
-					print "called '%s'." % NEW_CHARACTER
+					if VERBOSE > 0:
+						print "called '%s'." % NEW_CHARACTER
 										
 					character_name_caps = string.upper(cn)
 					new_character_name_caps = string.upper(NEW_CHARACTER)
