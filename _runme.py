@@ -1,9 +1,10 @@
+#!/usr/local/bin/python
+# -*- coding: UTF-8 -*-
 
-#stubb
-#all actual work is done in main.py
+# stub
+# all actual work is done in main.py
 
 import main
-
 import sys, os, subprocess
 
 VERBOSE = 0
