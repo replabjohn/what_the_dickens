@@ -1479,6 +1479,7 @@ def check_for_exceptions(word):
     elif word == "vanadium": return "v"
     
     #numbers
+    elif word == "matchless": return "one"      #not bad per se, but breaks chapter numbers
     elif word == "deuce": return "two"
     elif word == "trey": return "three"
     elif word == "four-spot": return "four"
