@@ -1182,7 +1182,15 @@ def make_back_cover(c, VERBOSE, outfileName, width, height, author, bookname,
 			try:
 				blurb = "%s\n\n%s" % (blurb.decode("UTF-8", "ignore"), thisblurb.decode("UTF-8", "ignore"))
 			except:
-				blurb = "%s\n\n%s" % (blurb.encode("UTF-8", "ignore"), thisblurb.encode("UTF-8", "ignore"))
+				try:
+					#hopefully, this will work..
+					blurb = "%s\n\n%s" % (blurb.encode("UTF-8", "ignore"), thisblurb.encode("UTF-8", "ignore"))
+				except:
+					#oops. It didn't. Fall back to ASCII
+					try:
+						blurb = "%s\n\n%s" % (blurb.decode("ascii", "ignore"), thisblurb.decode("ascii", "ignore"))
+					except:
+						blurb = "%s\n\n%s" % (blurb.encode("ascii", "ignore"), thisblurb.encode("ascii", "ignore"))
 
 			if DEBUG == 1:
 				print "***************"
