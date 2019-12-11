@@ -1,8 +1,6 @@
-THE PERSONAL HISTORY AND EXPERIENCE OF [BOOK_SHORT_TITLE_CAPS] THE YOUNGER
+CHAPTER 1. 
 
-
-
-CHAPTER 1. I AM BORN
+I AM BORN
 
 
 
@@ -523,7 +521,9 @@ without whom I had never been.
 
 
 
-CHAPTER 2. I OBSERVE
+CHAPTER 2.
+
+ I OBSERVE
 
 
 The first objects that assume a distinct presence before me, as I look
@@ -1157,7 +1157,9 @@ the buttons she would shed.
 
 
 
-CHAPTER 3. I HAVE A CHANGE
+CHAPTER 3. 
+
+I HAVE A CHANGE
 
 
 The carrier's horse was the laziest horse in the world, I should hope,
@@ -1847,7 +1849,9 @@ me.
 
 
 
-CHAPTER 4. I FALL INTO DISGRACE
+CHAPTER 4. 
+
+I FALL INTO DISGRACE
 
 
 If the room to which my bed was removed were a sentient thing that could
@@ -2667,7 +2671,9 @@ then I got into the cart, and the lazy horse walked off with it.
 
 
 
-CHAPTER 5. I AM SENT AWAY FROM HOME
+CHAPTER 5. 
+
+I AM SENT AWAY FROM HOME
 
 
 We might have gone about half a mile, and my pocket-handkerchief was
@@ -3462,7 +3468,9 @@ got used to them.
 
 
 
-CHAPTER 6. I ENLARGE MY CIRCLE OF ACQUAINTANCE
+CHAPTER 6. 
+
+I ENLARGE MY CIRCLE OF ACQUAINTANCE
 
 
 I HAD led this life about a month, when the man with the wooden leg
@@ -3780,7 +3788,9 @@ garden that I dreamed of walking in all night.
 
 
 
-CHAPTER 7. MY 'FIRST HALF' AT SALEM HOUSE
+CHAPTER 7. 
+
+MY 'FIRST HALF' AT SALEM HOUSE
 
 
 School began in earnest next day. A profound impression was made
@@ -4553,7 +4563,9 @@ but the sound of the coachman touching up the horses.
 
 
 
-CHAPTER 8. MY HOLIDAYS. ESPECIALLY ONE HAPPY AFTERNOON
+CHAPTER 8. 
+
+MY HOLIDAYS. ESPECIALLY ONE HAPPY AFTERNOON
 
 
 When we arrived before day at the inn where the mail stopped, which was
@@ -5246,7 +5258,9 @@ up her baby in her arms.
 
 
 
-CHAPTER 9. I HAVE A MEMORABLE BIRTHDAY
+CHAPTER 9. 
+
+I HAVE A MEMORABLE BIRTHDAY
 
 
 I PASS over all that happened at school, until the anniversary of my
@@ -5769,7 +5783,9 @@ ever on her bosom.
 
 
 
-CHAPTER 10. I BECOME NEGLECTED, AND AM PROVIDED FOR
+CHAPTER 10. 
+
+I BECOME NEGLECTED, AND AM PROVIDED FOR
 
 
 The first act of business Miss [CHARACTER_011_SURNAME] performed when the day of the
@@ -6662,7 +6678,9 @@ is empty!
 
 
 
-CHAPTER 11. I BEGIN LIFE ON MY OWN ACCOUNT, AND DON'T LIKE IT
+CHAPTER 11. 
+
+I BEGIN LIFE ON MY OWN ACCOUNT, AND DON'T LIKE IT
 
 
 I know enough of the world now, to have almost lost the capacity of
@@ -7294,7 +7312,9 @@ experiences and sordid things!
 
 
 
-CHAPTER 12. LIKING LIFE ON MY OWN ACCOUNT NO BETTER, I FORM A GREAT RESOLUTION
+CHAPTER 12. 
+
+LIKING LIFE ON MY OWN ACCOUNT NO BETTER, I FORM A GREAT RESOLUTION
 
 
 In due time, Mr. [CHARACTER_010_SURNAME]'s petition was ripe for hearing; and that
@@ -7705,7 +7725,9 @@ night when my arrival gave her so much umbrage.
 
 
 
-CHAPTER 13. THE SEQUEL OF MY RESOLUTION
+CHAPTER 13. 
+
+THE SEQUEL OF MY RESOLUTION
 
 
 For anything I know, I may have had some wild idea of running all the
@@ -8556,7 +8578,9 @@ track upon the sea, away into the world of dreams.
 
 
 
-CHAPTER 14. MY AUNT MAKES UP HER MIND ABOUT ME
+CHAPTER 14. 
+
+MY AUNT MAKES UP HER MIND ABOUT ME
 
 
 On going down in the morning, I found my aunt musing so profoundly over
@@ -9265,7 +9289,9 @@ I have written, and there I leave it.
 
 
 
-CHAPTER 15. I MAKE ANOTHER BEGINNING
+CHAPTER 15. 
+
+I MAKE ANOTHER BEGINNING
 
 
 [CHARACTER_NAME_001] and I soon became the best of friends, and very often, when his
@@ -9678,7 +9704,9 @@ was [CHARACTER_NAME_008] got up there somehow, and shut him out in a hurry.
 
 
 
-CHAPTER 16. I AM A NEW BOY IN MORE SENSES THAN ONE
+CHAPTER 16. 
+
+I AM A NEW BOY IN MORE SENSES THAN ONE
 
 
 Next morning, after breakfast, I entered on school life again. I went,
@@ -10618,7 +10646,9 @@ afterwards; as I shall have occasion to narrate when the time comes.
 
 
 
-CHAPTER 17. SOMEBODY TURNS UP
+CHAPTER 17. 
+
+SOMEBODY TURNS UP
 
 
 It has not occurred to me to mention [CHARACTER_013_SURNAME] since I ran away; but, of
@@ -11371,7 +11401,9 @@ nevertheless.
 
 
 
-CHAPTER 18. A RETROSPECT
+CHAPTER 18. 
+
+A RETROSPECT
 
 
 My school-days! The silent gliding on of my existence - the unseen,
@@ -11676,7 +11708,9 @@ seventeen.
 
 
 
-CHAPTER 19. I LOOK ABOUT ME, AND MAKE A DISCOVERY
+CHAPTER 19. 
+
+I LOOK ABOUT ME, AND MAKE A DISCOVERY
 
 
 I am doubtful whether I was at heart glad or sorry, when my school-days
@@ -12407,7 +12441,9 @@ gods.
 
 
 
-CHAPTER 20. [CHARACTER_017_SURNAME_CAPS]'S HOME
+CHAPTER 20. 
+
+[CHARACTER_017_SURNAME_CAPS]'S HOME
 
 
 When the chambermaid tapped at my door at eight o'clock, and informed
@@ -12790,7 +12826,9 @@ or not - without knowing what I meant.
 
 
 
-CHAPTER 21. [CHARACTER_NAME_CAPS_006]
+CHAPTER 21. 
+
+[CHARACTER_NAME_CAPS_006]
 
 
 There was a servant in that house, a man who, I understood, was usually
@@ -13647,7 +13685,9 @@ Yarmouth.
 
 
 
-CHAPTER 22. SOME OLD SCENES, AND SOME NEW PEOPLE
+CHAPTER 22. 
+
+SOME OLD SCENES, AND SOME NEW PEOPLE
 
 
 [CHARACTER_017_SURNAME] and I stayed for more than a fortnight in that part of the
@@ -14660,7 +14700,9 @@ both her hands, and still kept close to him.
 
 
 
-CHAPTER 23. I CORROBORATE Mr. [CHARACTER_001_SURNAME_CAPS], AND CHOOSE A PROFESSION
+CHAPTER 23. 
+
+I CORROBORATE Mr. [CHARACTER_001_SURNAME_CAPS], AND CHOOSE A PROFESSION
 
 
 When I awoke in the morning I thought very much of little [CHARACTER_006_SURNAME], and her
@@ -15297,7 +15339,9 @@ on the happy changes which had brought me to the surface.
 
 
 
-CHAPTER 24. MY FIRST DISSIPATION
+CHAPTER 24. 
+
+MY FIRST DISSIPATION
 
 
 It was a wonderfully fine thing to have that lofty castle to myself, and
@@ -15648,7 +15692,9 @@ even at that pass, if Mrs. Crupp were quite the sort of woman to confide
 in!
 
 
-CHAPTER 25. GOOD AND BAD ANGELS
+CHAPTER 25. 
+
+GOOD AND BAD ANGELS
 
 
 I was going out at my door on the morning after that deplorable day of
@@ -16513,7 +16559,9 @@ sitting-room might be aired, and purged of his presence.
 
 
 
-CHAPTER 26. I FALL INTO CAPTIVITY
+CHAPTER 26. 
+
+I FALL INTO CAPTIVITY
 
 
 I saw no more of [CHARACTER_NAME_008], until the day when [CHARACTER_021_FIRSTNAME] left town. I was
@@ -17152,7 +17200,9 @@ warning in future to keep my secret better.
 
 
 
-CHAPTER 27. [CHARACTER_NAME_CAPS_019]
+CHAPTER 27. 
+
+[CHARACTER_NAME_CAPS_019]
 
 
 It may have been in consequence of Mrs. Crupp's advice, and, perhaps,
@@ -17581,7 +17631,9 @@ Mr. [CHARACTER_010_SURNAME] then shook hands with me again, and left me.
 
 
 
-CHAPTER 28. Mr. [CHARACTER_010_SURNAME_CAPS]'S GAUNTLET
+CHAPTER 28. Mr. 
+
+[CHARACTER_010_SURNAME_CAPS]'S GAUNTLET
 
 
 Until the day arrived on which I was to entertain my newly-found
@@ -18445,7 +18497,9 @@ or any age that could be mentioned.
 
 
 
-CHAPTER 29. I VISIT [CHARACTER_017_SURNAME_CAPS] AT HIS HOME, AGAIN
+CHAPTER 29. 
+
+I VISIT [CHARACTER_017_SURNAME_CAPS] AT HIS HOME, AGAIN
 
 
 I mentioned to Mr. [CHARACTER_016_SURNAME] in the morning, that I wanted leave of
@@ -18779,7 +18833,9 @@ friendship. Never, never more!
 
 
 
-CHAPTER 30. A LOSS
+CHAPTER 30. 
+
+A LOSS
 
 
 I got down to Yarmouth in the evening, and went to the inn. I knew that
@@ -19140,7 +19196,9 @@ And, it being low water, he went out with the tide.
 
 
 
-CHAPTER 31. A GREATER LOSS
+CHAPTER 31. 
+
+A GREATER LOSS
 
 
 It was not difficult for me, on [CHARACTER_013_SURNAME]'s solicitation, to resolve to
@@ -19550,7 +19608,9 @@ feeling. My overcharged heart found the same relief, and I cried too.
 
 
 
-CHAPTER 32. THE BEGINNING OF A LONG JOURNEY
+CHAPTER 32. 
+
+THE BEGINNING OF A LONG JOURNEY
 
 
 What is natural in me, is natural in many other men, I infer, and so
@@ -20355,7 +20415,9 @@ with my darling child, and I forgive her!"'
 
 
 
-CHAPTER 33. BLISSFUL
+CHAPTER 33. 
+
+BLISSFUL
 
 
 All this time, I had gone on loving [CHARACTER_016_FIRSTNAME], harder than ever. Her idea was
@@ -21057,7 +21119,9 @@ retrospect I can smile at half so much, and think of half so tenderly.
 
 
 
-CHAPTER 34. MY AUNT ASTONISHES ME
+CHAPTER 34. 
+
+MY AUNT ASTONISHES ME
 
 
 I wrote to [CHARACTER_021_FIRSTNAME] as soon as [CHARACTER_016_FIRSTNAME] and I were engaged. I wrote her a long
@@ -21453,7 +21517,9 @@ Trot!'
 
 
 
-CHAPTER 35. DEPRESSION
+CHAPTER 35. 
+
+DEPRESSION
 
 
 As soon as I could recover my presence of mind, which quite deserted me
@@ -22352,7 +22418,9 @@ Blind!'
 
 
 
-CHAPTER 36. ENTHUSIASM
+CHAPTER 36. 
+
+ENTHUSIASM
 
 I began the next day with another dive into the Roman bath, and then
 started for Highgate. I was not dispirited now. I was not afraid of the
@@ -23078,7 +23146,9 @@ his credit be it written), quite as well as I did.
 
 
 
-CHAPTER 37. A [CHARACTER_006_FIRSTNAME_CAPS] COLD WATER
+CHAPTER 37. 
+
+A [CHARACTER_006_FIRSTNAME_CAPS] COLD WATER
 
 
 My new life had lasted for more than a week, and I was stronger than
@@ -23434,7 +23504,9 @@ turning quite grey.
 
 
 
-CHAPTER 38. A DISSOLUTION OF PARTNERSHIP
+CHAPTER 38. 
+
+A DISSOLUTION OF PARTNERSHIP
 
 
 I did not allow my resolution, with respect to the Parliamentary
@@ -24147,7 +24219,9 @@ many people over so much, would enable me to enter!
 
 
 
-CHAPTER 39. [CHARACTER_021_SURNAME_CAPS] AND [CHARACTER_008_SURNAME_CAPS]
+CHAPTER 39. 
+
+[CHARACTER_021_SURNAME_CAPS] AND [CHARACTER_008_SURNAME_CAPS]
 
 
 My aunt, beginning, I imagine, to be made seriously uncomfortable by my
@@ -25015,7 +25089,9 @@ already, and he were smacking his lips over it.
 
 
 
-CHAPTER 40. THE WANDERER
+CHAPTER 40. 
+
+THE WANDERER
 
 
 We had a very serious conversation in Buckingham Street that night,
@@ -25380,7 +25456,9 @@ over my shoulder.
 
 
 
-CHAPTER 41. [CHARACTER_016_FIRSTNAME_CAPS]'S AUNTS
+CHAPTER 41. 
+
+[CHARACTER_016_FIRSTNAME_CAPS]'S AUNTS
 
 
 At last, an answer came from the two old ladies. They presented their
@@ -26113,7 +26191,9 @@ too - but not often.
 
 
 
-CHAPTER 42. MISCHIEF
+CHAPTER 42. 
+
+MISCHIEF
 
 I feel as if it were not for me to record, even though this manuscript
 is intended for no eyes but mine, how hard I worked at that tremendous
@@ -26999,7 +27079,9 @@ the letter set me thinking about him very much.
 
 
 
-CHAPTER 43. ANOTHER RETROSPECT
+CHAPTER 43. 
+
+ANOTHER RETROSPECT
 
 
 Once again, let me pause upon a memorable period of my life. Let me
@@ -27338,7 +27420,9 @@ gone, and I resume the journey of my story.
 
 
 
-CHAPTER 44. OUR HOUSEKEEPING
+CHAPTER 44. 
+
+OUR HOUSEKEEPING
 
 
 It was a strange condition of things, the honeymoon being over, and the
@@ -28002,7 +28086,9 @@ a voice that sounded cheerfully all over the house:
 
 
 
-CHAPTER 45. [CHARACTER_NAME_CAPS_001] FULFILS MY AUNT'S PREDICTIONS
+CHAPTER 45. 
+
+[CHARACTER_NAME_CAPS_001] FULFILS MY AUNT'S PREDICTIONS
 
 
 It was some time now, since I had left the Doctor. Living in his
@@ -28688,7 +28774,9 @@ was blowing.
 
 
 
-CHAPTER 46. INTELLIGENCE
+CHAPTER 46. 
+
+INTELLIGENCE
 
 
 I must have been married, if I may trust to my imperfect memory for
@@ -29308,7 +29396,9 @@ and I said, 'We may speak to her now'; and, mending our pace, we went
 after her.
 
 
-CHAPTER 47. MARTHA
+CHAPTER 47. 
+
+MARTHA
 
 
 We were now down in Westminster. We had turned back to follow her,
@@ -29794,7 +29884,9 @@ my grumpy, frumpy story, and we'll keep it to ourselves, Trot!'
 
 
 
-CHAPTER 48. DOMESTIC
+CHAPTER 48. 
+
+DOMESTIC
 
 
 I laboured hard at my book, without allowing it to interfere with the
@@ -30277,7 +30369,9 @@ down at my desk alone, and tried to think, Oh what a fatal name it was,
 and how the blossom withered in its bloom upon the tree!
 
 
-CHAPTER 49. I AM INVOLVED IN MYSTERY
+CHAPTER 49. 
+
+I AM INVOLVED IN MYSTERY
 
 
 I received one morning by the post, the following letter, dated
@@ -30817,7 +30911,9 @@ simply require to be deposited in that place of universal resort, where
 
 
 
-CHAPTER 50. Mr. [CHARACTER_013_SURNAME_CAPS]'S DREAM COMES TRUE
+CHAPTER 50. 
+
+Mr. [CHARACTER_013_SURNAME_CAPS]'S DREAM COMES TRUE
 
 
 By this time, some months had passed since our interview on the bank
@@ -31237,7 +31333,9 @@ motionless and unconscious, down the stairs.
 
 
 
-CHAPTER 51. THE BEGINNING OF A LONGER JOURNEY
+CHAPTER 51. 
+
+THE BEGINNING OF A LONGER JOURNEY
 
 
 It was yet early in the morning of the following day, when, as I was
@@ -31982,7 +32080,9 @@ Gummidge was happy.
 
 
 
-CHAPTER 52. I ASSIST AT AN EXPLOSION
+CHAPTER 52. 
+
+I ASSIST AT AN EXPLOSION
 
 
 When the time Mr. [CHARACTER_010_SURNAME] had appointed so mysteriously, was within
@@ -33036,7 +33136,9 @@ the bullocks, as they came by, with the eye of an Australian farmer!
 
 
 
-CHAPTER 53. ANOTHER RETROSPECT
+CHAPTER 53. 
+
+ANOTHER RETROSPECT
 
 
 I must pause yet once again. O, my child-wife, there is a figure in the
@@ -33275,7 +33377,9 @@ are blotted out of my remembrance.
 
 
 
-CHAPTER 54. Mr. [CHARACTER_010_SURNAME_CAPS]'S TRANSACTIONS
+CHAPTER 54. 
+
+Mr. [CHARACTER_010_SURNAME_CAPS]'S TRANSACTIONS
 
 
 This is not the time at which I am to enter on the state of my mind
@@ -33956,7 +34060,9 @@ family are at the height of earthly bliss.'
 
 
 
-CHAPTER 55. TEMPEST
+CHAPTER 55. 
+
+TEMPEST
 
 
 I now approach an event in my life, so indelible, so awful, so bound by
@@ -34449,7 +34555,9 @@ with his head upon his arm, as I had often seen him lie at school.
 
 
 
-CHAPTER 56. THE NEW WOUND, AND THE OLD
+CHAPTER 56. 
+
+THE NEW WOUND, AND THE OLD
 
 No need, O [CHARACTER_017_SURNAME], to have said, when we last spoke together, in
 that hour which I so little deemed to be our parting-hour - no need to
@@ -34727,7 +34835,9 @@ silence, broken only by his mother's moaning.
 
 
 
-CHAPTER 57. THE EMIGRANTS
+CHAPTER 57. 
+
+THE EMIGRANTS
 
 
 One thing more, I had to do, before yielding myself to the shock of
@@ -35177,7 +35287,9 @@ ashore - and fallen darkly upon me.
 
 
 
-CHAPTER 58. ABSENCE
+CHAPTER 58. 
+
+ABSENCE
 
 
 It was a long and gloomy night that gathered on me, haunted by the
@@ -35434,7 +35546,9 @@ never to be mine. She might have been, but that was past!
 
 
 
-CHAPTER 59. RETURN
+CHAPTER 59. 
+
+RETURN
 
 
 I landed in London on a wintry autumn evening. It was dark and raining,
@@ -36159,7 +36273,9 @@ other designation.
 
 
 
-CHAPTER 60. [CHARACTER_021_FIRSTNAME_CAPS]
+CHAPTER 60. 
+
+[CHARACTER_021_FIRSTNAME_CAPS]
 
 
 My aunt and I, when we were left alone, talked far into the night. How
@@ -36568,7 +36684,9 @@ when I loved her here.
 
 
 
-CHAPTER 61. I AM SHOWN TWO INTERESTING PENITENTS
+CHAPTER 61. 
+
+I AM SHOWN TWO INTERESTING PENITENTS
 
 
 For a time - at all events until my book should be completed, which would
@@ -37108,7 +37226,9 @@ ridden hard; for it's the sooner ridden to death.'
 
 
 
-CHAPTER 62. A LIGHT SHINES ON MY WAY
+CHAPTER 62. 
+
+A LIGHT SHINES ON MY WAY
 
 
 The year came round to Christmas-time, and I had been at home above
@@ -37511,7 +37631,9 @@ though we were so happy.
 
 
 
-CHAPTER 63. A VISITOR
+CHAPTER 63. 
+
+A VISITOR
 
 What I have purposed to record is nearly finished; but there is yet an
 incident conspicuous in my memory, on which it often rests with delight,
@@ -37857,7 +37979,9 @@ Davy.'
 
 
 
-CHAPTER 64. A LAST RETROSPECT
+CHAPTER 64. 
+
+A LAST RETROSPECT
 
 
 And now my written story ends. I look back, once more - for the last
