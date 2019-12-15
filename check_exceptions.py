@@ -5578,11 +5578,15 @@ exceptions_dict = {
 						 "replacement":       "no"
 						 },
 
-	"oxygen":         {"word":    "oxygen",
+	"oxygen":           {"word":    "oxygen",
 						 "replacement":       "o"
 						 },
 
-	"uranium":         {"word":    "uranium",
+	"protactinium":     {"word":    "protactinium",
+						 "replacement":       "pa"
+						 },
+
+	"uranium":          {"word":    "uranium",
 						 "replacement":       "us"
 						 },
 
