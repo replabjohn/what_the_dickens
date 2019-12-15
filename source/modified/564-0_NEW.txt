@@ -1,4 +1,6 @@
-CHAPTER I—THE DAWN
+CHAPTER I
+
+THE DAWN
 
 
 An ancient English Cathedral Tower?  How can the ancient English
@@ -135,7 +137,9 @@ thunder.
 
 
 
-CHAPTER II—A DEAN, AND A CHAPTER ALSO
+CHAPTER II
+
+A DEAN, AND A CHAPTER ALSO
 
 
 Whosoever has observed that sedate and clerical bird, the rook, may
@@ -668,7 +672,9 @@ Mr. [CHARACTER_002_SURNAME] dissolves his attitude, and they go out together.
 
 
 
-CHAPTER III—THE NUNS' HOUSE
+CHAPTER III
+
+THE NUNS' HOUSE
 
 
 For sufficient reasons, which this narrative will itself unfold as it
@@ -1216,7 +1222,9 @@ closes, and one goes in, and the other goes away.
 
 
 
-CHAPTER IV—MR. SAPSEA
+CHAPTER IV
+
+MR. SAPSEA
 
 
 Accepting the [CHARACTER_002_FIRSTNAME]ass as the type of self-sufficient stupidity and
@@ -1627,7 +1635,9 @@ present, to ponder on the instalment he carries away.
 
 
 
-CHAPTER V—MR. [CHARACTER_NAME_CAPS_009] AND FRIEND
+CHAPTER V
+
+MR. [CHARACTER_NAME_CAPS_009] AND FRIEND
 
 
 John [CHARACTER_002_SURNAME], on his way home through the Close, is brought to a
@@ -1921,7 +1931,9 @@ invokes at midnight.
 
 
 
-CHAPTER VI—PHILANTHROPY IN MINOR CANON CORNER
+CHAPTER VI
+
+PHILANTHROPY IN MINOR CANON CORNER
 
 
 The Reverend Septimus [CHARACTER_006_SURNAME] (Septimus, because six little brother
@@ -2339,7 +2351,9 @@ up in it instantly and left him, with still half-an-hour to spare.
 
 
 
-CHAPTER VII—MORE CONFIDENCES THAN ONE
+CHAPTER VII
+
+MORE CONFIDENCES THAN ONE
 
 
 'I know very little of that gentleman, sir,' said [CHARACTER_004_FIRSTNAME] to the Minor
@@ -2761,7 +2775,9 @@ concerned look well to it!
 
 
 
-CHAPTER VIII—DAGGERS DRAWN
+CHAPTER VIII
+
+DAGGERS DRAWN
 
 
 The two young men, having seen the damsels, their charges, enter the
@@ -3201,7 +3217,9 @@ and goes thoughtfully to bed.
 
 
 
-CHAPTER IX—BIRDS IN THE BUSH
+CHAPTER IX
+
+BIRDS IN THE BUSH
 
 
 [CHARACTER_003_FIRSTNAME], having no relation that she knew of in the world, had, from the
@@ -3835,7 +3853,9 @@ shoulder.
 
 
 
-CHAPTER X—SMOOTHING THE WAY
+CHAPTER X
+
+SMOOTHING THE WAY
 
 
 It has been often enough remarked that women have a curious power of
@@ -4449,7 +4469,9 @@ with the following letter:
 
 
 
-CHAPTER XI—A PICTURE AND A RING
+CHAPTER XI
+
+A PICTURE AND A RING
 
 
 Behind the most ancient part of Holborn, London, where certain gabled
@@ -5063,7 +5085,9 @@ about seventeen-forty-seven.
 
 
 
-CHAPTER XII—A NIGHT WITH [CHARACTER_NAME_CAPS_009]
+CHAPTER XII
+
+A NIGHT WITH [CHARACTER_NAME_CAPS_009]
 
 
 When Mr. Sapsea has nothing better to do, towards evening, and finds the
@@ -5679,7 +5703,9 @@ end, the unaccountable expedition comes to an end—for the time.
 
 
 
-CHAPTER XIII—BOTH AT THEIR BEST
+CHAPTER XIII
+
+BOTH AT THEIR BEST
 
 
 Miss Twinkleton's establishment was about to undergo a serene hush.  The
@@ -6128,7 +6154,9 @@ you understand?'  And out of that look he vanished from her view.
 
 
 
-CHAPTER XIV—WHEN SHALL THESE THREE MEET AGAIN?
+CHAPTER XIV
+
+WHEN SHALL THESE THREE MEET AGAIN?
 
 
 Christmas Eve in Cloisterham.  A few strange faces in the streets; a few
@@ -6747,7 +6775,9 @@ the rail before the Minor Canon's house.
 
 
 
-CHAPTER XV—IMPEACHED
+CHAPTER XV
+
+IMPEACHED
 
 
 [CHARACTER_NAME_004] had started so early and walked at so good a pace, that
@@ -7136,7 +7166,9 @@ hands as he warmed them, and looked down at it.
 
 
 
-CHAPTER XVI—DEVOTED
+CHAPTER XVI
+
+DEVOTED
 
 
 When John [CHARACTER_002_SURNAME] recovered from his fit or swoon, he found himself being
@@ -7556,7 +7588,9 @@ devote myself to his destruction.'
 
 
 
-CHAPTER XVII—PHILANTHROPY, PROFESSIONAL AND UNPROFESSIONAL
+CHAPTER XVII
+
+PHILANTHROPY, PROFESSIONAL AND UNPROFESSIONAL
 
 
 Full half a year had come and gone, and [CHARACTER_NAME_006] sat in a
@@ -8221,7 +8255,9 @@ are mastered.
 
 
 
-CHAPTER XVIII—A SETTLER IN CLOISTERHAM
+CHAPTER XVIII
+
+A SETTLER IN CLOISTERHAM
 
 
 At about this time a stranger appeared in Cloisterham; a white-haired
@@ -8617,7 +8653,9 @@ living idly on his means, I have had a rather busy afternoon!'
 
 
 
-CHAPTER XIX—SHADOW ON THE SUN-DIAL
+CHAPTER XIX
+
+SHADOW ON THE SUN-DIAL
 
 
 Again Miss Twinkleton has delivered her valedictory address, with the
@@ -8947,7 +8985,9 @@ have felt their own knees all of a tremble all day long.
 
 
 
-CHAPTER XX—A FLIGHT
+CHAPTER XX
+
+A FLIGHT
 
 
 [CHARACTER_003_FIRSTNAME] no sooner came to herself than the whole of the late interview was
@@ -9401,7 +9441,9 @@ and had it on his mind that she might tumble out.
 
 
 
-CHAPTER XXI—A RECOGNITION
+CHAPTER XXI
+
+A RECOGNITION
 
 
 Nothing occurred in the night to flutter the tired dove; and the dove
@@ -9666,7 +9708,9 @@ for ever!
 
 
 
-CHAPTER XXII—A GRITTY STATE OF THINGS COMES ON
+CHAPTER XXII
+
+A GRITTY STATE OF THINGS COMES ON
 
 
 Mr. Tartar's chambers were the neatest, the cleanest, and the
@@ -10410,7 +10454,9 @@ than before.
 
 
 
-CHAPTER XXIII—THE DAWN AGAIN
+CHAPTER XXIII
+
+THE DAWN AGAIN
 
 
 Although [CHARACTER_NAME_006] and John [CHARACTER_002_SURNAME] met daily under the Cathedral
