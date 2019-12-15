@@ -24,7 +24,7 @@ if VERBOSE == 1:
     print "NLTK imported OK.\n"
 
 
-__VERSION__ = "0.06a"
+__VERSION__ = "0.06b"
 
 
 
@@ -409,6 +409,16 @@ def modify_text(text, VERBOSE=0, d=None):
             chapter_names = []
 
     for para in paras:
+        try:
+            para = para.decode("UTF-8", "ignore")
+        except:
+            try:
+                para = para.encode("UTF-8", "ignore")
+            except:
+                try:
+                    para = para.decode("ascii", "ignore")
+                except:
+                    para = para.encode("ascii", "ignore")
 
         if OUTPUT != "":
             OUTPUT = "%s\n\n" % (OUTPUT)
@@ -504,13 +514,19 @@ def modify_text(text, VERBOSE=0, d=None):
                     words_to_output.append(word)
                     words_info.append("CHAPTER WORD")
                 elif tagged_words[w][1] in adjective_types:
-                    synonym = get_synonym(word.decode("ascii", "ignore"))
+                    try:
+                        synonym = get_synonym(word.decode("ascii", "ignore"))
+                    except:
+                        synonym = get_synonym(word.encode("ascii", "ignore"))
                     words_to_output.append(synonym)
                     words_info.append("ADJECTIVE (REPLACED BY SYNONYM)")
                 else:
 #                    words_to_output.append("")
 #                    words_info.append(None)
-                    synonym = get_synonym(word.decode("ascii", "ignore"), tagged_words[w][1], VERBOSE)
+                    try:
+                        synonym = get_synonym(word.decode("ascii", "ignore"), tagged_words[w][1], VERBOSE)
+                    except:
+                        synonym = get_synonym(word.encode("ascii", "ignore"), tagged_words[w][1], VERBOSE)
                     words_to_output.append(synonym)
                     #words_to_output.append(word)
                     words_info.append(tagged_words[w][1])

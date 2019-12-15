@@ -44,7 +44,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase.pdfmetrics import registerFont, stringWidth
 from reportlab.pdfbase.ttfonts import TTFont
 
-__VERSION__ = "0.2.2b"
+__VERSION__ = "0.2.3b"
 
 #VERBOSE = 1
 VERBOSE = 0
@@ -1215,6 +1215,9 @@ def make_text(d, VERBOSE):
 	#"The Wreck of the Golden Mary by Charles Dickens"],
 	#book_to_use = "pg1465.txt"
 
+	#The Personal History of David Copperfield
+	#book_to_use = "pg43111.txt"
+
 	#book_to_use_dict = book_info[book_to_use]
 
 	print "\tchose '%s'" % book_to_use_dict["title"]
@@ -1314,20 +1317,6 @@ def make_text(d, VERBOSE):
 	if VERBOSE > 1:
 		print "\n\tTrimming off original front matter..."
 
-	contents_headers = ["DETAILED CONTENTS", "CONTENTS.", "CONTENTS", "Contents"]
-	for ch in contents_headers:
-		if string.find(dickens_text, ch) > -1:
-			dickens_text = dickens_text[dickens_text.index(ch):]
-
-	if 	d.chapter_dividers != None:
-		dickens_text = dickens_text[dickens_text.index(chapter_dividers):]
-		if VERBOSE > 1:
-			print "trimmed to '%s'" % chapter_dividers 
-	elif d.chapter_names != None:
-		dickens_text = dickens_text[dickens_text.index(chapter_names[0]):]
-		if VERBOSE > 1:
-			print "trimmed to '%s'" % chapter_names[0]
-
 	chapter_heads_to_check=[]
 
 	#words - caps
@@ -1351,6 +1340,17 @@ def make_text(d, VERBOSE):
 					 "61", "62", "63", "64", "65", "66", "67", "68", "69", "70",
 					 "71", "72", "73", "74", "75", "76", "77", "78", "79", "80",
 					 "81", "82", "83", "84", "85", "86", "87", "88", "89", "90",
+					 ] 
+
+	numbers_type2B = ["1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.", "9.", "10.",
+					 "11.", "12.", "13.", "14.", "15.", "16.", "17.", "18.", "19.", "20.",
+					 "21.", "22.", "23.", "24.", "25.", "26.", "27.", "28.", "29.", "30.",
+					 "31.", "32.", "33.", "34.", "35.", "36.", "37.", "38.", "39.", "40.",
+					 "41.", "42.", "43.", "44.", "45.", "46.", "47.", "48.", "49.", "50.",
+					 "51.", "52.", "53.", "54.", "55.", "56.", "57.", "58.", "59.", "60.",
+					 "61.", "62.", "63.", "64.", "65.", "66.", "67.", "68.", "69.", "70.",
+					 "71.", "72.", "73.", "74.", "75.", "76.", "77.", "78.", "79.", "80.",
+					 "81.", "82.", "83.", "84.", "85.", "86.", "87.", "88.", "89.", "90.",
 					 ] 
 
 	#Roman numerals
@@ -1377,10 +1377,6 @@ def make_text(d, VERBOSE):
 			item = "%s %s" % (cd, numbers_type1[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type1:
 				chapter_heads_to_check.append("%s %s" % (cd, dx))
 
@@ -1388,12 +1384,6 @@ def make_text(d, VERBOSE):
 			print "checking for '%s %s'..." % (cd, numbers_type1B[0])
 		if string.find(dickens_text, "%s %s" % (cd, numbers_type1B[0])) > -1:
 			item = "%s %s" % (cd, numbers_type1B[0])
-			if VERBOSE > 0:
-				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type1B:
 				chapter_heads_to_check.append("%s %s" % (cd, dx))
 
@@ -1403,10 +1393,15 @@ def make_text(d, VERBOSE):
 			item = "%s %s" % (cd, numbers_type2[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
+			for dx in numbers_type2:
+				chapter_heads_to_check.append("%s %s" % (cd, dx))
+
+		if VERBOSE > 0:
+			print "checking for '%s %s'..." % (cd, numbers_type2B[0])
+		if string.find(dickens_text, "%s %s" % (cd, numbers_type2B[0])) > -1:
+			item = "%s %s" % (cd, numbers_type2B[0])
+			if VERBOSE > 0:
+				print "FOUND '%s'!" % item
 			for dx in numbers_type2:
 				chapter_heads_to_check.append("%s %s" % (cd, dx))
 
@@ -1416,10 +1411,6 @@ def make_text(d, VERBOSE):
 			item = "%s %s" % (cd, numbers_type3[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type3:
 				chapter_heads_to_check.append("%s %s" % (cd, dx))
 
@@ -1429,10 +1420,6 @@ def make_text(d, VERBOSE):
 			item = "%s %s" % (cd, numbers_type4[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type4:
 				chapter_heads_to_check.append("%s %s" % (cd, dx))
 
@@ -1442,10 +1429,6 @@ def make_text(d, VERBOSE):
 			item = "%s%s" % (cd, numbers_type1[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type1:
 				chapter_heads_to_check.append("%s%s" % (cd, dx))
 
@@ -1455,10 +1438,6 @@ def make_text(d, VERBOSE):
 			item = "%s%s" % (cd, numbers_type1B[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type1B:
 				chapter_heads_to_check.append("%s%s" % (cd, dx))
 
@@ -1468,10 +1447,6 @@ def make_text(d, VERBOSE):
 			item = "%s%s" % (cd, numbers_type2[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type2:
 				chapter_heads_to_check.append("%s%s" % (cd, dx))
 
@@ -1481,10 +1456,6 @@ def make_text(d, VERBOSE):
 			item = "%s%s" % (cd, numbers_type3[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type3:
 				chapter_heads_to_check.append("%s%s" % (cd, dx))
 
@@ -1494,10 +1465,6 @@ def make_text(d, VERBOSE):
 			item = "%s%s" % (cd, numbers_type4[0])
 			if VERBOSE > 0:
 				print "FOUND '%s'!" % item
-			if string.count(dickens_text, item) > 1:
-				dickens_text = dickens_text[dickens_text.rindex(item):]
-			else:
-				dickens_text = dickens_text[dickens_text.index(item):]
 			for dx in numbers_type4:
 				chapter_heads_to_check.append("%s %s" % (cd, dx))
 
@@ -1514,6 +1481,16 @@ def make_text(d, VERBOSE):
 			print "chapter_heads_to_check:"
 			print chapter_heads_to_check
 		d.chapter_heads_to_check = chapter_heads_to_check
+
+	if 	d.chapter_heads_to_check in [None, []]:
+		if 	d.chapter_dividers != None:
+			dickens_text = dickens_text[dickens_text.index(chapter_dividers):]
+			if VERBOSE > 1:
+				print "trimmed to '%s'" % chapter_dividers 
+		elif d.chapter_names != None:
+			dickens_text = dickens_text[dickens_text.index(chapter_names[0]):]
+			if VERBOSE > 1:
+				print "trimmed to '%s'" % chapter_names[0]
 
 	if VERBOSE > 1:
 		print "\n\t...OK"
@@ -1918,11 +1895,11 @@ def make_text(d, VERBOSE):
 							NEW_FIRSTNAME, NEW_SURNAME = NEW_CHARACTER, None
 						else:
 							NEW_CHARACTER = names.getMaleName()
-							NEW_FIRSTNAME, NEW_SURNAME = string.split(NEW_CHARACTER, " ")
+							NEW_FIRSTNAME, NEW_SURNAME = string.split(NEW_CHARACTER, " ", maxsplit=2)
 					elif gender == "female":
 						if len(string.split(cn, " ")) == 2:
 							NEW_CHARACTER = names.getFemaleName()
-							NEW_FIRSTNAME, NEW_SURNAME = string.split(NEW_CHARACTER, " ")
+							NEW_FIRSTNAME, NEW_SURNAME = string.split(NEW_CHARACTER, " ", maxsplit=2)
 						elif len(string.split(cn, " ")) == 1:
 							NEW_CHARACTER = names.getFemaleFirstName()
 							NEW_FIRSTNAME, NEW_SURNAME = NEW_CHARACTER, None
@@ -2195,6 +2172,13 @@ def make_text(d, VERBOSE):
 		dickens_text = string.replace(dickens_text, "\n ", "\n")
 	if string.find(dickens_text, "  ") > -1:
 		dickens_text = string.replace(dickens_text, "  ", " ")
+
+	#can't just replace all instances of California in use_nltk, because
+	#there are a couple of legit mentions of California in the source texts
+	if string.find(dickens_text, "californiant") > -1:
+		dickens_text = string.replace(dickens_text, "californiant", "can't")
+	if string.find(dickens_text, "calciumn't") > -1:
+		dickens_text = string.replace(dickens_text, "calciumn't", "can't")
 
 	try:
 		text = "%s\n%s" % (text.decode("UTF-8", "Ignore"), dickens_text.decode("UTF-8", "Ignore"))
@@ -2613,6 +2597,8 @@ def make_PDF(d, VERBOSE=0):
 	c.addOutlineEntry(key="FrontMatter", level=2, title="Front matter", closed=1)
 
 	textfile = open(outfileName, "a")
+	textfile.write("\n\n")
+
 	for line in front_matter.split("\n"):
 		textWidth = c.stringWidth(line, "Gentium Basic", 10)
 		xpos = (A4[0]/2.0) - (textWidth/2.0)
@@ -2626,7 +2612,7 @@ def make_PDF(d, VERBOSE=0):
 	# Or pretent we are a 'real' book...?
 
 	ADMIT_WHO_WE_ARE = 1
-	ADMIT_WHO_WE_ARE = 0
+	#ADMIT_WHO_WE_ARE = 0
 
 	if ADMIT_WHO_WE_ARE == 1:
 
@@ -2691,6 +2677,8 @@ def make_PDF(d, VERBOSE=0):
 	d.pagenum = d.pagenum + 1
 	c.showPage()
 	d.pagenum = d.pagenum + 1
+
+	text_outfile.write(seperator)
 
 	newblurb = blurbwriter.make_content_summary(author=d.author, characters=d.characters,
 										   main_character = d.main_character,
