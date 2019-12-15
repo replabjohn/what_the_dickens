@@ -407,6 +407,8 @@ def modify_text(text, VERBOSE=0, d=None):
             chapter_dividers = d.chapter_dividers
         if d.chapter_names == None:
             chapter_names = []
+        else:
+            chapter_names = d.chapter_names
 
     for para in paras:
         try:
