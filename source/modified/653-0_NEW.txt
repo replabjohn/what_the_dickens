@@ -1,4 +1,6 @@
-CHAPTER I—First Quarter.
+CHAPTER I
+
+First Quarter
 
 
 There are not many people—and as it is desirable that a story-teller and
@@ -906,7 +908,9 @@ fell, mechanically, into his usual trot, and trotted off.
 
 
 
-CHAPTER II—The Second Quarter.
+CHAPTER II
+
+The Second Quarter
 
 
 The letter [CHARACTER_001_FIRSTNAME] had received from [CHARACTER_NAME_004], was addressed to a great
@@ -1734,7 +1738,9 @@ vacantly, and sunk down in a swoon.
 
 
 
-CHAPTER III—Third Quarter.
+CHAPTER III
+
+Third Quarter
 
 
 Black are the brooding clouds and troubled the deep waters, when the Sea
@@ -2570,7 +2576,9 @@ touched the old man with its hand, and beckoned him away.
 
 
 
-CHAPTER IV—Fourth Quarter.
+CHAPTER IV
+
+Fourth Quarter
 
 
 Some new remembrance of the ghostly figures in the Bells; some faint
